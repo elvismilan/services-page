@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#FF770F",
+        secondary: "#9C9A9A",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"]
@@ -28,7 +29,7 @@ module.exports = {
       addBase({});
       addComponents({
         ".container": {
-          "@apply w-full lg:max-w-[1280px]":
+          "@apply w-[90%] sm:w-full sm:px-8":
             {},
         },
         ".flexCenter": {
