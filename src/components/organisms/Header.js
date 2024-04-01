@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 export const Header = () => (
   <header className="flex justify-center shadowHeader py-4 sm:py-6">
     <div className="container flexCenter flex-col">
-      <Logo />
+      <Logo className="h-12 sm:h-24" />
       <Navbar />
     </div>
   </header>

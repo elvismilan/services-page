@@ -13,7 +13,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"]
-      }
+      },
     },
     screens: {
       xs: "420px",
@@ -66,30 +66,32 @@ module.exports = {
         },
         ".body-2": {
           "@apply font-light text-[0.875rem] leading-6 md:text-base": {},
-        },
-        ".caption": {
-          "@apply text-sm": {},
-        },
-        ".tagline": {
-          "@apply font-grotesk font-light text-xs tracking-tagline uppercase":
-            {},
-        },
-        ".quote": {
-          "@apply text-lg leading-normal": {},
-        },
+        }, 
         ".button": {
           "@apply text-xs font-bold uppercase tracking-wider": {},
         },
+        ".bordered": {
+          "@apply border-solid border-2 border-primary": {},
+        },
       });
       addUtilities({
-        ".tap-highlight-color": {
-          "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)",
+        ".news-modal-overlay": {
+          "@apply fixed right-0 left-0 flex items-center justify-center bg-white shadowModal mx-auto rounded-2xl w-[90%] sm:w-[600px] z-40": {},
+        },
+        ".news-modal-body": {
+          "@apply w-[90%] sm:w-[75%] flex flex-col p-[20px]": {},
+        },
+        ".topV": {
+          "top": "calc(100vh - calc(100vh/1.13))",
         },
         ".shadowHeader": {
           "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.25)",
         },
         ".shadowFooter": {
           "box-shadow": "0 -4px 6px 0 rgba(0,0,0,0.10)",
+        },
+        ".shadowModal": {
+          "box-shadow": "0 6px 8px 0 rgba(0,0,0,0.25)",
         },
       });
     }),

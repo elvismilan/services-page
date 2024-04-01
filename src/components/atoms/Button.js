@@ -1,14 +1,15 @@
 
-const Button = ({className, href, onClick, children, fs, bg, tc, decoration}) => {
+const Button = ({className, href, onClick, children, fs, bg, tc, type, decoration}) => {
 
   const classes = `rounded-2xl font-semibold py-2 px-8 sm:px-16 
                   ${fs || "text-[16px]"} sm:text-[20px] lg:text-[24px]
                   ${bg || "bg-primary"} 
                   ${tc || "text-white"} 
+                  ${type || "submit"} 
                   ${className || ""}`;
 
   const renderButton = () => (
-    <button className={classes}>
+    <button type={type} className={classes}>
       <span>{children}</span>
     </button>
   );
