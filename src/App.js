@@ -1,18 +1,13 @@
-
-import Header from './components/organisms/Header';
-import Modal from './components/organisms/Modal';
-import Login from './components/organisms/Login';
-import Footer from './components/organisms/Footer';
+import Inicio from "./components/pages/Inicio";
+import Registrarse from "./components/pages/Registrarse";
+import Servicio from "./components/pages/Servicio";
 
 function App() {
+
   return (
-    <>
-      <Header />
-      <Modal>
-        <Login />
-      </Modal>
-      <Footer />
-    </>
+    <Inicio />
+    /*<Registrarse />
+    <Servicio />*/
   );
 }
 

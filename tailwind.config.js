@@ -49,7 +49,7 @@ module.exports = {
             {},
         },
         ".h3": {
-          "@apply text-[2rem] leading-normal md:text-[2.5rem]": {},
+          "@apply text-[1rem] font-bold sm:text-[20px] mb-6 sm:mb-14": {},
         },
         ".h4": {
           "@apply text-[2rem] leading-normal": {},
@@ -76,13 +76,13 @@ module.exports = {
       });
       addUtilities({
         ".news-modal-overlay": {
-          "@apply fixed right-0 left-0 flex items-center justify-center bg-white shadowModal mx-auto rounded-2xl w-[90%] sm:w-[600px] z-40": {},
+          "@apply fixed right-0 left-0 top-[50%] flex items-center justify-center min-h-[550px] bg-white shadowModal mx-auto rounded-2xl w-[90%] sm:w-[600px] z-40": {},
         },
         ".news-modal-body": {
           "@apply w-[90%] sm:w-[75%] flex flex-col p-[20px]": {},
         },
         ".topV": {
-          "top": "calc(100vh - calc(100vh/1.13))",
+          "transform": "translateY(-50%)",
         },
         ".shadowHeader": {
           "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.25)",

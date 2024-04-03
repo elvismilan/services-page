@@ -1,7 +1,7 @@
 
 const Button = ({className, href, onClick, children, fs, bg, tc, type, decoration}) => {
 
-  const classes = `rounded-2xl font-semibold py-2 px-8 sm:px-16 
+  const classes = `min-w-[250px] sm:min-w-[270px] rounded-2xl font-semibold py-2 px-8 sm:px-16 
                   ${fs || "text-[16px]"} sm:text-[20px] lg:text-[24px]
                   ${bg || "bg-primary"} 
                   ${tc || "text-white"} 
