@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from "react";
 import Button from "../atoms/Button";
 import { BiXCircle } from "react-icons/bi";
 
-function Modal({children, isModalOpen, closeModal}) {
+function Modal({children, isModalOpen, closeModal, showClose}) {
 
   let modalRef = useRef();
 
@@ -23,12 +23,12 @@ function Modal({children, isModalOpen, closeModal}) {
     >
       <div className="news-modal-body">
         {children}
-        <Button 
+        {/* <Button 
           className = "absolute right-3 top-0 w-[30px]" 
           href = "#login" 
           onClick = {closeModal}
           decoration={<BiXCircle size="2rem" className="text-secondary !p-0" />}>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

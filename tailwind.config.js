@@ -76,7 +76,7 @@ module.exports = {
       });
       addUtilities({
         ".news-modal-overlay": {
-          "@apply fixed right-0 left-0 top-[50%] flex items-center justify-center min-h-[550px] bg-white shadowModal mx-auto rounded-2xl w-[90%] sm:w-[600px] z-40": {},
+          "@apply fixed right-0 left-0 top-[50%] flex items-center justify-center min-h-[550px] bg-white shadowModal mx-auto rounded-2xl w-[90%] sm:w-[550px] z-40": {},
         },
         ".news-modal-body": {
           "@apply w-[90%] sm:w-[75%] flex flex-col p-[20px]": {},

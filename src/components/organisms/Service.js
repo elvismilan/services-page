@@ -25,14 +25,6 @@ export const Service = ({onClick}) => (
         </Button>
       </div>
     </div>
-    <div  className="col-span-full">
-      <div className="mb-3 sm:mb-6">
-        <Button 
-          className="sm:h-[48px] !text-[14px]">
-          Agregar dirección
-        </Button>
-      </div>
-    </div>
   </form>
 );
 
