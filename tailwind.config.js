@@ -13,7 +13,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"]
-      }
+      },
     },
     screens: {
       xs: "420px",
@@ -49,7 +49,7 @@ module.exports = {
             {},
         },
         ".h3": {
-          "@apply text-[2rem] leading-normal md:text-[2.5rem]": {},
+          "@apply text-[1rem] font-bold sm:text-[20px] mb-6 sm:mb-14": {},
         },
         ".h4": {
           "@apply text-[2rem] leading-normal": {},
@@ -64,32 +64,34 @@ module.exports = {
           "@apply text-[0.875rem] leading-[1.5rem] md:text-[1rem] md:leading-[1.75rem] lg:text-[1.25rem] lg:leading-8":
             {},
         },
-        ".body-2": {
-          "@apply font-light text-[0.875rem] leading-6 md:text-base": {},
+        ".btn-base": {
+          "@apply min-w-[250px] sm:min-w-[270px] rounded-2xl font-semibold py-2 px-8 sm:px-16": {},
+        }, 
+        ".btn-transparent": {
+          "@apply transition ease-in-out bg-transparent hover:bg-primary duration-300": {},
         },
-        ".caption": {
-          "@apply text-sm": {},
-        },
-        ".tagline": {
-          "@apply font-grotesk font-light text-xs tracking-tagline uppercase":
-            {},
-        },
-        ".quote": {
-          "@apply text-lg leading-normal": {},
-        },
-        ".button": {
-          "@apply text-xs font-bold uppercase tracking-wider": {},
+        ".bordered": {
+          "@apply border-solid border-2 border-primary": {},
         },
       });
       addUtilities({
-        ".tap-highlight-color": {
-          "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)",
+        ".news-modal-overlay": {
+          "@apply fixed right-0 left-0 top-[50%] flex items-center justify-center min-h-[550px] bg-white shadowModal mx-auto rounded-2xl w-[90%] sm:w-[550px] z-40": {},
+        },
+        ".news-modal-body": {
+          "@apply w-[90%] sm:w-[75%] flex flex-col p-[20px]": {},
+        },
+        ".topV": {
+          "transform": "translateY(-50%)",
         },
         ".shadowHeader": {
           "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.25)",
         },
         ".shadowFooter": {
           "box-shadow": "0 -4px 6px 0 rgba(0,0,0,0.10)",
+        },
+        ".shadowModal": {
+          "box-shadow": "0 6px 8px 0 rgba(0,0,0,0.25)",
         },
       });
     }),

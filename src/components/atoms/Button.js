@@ -1,7 +1,7 @@
 
 const Button = ({className, href, onClick, children, fs, bg, tc, decoration}) => {
 
-  const classes = `rounded-2xl font-semibold py-2 px-8 sm:px-16 
+  const classes = `btn-base 
                   ${fs || "text-[16px]"} sm:text-[20px] lg:text-[24px]
                   ${bg || "bg-primary"} 
                   ${tc || "text-white"} 
@@ -14,13 +14,13 @@ const Button = ({className, href, onClick, children, fs, bg, tc, decoration}) =>
   );
 
   const renderLink = () => (
-    <a href={href} onClick={onClick} className={classes}>
+    <a href={href} onClick={onClick} className={`flexCenter ${classes} ${className || ""}`}>
       <span>{children}</span>
     </a>
   );
 
   const renderLinkGroup = () => (
-    <a href={href} onClick={onClick} className={`flex items-center justify-center text-primary ${className || ""}`}>
+    <a href={href} onClick={onClick} className={`flexCenter text-primary ${className || ""}`}>
       <i className={`flex items-center px-4 sm:px-6 py-2 sm:py-3`}>
         {decoration}
       </i>
