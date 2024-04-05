@@ -37,7 +37,8 @@ export const Login = () => (
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Button type='submit'
+        <Button 
+          type="submit"
           className="sm:h-[48px] !text-[14px]">
           Ingresar
         </Button>
@@ -46,7 +47,8 @@ export const Login = () => (
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Button 
-          bg="transition ease-in-out bg-transparent hover:bg-primary duration-300"
+          href={"/registrarse"}
+          bg="btn-transparent w-[250px] sm:w-[270px] mx-auto"
           tc="text-secondary hover:text-white "
           className="sm:h-[48px] !text-[14px] bordered">
           Registrarse

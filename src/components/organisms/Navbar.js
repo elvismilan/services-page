@@ -9,7 +9,7 @@ export const Navbar = ({onClick}) => (
     <div className="text-center sm:text-right">
       <Button 
         className = "font-bold px-0 sm:pr-0" 
-        href = "#login" 
+        href = "/login" 
         onClick = {onClick}
         decoration={<BiUser size="2rem" className="text-primary" />}>
         Iniciar Sesión

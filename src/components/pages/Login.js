@@ -1,4 +1,3 @@
-import useModal from "../../components/useModal";
 import Main from "../templates/Main";
 import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
@@ -7,18 +6,14 @@ import Login from '../organisms/Login';
 
 const Inicio = () => {
 
-  const {isShowing, toggle} = useModal();
-
   return (
     <Main 
-      header={<Header onClick={toggle} />}
+      header={<Header/>}
       footer={<Footer />}
     >
-      {isShowing ? 
-        <Modal closeModal={toggle}>
-          <Login />
-        </Modal>
-        : null }
+      <Modal>
+        <Login />
+      </Modal>
     </Main>
   )
 }

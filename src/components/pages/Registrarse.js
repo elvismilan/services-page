@@ -1,26 +1,21 @@
-import useModal from "../../components/useModal";
 import Main from "../templates/Main";
 import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
 import Modal from '../molecules/Modal';
 import Registro from '../organisms/Registro';
 
-const Inicio = () => {
-
-  const {isShowing, toggle} = useModal();
+const Registrarse = () => {
 
   return (
     <Main 
-      header={<Header onClick={toggle} />}
+      header={<Header/>}
       footer={<Footer />}
     >
-      {isShowing ? 
-        <Modal closeModal={toggle}>
-          <Registro />
-        </Modal>
-        : null }
+      <Modal  showBack={1}>
+        <Registro />
+      </Modal>
     </Main>
   )
 }
 
-export default Inicio
+export default Registrarse

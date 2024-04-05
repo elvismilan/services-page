@@ -1,24 +1,24 @@
-import useModal from "../../components/useModal";
+import useModal from "../useModal";
 import Main from "../templates/Main";
 import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
 import Modal from '../molecules/Modal';
-import Service from '../organisms/Service';
+import Service from '../organisms/Inicio';
 
-const Servicio = () => {
+const Home = () => {
 
   const {isShowing, toggle} = useModal();
 
   return (
     <Main 
-      header={<Header onClick={toggle} />}
+      header={<Header/>}
       footer={<Footer />}
     >
-        <Modal closeModal={toggle}>
-          <Service />
-        </Modal>
+      <Modal >
+        <Service />
+      </Modal>
     </Main>
   )
 }
 
-export default Servicio
+export default Home

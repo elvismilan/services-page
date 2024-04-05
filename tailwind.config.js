@@ -64,11 +64,11 @@ module.exports = {
           "@apply text-[0.875rem] leading-[1.5rem] md:text-[1rem] md:leading-[1.75rem] lg:text-[1.25rem] lg:leading-8":
             {},
         },
-        ".body-2": {
-          "@apply font-light text-[0.875rem] leading-6 md:text-base": {},
+        ".btn-base": {
+          "@apply min-w-[250px] sm:min-w-[270px] rounded-2xl font-semibold py-2 px-8 sm:px-16": {},
         }, 
-        ".button": {
-          "@apply text-xs font-bold uppercase tracking-wider": {},
+        ".btn-transparent": {
+          "@apply transition ease-in-out bg-transparent hover:bg-primary duration-300": {},
         },
         ".bordered": {
           "@apply border-solid border-2 border-primary": {},
