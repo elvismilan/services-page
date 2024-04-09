@@ -8,7 +8,10 @@ const Button = ({className, href, onClick, children, fs, bg, tc, decoration}) =>
                   ${className || ""}`;
 
   const renderButton = () => (
-    <button className={classes}>
+    <button 
+      className={classes} 
+      onClick={onClick}
+      >
       <span>{children}</span>
     </button>
   );
