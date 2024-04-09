@@ -66,13 +66,16 @@ module.exports = {
         },
         ".btn-base": {
           "@apply min-w-[250px] sm:min-w-[270px] rounded-2xl font-semibold py-2 px-8 sm:px-16": {},
-        }, 
+        },
         ".btn-transparent": {
           "@apply transition ease-in-out bg-transparent hover:bg-primary duration-300": {},
         },
         ".bordered": {
           "@apply border-solid border-2 border-primary": {},
         },
+        ".btn-auto":{
+          "@apply min-w-0 rounded-2xl font-semibold py-2 px-8 sm:px-16": {},
+        }
       });
       addUtilities({
         ".news-modal-overlay": {
