@@ -1,1 +1,0 @@
-export { Home, Iniciar, Registrarse } from  './index'
