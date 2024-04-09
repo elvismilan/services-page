@@ -12,13 +12,14 @@ export const Service = () => {
   return (
     <div className="text-center" >
       <h3 className="h3 text-primary">Quieres tu servicio <br />en el local o a dimicilio?</h3>
-      
+
       <div className="col-span-full">
         <div className="mb-3 sm:mb-12">
-          <Button 
+          <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
-            onClick={() => gotToNewPage('D')}
+            href = "/servicios"
+            //onClick={() => gotToNewPage('D')}
             className="sm:h-[80px] lg-text-[26px] sm bordered">
             Servicio a domicilio
           </Button>
@@ -26,10 +27,11 @@ export const Service = () => {
       </div>
       <div className="col-span-full">
         <div className="mb-3 sm:mb-6">
-          <Button 
+          <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
-            onClick={() => gotToNewPage('L')}
+            href = "/servicios"
+            //onClick={() => gotToNewPage('L')}
             className="sm:h-[80px] lg-text-[26px] bordered">
             Servicio en el local
           </Button>
