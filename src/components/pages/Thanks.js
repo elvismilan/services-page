@@ -1,8 +1,14 @@
 import Button from "../atoms/Button"
-import Header from "../organisms/Header"
-import Main from "../templates/Main"
+import { useNavigate } from 'react-router-dom';
 
 export const Thanks = () => {
+
+
+  const navigate = useNavigate();
+  const onInicio = () => {
+    navigate('/');
+  }
+
   return (
     <>
 
@@ -23,7 +29,7 @@ export const Thanks = () => {
       <div className=" flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent mb-5 " >
         <div className=" w-full bg-white flex flex-col space-y-2 p-3 " >
 
-        <Button> Volver al Inicio </Button>
+        <Button onClick={onInicio} > Volver al Inicio </Button>
         </div>
       </div>
       <div className=" flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent mb-5 " >

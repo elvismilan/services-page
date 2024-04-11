@@ -1,12 +1,21 @@
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 
-export const Registro = () => (
-  <form className="text-center" method="POST" >
+import { useNavigate } from 'react-router-dom';
+
+export const Registro = () => {
+
+  const navigate = useNavigate();
+  const onSubmit = ( event ) => {
+    event.preventDefault();
+    navigate('/ubicacion');
+  }
+  return (
+  <form className="text-center" method="POST" onSubmit={ onSubmit } >
     <h3 className="h3 text-primary">Crear Cuenta</h3>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Input 
+        <Input
           name="nombre"
           type="text"
           label="Nombre(s)"
@@ -15,7 +24,7 @@ export const Registro = () => (
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Input 
+        <Input
           name="apellido"
           type="text"
           label="Apellido(s)"
@@ -24,7 +33,7 @@ export const Registro = () => (
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Input 
+        <Input
           name="email"
           type="email"
           label="Correo electrónico"
@@ -33,7 +42,7 @@ export const Registro = () => (
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Input 
+        <Input
           name="password"
           type="password"
           label="Contraseña"
@@ -42,7 +51,7 @@ export const Registro = () => (
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Input 
+        <Input
           name="telefono"
           type="text"
           label="Teléfono"
@@ -58,6 +67,9 @@ export const Registro = () => (
       </div>
     </div>
   </form>
-);
+
+  )
+
+}
 
 export default Registro
