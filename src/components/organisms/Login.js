@@ -40,7 +40,9 @@ export const Login = () => (
         <Button
           href={"/empresa"}
           type="submit"
-          className="sm:h-[48px] !text-[14px]">
+          bg="bg-primary w-[250px] sm:w-[270px] mx-auto hover:bg-white "
+          tc="text-white hover:text-secondary"
+          className="sm:h-[48px] !text-[14px] bordered">
           Ingresar
         </Button>
       </div>

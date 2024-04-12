@@ -9,6 +9,7 @@ import ServiceAppointment from "./components/pages/ServiceAppointment";
 import { Thanks } from "./components/pages/Thanks";
 import { Cart } from "./components/pages/Cart";
 import { Empresa } from "./components/pages/Empresa";
+import { SucursalesPage } from "./components/pages/SucursalesPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/carrito" element={<Cart />} />
         <Route path="/empresa" element={<Empresa />} />
+        <Route path="/sucursales" element={<SucursalesPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,19 +3,48 @@ import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
 import List from "../molecules/List";
 import Button from "../atoms/Button";
+import { Lista } from "../atoms/Lista";
 
 export const Empresa = () => {
 
+ const servicios = [
+   {
+     id: 1,
+     titulo: "Servicio 1",
+     precio: "80",
+     image: "https://placehold.co/200x200",
+   },
+   {
+     id: 2,
+     empresa: "Servicio 2",
+     precio: "145",
+     image: "https://placehold.co/200x200",
+  },
+    {
+     id: 2,
+     empresa: "Servicio 2",
+     precio: "145",
+     image: "https://placehold.co/200x200",
+   },
+ ];
 
   return (
-    <Main header={<Header />} >
+    <Main header={<Header />}
+    footer={<Footer />}
+    >
       <List>
-      <div className="grid grid-cols-1 gap-4">
-        <article className="flex items-start space-x-6">
-          <img src={ 'https://placehold.co/600x600' } alt="" width="145" height="145" className="flex-none rounded-md bg-slate-100" />
-          <div className="relative h-full flex flex-col justify-end">
-            <h2 className="text-secondary">Super Empresa</h2>
-            <dl className="mt-2 flex text-sm leading-6 font-medium">
+        <div className="grid grid-cols-1 gap-4">
+          <article className="flex items-start space-x-6">
+            <img
+              src={"https://placehold.co/600x600"}
+              alt=""
+              width="145"
+              height="145"
+              className="flex-none rounded-md bg-slate-100"
+            />
+            <div className="relative h-full flex flex-col justify-end">
+              <h2 className="text-secondary">Super Empresa</h2>
+              <dl className="mt-2 flex text-sm leading-6 font-medium">
                 <dt className="mr-3">
                   <span className="sr-only">Star rating</span>
 
@@ -24,28 +53,84 @@ export const Empresa = () => {
                   </svg>
                 </dt>
                 <dd className="font-semibold text-secondary">4.5</dd>
-            </dl>
+              </dl>
+            </div>
+          </article>
+          <div className="col-span-full">
+            <div className="mb-3 sm:mb-6">
+              <img
+                src="https://placehold.co/600x150"
+                alt=""
+                width="600"
+                height="150"
+                className="flex-none rounded-md bg-slate-100"
+              />
+            </div>
           </div>
-        </article>
-        <div className="col-span-full">
-          <div className="mb-3 sm:mb-6">
 
-                  <img src='https://placehold.co/600x150' alt="" width="600" height="150" className="flex-none rounded-md bg-slate-100" />
+          <div className="col-span-full">
+            <div className="mb-3 sm:mb-6">
+              <div className="flex justify-center">
+                <Button type="submit" className="sm:h-[48px] !text-[14px]">
+                  Como llegar
+                </Button>
+              </div>
+            </div>
           </div>
+
+          <div className="col-span-full">
+            <div className="mb-3 sm:mb-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div>Bernardo Cardaria 212</div>
+                <div className="text-right text-primary">Distancia 2 KM</div>
+              </div>
+            </div>
+          </div>
+          <div className="col-span-full">
+            <div className="mb-3 sm:mb-6">
+        <h2 className='text-primary font-[600] mb-5 ' >
+        Recomendado
+        </h2>
+            <div className="flex justify-center items-start " >
+          <img
+            src={ 'https://placehold.co/600x600' }
+            alt=""
+            width="120"
+            height="120"
+            className="flex-none rounded-md bg-slate-100 mr-5 bg-slate-500"
+          />
+          <img
+            src={ 'https://placehold.co/600x600' }
+            alt=""
+            width="120"
+            height="120"
+            className="flex-none rounded-md bg-slate-100"
+          />
+
+
+
+            </div>
+
+            </div>
+          </div>
+
+          <div className="col-span-full">
+            <div className="mb-3 sm:mb-6">
+              <ul>
+                {servicios
+                  ? servicios.map((servicio) => {
+                      return (
+                        <li key={servicio.id}>
+                          <Lista servicio={servicio} />
+                        </li>
+                      );
+                    })
+                  : ""}
+              </ul>
+            </div>
+          </div>
+
         </div>
-
-        <div className="col-span-full">
-          <div className="mb-3 sm:mb-6">
-            <Button
-              type="submit"
-              className="sm:h-[48px] !text-[14px]">
-              Como llegar
-            </Button>
-
-          </div>
-        </div>
-
-      </div>
       </List>
     </Main>
   );
