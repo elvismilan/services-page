@@ -1,9 +1,25 @@
+
+import { useDispatch } from "react-redux";
+import { checkingAuthentication } from "../../store/auth";
+
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import Logo from "../atoms/Logo";
 
-export const Login = () => (
-  <form className="text-center" method="POST" >
+
+export const Login = () => {
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    dispatch(checkingAuthentication());
+  }
+
+
+  return (
+
+   <form className="text-center" method="POST" onSubmit={ onSubmit } >
     <Logo className="h-8 sm:h-14 mb-6 sm:mb-14 " />
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
@@ -38,7 +54,7 @@ export const Login = () => (
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Button
-          href={"/empresa"}
+          //href={"/empresa"}
           type="submit"
           bg="bg-primary w-[250px] sm:w-[270px] mx-auto hover:bg-white "
           tc="text-white hover:text-secondary"
@@ -59,6 +75,8 @@ export const Login = () => (
       </div>
     </div>
   </form>
-);
+
+  )
+}
 
 export default Login

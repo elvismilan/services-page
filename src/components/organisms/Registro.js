@@ -1,14 +1,47 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 
 import { useNavigate } from 'react-router-dom';
+import { startCreatingUserWithEmailPassword } from "../../store";
+import { useForm } from "../../hooks/useForm";
+
+const formValidations = {
+  email: [ (value) => value.includes('@'), 'El correo debe de tener una @' ],
+  password: [ (value) => value.length >= 6, 'El password debe de tener mas de 6 letras.' ],
+  first_name: [ (value) => value.length >= 1, 'El nombre es obligatorio' ],
+  last_name: [ (value) => value.length >= 1, 'El nombre es obligatorio' ],
+}
+
+const formData = {
+  email:        '',
+  password:     '',
+  first_name:         '',
+  last_name:         '',
+  phone:         '',
+  role:         '',
+}
 
 export const Registro = () => {
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [formSubmitedd, setFormSubmitedd] = useState(false)
+
+  const {
+    formState,first_name,last_name,email,password,phone,onInputChange,
+    isFormValid,first_nameValid,last_nameValid,emailValid,passwordValid
+  } = useForm(formData,formValidations);
+
   const onSubmit = ( event ) => {
     event.preventDefault();
-    navigate('/ubicacion');
+    setFormSubmitedd(true);
+
+    if( !isFormValid ) return ;
+    console.log(formState);
+
+    dispatch( startCreatingUserWithEmailPassword(formState) );
   }
   return (
   <form className="text-center" method="POST" onSubmit={ onSubmit } >
@@ -16,45 +49,64 @@ export const Registro = () => {
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
-          name="nombre"
           type="text"
           label="Nombre(s)"
+          name="first_name"
+          value={ first_name }
+          onChange={ onInputChange }
+          error={ !!first_nameValid && formSubmitedd }
+          helperText={ first_nameValid }
         />
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
-          name="apellido"
           type="text"
           label="Apellido(s)"
+          name="last_name"
+          value={ last_name }
+          onChange={ onInputChange }
+          error={ !!last_nameValid && formSubmitedd }
+          helperText={ last_nameValid }
         />
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
-          name="email"
           type="email"
           label="Correo electrónico"
+          name="email"
+          value={ email }
+          onChange={ onInputChange }
+          error={ !!emailValid && formSubmitedd }
+          helperText={ emailValid }
         />
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
-          name="password"
           type="password"
           label="Contraseña"
+          name="password"
+          value={ password }
+          onChange={ onInputChange }
+          error={ !!passwordValid && formSubmitedd }
+          helperText={ passwordValid }
+
         />
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
-          name="telefono"
           type="text"
           label="Teléfono"
+          name="phone"
+          value={ phone }
+          onChange={ onInputChange }
         />
       </div>
     </div>
