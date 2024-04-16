@@ -38,7 +38,7 @@ const Input = ({className, name, type, label, value, onChange, decoration, disab
         aria-label={label}
         onChange={onChange}
       />
-      <span className= {`text-red-700 ${!!!helperText ? "hidden" : ""  } `} > { helperText } </span>
+      <span className= {`text-red-700 ${ error ? "" : "hidden"  } `} > { helperText } </span>
 
     </>
   );

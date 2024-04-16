@@ -38,8 +38,9 @@ export const Registro = () => {
     event.preventDefault();
     setFormSubmitedd(true);
 
-    if( !isFormValid ) return ;
     console.log(formState);
+
+    if( !isFormValid ) return ;
 
     dispatch( startCreatingUserWithEmailPassword(formState) );
   }
