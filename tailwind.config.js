@@ -75,7 +75,11 @@ module.exports = {
         },
         ".btn-auto":{
           "@apply min-w-0 rounded-2xl font-semibold py-2 px-8 sm:px-16": {},
+        },
+        ".btn-icon":{
+          "@apply text-white bg-orange-600 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-full text-sm p-1.5 text-center inline-flex items-center me-2 dark:bg-orange-400 dark:hover:bg-orange-600 dark:focus:ring-orange-600": {},
         }
+
       });
       addUtilities({
         ".news-modal-overlay": {

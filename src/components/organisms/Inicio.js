@@ -18,7 +18,7 @@ export const Service = () => {
           <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
-            href = "/servicios"
+            href = "/login"
             //onClick={() => gotToNewPage('D')}
             className="sm:h-[80px] lg-text-[26px] sm bordered">
             Servicio a domicilio
@@ -30,7 +30,7 @@ export const Service = () => {
           <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
-            href = "/servicios"
+            href = "/sucursales"
             //onClick={() => gotToNewPage('L')}
             className="sm:h-[80px] lg-text-[26px] bordered">
             Servicio en el local

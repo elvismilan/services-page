@@ -1,11 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/pages/Login";
 import Registrarse from "./components/pages/Registrarse";
+import RegistrarUbicacion from "./components/pages/RegistrarUbicacion";
 import Home from "./components/pages/Home";
 import Servicios from "./components/pages/Servicios";
 import NotFound from "./components/pages/NotFound"
 import ServiceAppointment from "./components/pages/ServiceAppointment";
 import { Thanks } from "./components/pages/Thanks";
+import { Cart } from "./components/pages/Cart";
+import { Empresa } from "./components/pages/Empresa";
+import { SucursalesPage } from "./components/pages/SucursalesPage";
 
 function App() {
   return (
@@ -17,7 +21,11 @@ function App() {
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/programar" element={<ServiceAppointment />} />
         <Route path="/gracias" element={<Thanks />} />
+        <Route path="/ubicacion" element={<RegistrarUbicacion />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/carrito" element={<Cart />} />
+        <Route path="/empresa" element={<Empresa />} />
+        <Route path="/sucursales" element={<SucursalesPage />} />
       </Routes>
     </BrowserRouter>
   );
