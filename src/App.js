@@ -10,6 +10,7 @@ import { Thanks } from "./components/pages/Thanks";
 import { Cart } from "./components/pages/Cart";
 import { Empresa } from "./components/pages/Empresa";
 import { SucursalesPage } from "./components/pages/SucursalesPage";
+import { ConfirmacionPage } from "./components/pages/ConfirmacionPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/carrito" element={<Cart />} />
         <Route path="/empresa" element={<Empresa />} />
         <Route path="/sucursales" element={<SucursalesPage />} />
+        <Route path="/confirmacion" element={<ConfirmacionPage />} />
       </Routes>
     </BrowserRouter>
   );

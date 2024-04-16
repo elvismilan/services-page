@@ -1,16 +1,17 @@
 
-const Button = ({className, href, onClick, children, fs, bg, tc, decoration}) => {
+const Button = ({className, href, onClick, children, fs, bg, tc, decoration,disabled=false}) => {
 
-  const classes = `btn-base 
+  const classes = `btn-base
                   ${fs || "text-[16px]"} sm:text-[20px] lg:text-[24px]
-                  ${bg || "bg-primary"} 
-                  ${tc || "text-white"} 
+                  ${bg || "bg-primary"}
+                  ${tc || "text-white"}
                   ${className || ""}`;
 
   const renderButton = () => (
-    <button 
-      className={classes} 
+    <button
+      className={classes}
       onClick={onClick}
+      disabled={disabled}
       >
       <span>{children}</span>
     </button>
@@ -31,12 +32,12 @@ const Button = ({className, href, onClick, children, fs, bg, tc, decoration}) =>
     </a>
   );
 
-  return href 
+  return href
     ? decoration
       ? renderLinkGroup()
       : renderLink()
     : renderButton();
-    
+
 }
 
 export default Button
