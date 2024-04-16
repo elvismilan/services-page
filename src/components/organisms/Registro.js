@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
@@ -7,6 +7,7 @@ import Button from "../atoms/Button";
 import { useNavigate } from 'react-router-dom';
 import { startCreatingUserWithEmailPassword } from "../../store";
 import { useForm } from "../../hooks/useForm";
+import { Alert } from "../atoms/Alert";
 
 const formValidations = {
   email: [ (value) => value.includes('@'), 'El correo debe de tener una @' ],
@@ -18,10 +19,10 @@ const formValidations = {
 const formData = {
   email:        '',
   password:     '',
-  first_name:         '',
-  last_name:         '',
-  phone:         '',
-  role:         '',
+  first_name:   '',
+  last_name:    '',
+  phone:        '',
+  role:         'cliente',
 }
 
 export const Registro = () => {
@@ -29,20 +30,26 @@ export const Registro = () => {
   const navigate = useNavigate();
   const [formSubmitedd, setFormSubmitedd] = useState(false)
 
+  const {status,error} = useSelector( state => state.auth );
+  const isCheckingAuthentication =  useMemo( () => status === 'checking',[status] );
+
+
   const {
     formState,first_name,last_name,email,password,phone,onInputChange,
     isFormValid,first_nameValid,last_nameValid,emailValid,passwordValid
   } = useForm(formData,formValidations);
 
+  const onConfirmation = () => {
+    navigate('/confirmacion')
+  }
+
   const onSubmit = ( event ) => {
     event.preventDefault();
     setFormSubmitedd(true);
 
-    console.log(formState);
-
     if( !isFormValid ) return ;
 
-    dispatch( startCreatingUserWithEmailPassword(formState) );
+    dispatch( startCreatingUserWithEmailPassword(formState,onConfirmation) );
   }
   return (
   <form className="text-center" method="POST" onSubmit={ onSubmit } >
@@ -111,9 +118,17 @@ export const Registro = () => {
         />
       </div>
     </div>
+
+
+    <div className={`col-span-full ${!!error?'':'hidden'} `}  >
+      <Alert mensaje={error} />
+    </div>
+
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Button type='submit'
+        <Button
+          disabled={ isCheckingAuthentication }
+          type='submit'
           className="sm:h-[48px] !text-[14px]">
           Registrarse
         </Button>
