@@ -21,7 +21,6 @@ export const registerApi = async({ first_name,last_name,email,password,phone,rol
     if(!resp.ok) throw new Error('No se pudo crear el usuario');
 
     const myResp = await resp.json();
-
     return myResp;
 
   } catch (error) {

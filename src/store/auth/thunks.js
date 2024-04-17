@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { checkingCredentials, confirmation, logout } from "./";
+import { checkingCredentials, clearErrorMessage, confirmation, login, logout } from "./";
 import { registerApi } from "./helpers/registerApi";
+import { loginApi } from "./helpers/loginApi";
 
 
 export const checkingAuthentication = (email,password) => {
@@ -29,4 +30,41 @@ export const startCreatingUserWithEmailPassword = ({ first_name,last_name,email,
     onConfirmation();
  }
 
+}
+
+export const startLoginWithEmailPassword = ({email, password,role}) => {
+  return async(dispatch) => {
+    dispatch( checkingCredentials() );
+    const { data } = await loginApi({email, password, role});
+
+    if( data.error ) {
+      dispatch( logout( data ) );
+      setTimeout(() => {
+        dispatch( clearErrorMessage() );
+      },10);
+      return;
+    }
+
+      localStorage.setItem('token',data.data.token);
+      localStorage.setItem('email',data.user.email);
+      localStorage.setItem('first_name',data.user.first_name);
+      localStorage.setItem('last_name',data.user.last_name);
+      localStorage.setItem('uid',data.user._id);
+      localStorage.setItem('token-init-data',new Date().getTime());
+
+      const formData = {
+        uid:        data.user._id,
+        email:     data.user.email,
+        displayName:   data.user.first_name+' '+data.user.last_name,
+        photoURL:    '',
+      }
+
+      dispatch( login(formData) );
+
+
+    //if( !result.ok ) return  dispatch( logout( result ) );
+
+    //dispatch( login(result) );
+
+  }
 }
