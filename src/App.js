@@ -11,8 +11,13 @@ import { Cart } from "./components/pages/Cart";
 import { Empresa } from "./components/pages/Empresa";
 import { SucursalesPage } from "./components/pages/SucursalesPage";
 import { ConfirmacionPage } from "./components/pages/ConfirmacionPage";
+import { useCheckAuthToken } from "./hooks/useCheckAuthToken";
 
 function App() {
+
+  const { status } = useCheckAuthToken();
+
+
   return (
     <BrowserRouter>
       <Routes>

@@ -1,19 +1,40 @@
 
-import { useDispatch } from "react-redux";
-import { checkingAuthentication } from "../../store/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { checkingAuthentication, startLoginWithEmailPassword } from "../../store/auth";
 
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import Logo from "../atoms/Logo";
+import { useForm } from "../../hooks/useForm";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
+const formData = {
+  email: '',
+  password: '',
+  role: 'cliente'
+}
 
 export const Login = () => {
+
+  const { error } = useSelector( state => state.auth );
+
+  useEffect(() => {
+    if( error !== null ){
+      Swal.fire('Error en la authentificacion',error,'error')
+    }
+
+  }, [error])
+
+
+  const { email, password,role, onInputChange, formState } = useForm( formData ) ;
 
   const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(checkingAuthentication());
+    dispatch(startLoginWithEmailPassword({email,password,role}));
+
   }
 
 
@@ -24,18 +45,23 @@ export const Login = () => {
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
-          name="username"
           type="email"
           label="Email"
+          name= "email"
+          value={email}
+          onChange={ onInputChange }
         />
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
-          name="password"
           type="password"
           label="Contraseña"
+          name= "password"
+          value={password}
+          onChange={ onInputChange }
+
         />
       </div>
     </div>
