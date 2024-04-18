@@ -32,7 +32,7 @@ export const startCreatingUserWithEmailPassword = ({ first_name,last_name,email,
 
 }
 
-export const startLoginWithEmailPassword = ({email, password,role}) => {
+export const startLoginWithEmailPassword = ({email, password,role},onServicios) => {
   return async(dispatch) => {
     dispatch( checkingCredentials() );
     const { data } = await loginApi({email, password, role});
@@ -61,10 +61,15 @@ export const startLoginWithEmailPassword = ({email, password,role}) => {
 
       dispatch( login(formData) );
 
+      onServicios();
 
-    //if( !result.ok ) return  dispatch( logout( result ) );
+  }
+}
 
-    //dispatch( login(result) );
 
+export const startLogout = () => {
+  return (dispatch) => {
+      localStorage.clear();
+      dispatch(logout());
   }
 }

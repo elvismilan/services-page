@@ -11,7 +11,8 @@ export const useCheckAuthToken = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       localStorage.clear();
-      return dispatch(logout());
+      dispatch(logout());
+      return ;
     }
 
     const email = localStorage.getItem("email");
