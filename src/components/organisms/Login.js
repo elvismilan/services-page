@@ -1,12 +1,13 @@
-
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { checkingAuthentication, startLoginWithEmailPassword } from "../../store/auth";
+import { useNavigate } from "react-router-dom";
+
+import { startLoginWithEmailPassword } from "../../store/auth";
 
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 import Logo from "../atoms/Logo";
 import { useForm } from "../../hooks/useForm";
-import { useEffect } from "react";
 import Swal from "sweetalert2";
 
 const formData = {
@@ -17,10 +18,11 @@ const formData = {
 
 export const Login = () => {
 
+  const [formSubmitedd, setFormSubmitedd] = useState(false)
   const { error } = useSelector( state => state.auth );
 
   useEffect(() => {
-    if( error !== null ){
+    if( error !== null && formSubmitedd ){
       Swal.fire('Error en la authentificacion',error,'error')
     }
 
@@ -30,10 +32,17 @@ export const Login = () => {
   const { email, password,role, onInputChange, formState } = useForm( formData ) ;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onServicios = () => {
+    navigate('/servicios')
+  }
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(startLoginWithEmailPassword({email,password,role}));
+    setFormSubmitedd(true);
+
+    dispatch(startLoginWithEmailPassword({email,password,role},onServicios));
 
   }
 
@@ -71,7 +80,7 @@ export const Login = () => {
           bg = "bg-transparent"
           tc= "text-primary"
           className = "font-[400] !p-0 !text-[14px] !sm:text-[13px]"
-          href = "#forgot"
+          href = "https://app.teayudo.com.bo/#/forgotPassword?role=cliente"
         >
           Olvidaste tu contraseña?
         </Button>

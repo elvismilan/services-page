@@ -36,8 +36,6 @@ export const authSlice = createSlice({
         state.photoURL = null;
         state.error = null
     },
-
-
     checkingCredentials: (state, /* action */) => {
       state.status='checking';
     },
