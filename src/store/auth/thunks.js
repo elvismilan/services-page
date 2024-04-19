@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { checkingCredentials, clearErrorMessage, confirmation, login, logout } from "./";
 import { registerApi } from "./helpers/registerApi";
 import { loginApi } from "./helpers/loginApi";

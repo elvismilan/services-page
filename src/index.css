@@ -19,3 +19,13 @@ footer{
 *:focus {
   outline: none;
 }
+
+.search .wrapper:first-child {
+  border: 2px solid orange;
+  border-color: #FF770F ;
+  border-radius: 1rem;
+}
+
+.search .wrapper:first-child svg {
+  fill: #FF770F !important;
+}
