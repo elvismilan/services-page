@@ -1,12 +1,17 @@
-import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import Button from "../atoms/Button";
 
 export const Service = () => {
 
-  const gotToNewPage=(type)=> {
-    const tipo = type;
-    //console.log(type);
-    <Navigate to="/servicios" replace={true}  state={tipo} />
+  const {status} = useSelector( state => state.auth );
+  const navigate = useNavigate();
+
+
+  const onServicioDomicilio = (event) => {
+    event.preventDefault();
+    status === 'authenticated' ? navigate('/servicios'):navigate('login')
   }
 
   return (
@@ -19,7 +24,7 @@ export const Service = () => {
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
             href = "/login"
-            //onClick={() => gotToNewPage('D')}
+            onClick={ onServicioDomicilio }
             className="sm:h-[80px] lg-text-[26px] sm bordered">
             Servicio a domicilio
           </Button>
