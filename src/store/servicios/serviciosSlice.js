@@ -3,27 +3,30 @@ import { createSlice } from '@reduxjs/toolkit';
 export const serviciosSlice = createSlice({
   name: 'servicios',
   initialState: {
-    status: 'not-authenticated', //checking, email-confirmation , not-authenticated authenticated
-    uid: null,
-    email: null,
-    displayName: null,
-    photoURL: null,
-    error: null
+    isSaving: false,
+    messageSaved: '',
+    services:[],
+    active: null,
   },
   reducers: {
-    login: (state, {payload}) => {
-        state.status = 'authenticated';
-        state.uid = payload.uid;
-        state.email = payload.email;
-        state.displayName = payload.displayName;
-        state.photoURL = payload.photoURL;
-        state.error = null
-
-    }
+    savingNewService: ( state ) => {
+        state.isSaving = true;
+    },
+    addNewEmptyService: (state,  action ) => {
+        state.notes.push( action.payload );
+        state.isSaving = false;
+    },
+    setActiveService: (state,  action ) => {
+        state.active = action.payload;
+        state.messageSaved = '';
+    },
+    setServices: (state,  action ) => {
+        state.services = action.payload;
+    },
 
   }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { login } = serviciosSlice.actions;
+export const { savingNewService,addNewEmptyService,setActiveService,setServices } = serviciosSlice.actions;

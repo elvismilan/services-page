@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/auth";
 import { useEffect } from "react";
+import { startListServicios } from "../store/servicios";
+
 
 export const useCheckAuthToken = () => {
 
@@ -8,6 +10,8 @@ export const useCheckAuthToken = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
+    dispatch( startListServicios() );
     const token = localStorage.getItem("token");
     if (!token) {
       localStorage.clear();

@@ -1,9 +1,7 @@
 
-export const servicesApi = async() => {
+export const servicesApi = async(idProveedor = '') => {
 
   const urlApi = process.env.REACT_APP_API_URL;
-  const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
-
   const urlPath = `${urlApi}/service/provider/${idProveedor}`;
 
   try {
