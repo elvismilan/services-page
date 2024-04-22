@@ -20,6 +20,10 @@ footer{
   outline: none;
 }
 
+.pb-16{
+  padding-bottom: 100px;
+}
+
 .search .wrapper:first-child {
   border: 2px solid orange;
   border-color: #FF770F ;

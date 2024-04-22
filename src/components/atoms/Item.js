@@ -3,13 +3,14 @@ import { Lista } from "./Lista"
 
 const Item = (props) => {
   const  servicios  = !!(props.servicios)? props.servicios :false ;
-  const categorias = props.categoria;
+  const categorias = !!props.categoria? props.categoria: null ;
+
 
   return (
     < >
       <div className="grid grid-cols-1 gap-4" >
         <article className="flex items-start space-x-6">
-          <img src={props.logo} alt="" width="145" height="145" className="flex-none rounded-md bg-slate-100" />
+          <img src={props.image} alt="" width="145" height="145" className="flex-none rounded-md bg-slate-100" />
           <div className="relative h-full flex flex-col justify-end">
             <h2 className="text-secondary">{props.empresa}</h2>
             <dl className="mt-2 flex text-sm leading-6 font-medium">
@@ -26,11 +27,13 @@ const Item = (props) => {
         </article>
         <div className="py-4">
           {
-            categorias.map(
-              category =>{
-                return  <Button key={category}  className="btn-auto font-normal mr-5" > {category} </Button>
-              }
-            )
+            (!!categorias)?
+              categorias.map(
+                category =>{
+                  return  <Button key={category}  className="btn-auto font-normal mr-5" > {category} </Button>
+                }
+              )
+            : ''
           }
         </div>
         <ul>
@@ -38,10 +41,8 @@ const Item = (props) => {
             (servicios)?
               servicios.map(
                 servicio =>{
-                  return <li key={servicio.id} >
+                  return <li key={servicio._id} >
                     <Lista servicio={ servicio } />
-
-
                   </li>
                 }
               )

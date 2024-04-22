@@ -34,6 +34,9 @@ import {  useNavigate } from "react-router-dom";
 export const Navbar = ({onClick}) => {
 
   const { status } = useSelector( state => state.auth );
+  const { services } = useSelector( state => state.servicios );
+
+  //const
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,7 +54,7 @@ export const Navbar = ({onClick}) => {
 
   const handleOnSelect = (item) => {
     //console.log(item);
-    navigate('/carrito');
+    // navigate('/carrito');
   };
 
 
@@ -61,7 +64,7 @@ export const Navbar = ({onClick}) => {
         <div className="flex justify-end flex-row-reverse sm:w-2/3 rounded-2xl  mb-3 sm:mb-0" >
           <ReactSearchAutocomplete
             placeholder="Buscar Servicio"
-            items={items}
+            items={services}
              onSelect={handleOnSelect}
             styling={{ zIndex: 4 }} // To display it on top of the search box below
             autoFocus
