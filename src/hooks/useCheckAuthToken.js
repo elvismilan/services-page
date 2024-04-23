@@ -11,11 +11,11 @@ export const useCheckAuthToken = () => {
 
   useEffect(() => {
 
-    dispatch( startListServicios() );
     const token = localStorage.getItem("token");
     if (!token) {
       localStorage.clear();
       dispatch(logout());
+      dispatch( startListServicios() );
       return ;
     }
 
@@ -32,6 +32,7 @@ export const useCheckAuthToken = () => {
     };
 
     dispatch(login(formData));
+    dispatch( startListServicios() );
   }, []);
 
   return {

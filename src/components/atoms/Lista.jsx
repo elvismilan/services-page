@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { startAddService } from '../../store/servicios';
 
 export const Lista = ({servicio,showallicon=false}) => {
   const { id,imageURL,unitPrice,name,description } = servicio;
   const showicon = showallicon ?'':'hidden';
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const onLogin = () => {
     navigate('/login');
@@ -10,6 +13,8 @@ export const Lista = ({servicio,showallicon=false}) => {
   }
   const onAddCart = () => {
     console.log('add Cart');
+    dispatch( startAddService(servicio) );
+
   }
 
   return (
