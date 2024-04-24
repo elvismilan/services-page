@@ -1,23 +1,23 @@
+import { useSelector } from "react-redux";
 import Main from "../templates/Main";
 import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
 import List from "../molecules/List";
 import Item from "../atoms/Item";
-import { useSelector } from "react-redux";
+import { ServModal } from "../ServModal";
 
 const Servicios = (props) => {
 
-
-  const { services } = useSelector( state => state.servicios );
-//  const { provider } = services.data;
-
-  const { _id,logoURL,name } = services[0].provider ;
+  const { services,isOpenModal,active } = useSelector( state => state.servicios );
+  const { _id,logoURL,name } = '63aca8f96eeafc6f83a943f9';
 
   return (
     <Main
       header={<Header />}
       footer={<Footer />}
     >
+
+      <ServModal isOpen={ isOpenModal } {...active} />
       <List>
         {/* {defaultItems.map(item => */}
           <Item
@@ -27,8 +27,6 @@ const Servicios = (props) => {
             puntaje= {'3.5'}
             image= {logoURL}
             categoria = {null}
-            //latitud= {item.latitud}
-            //longitud= {item.longitud}
             servicios= {services}
           />
         {/* )} */}

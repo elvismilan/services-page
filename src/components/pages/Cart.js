@@ -1,14 +1,23 @@
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 import { Lista } from "../atoms/Lista"
 import List from "../molecules/List"
 import Footer from "../organisms/Footer"
 import Header from "../organisms/Header"
 import Main from "../templates/Main"
+import Button from "../atoms/Button"
 
 export const Cart = () => {
+
+  const navigate = useNavigate();
+  const { services } = useSelector( state => state.carrito );
 
   const servicios =[
     { id: 1, titulo: 'Servicio 1', precio: '80', image: 'https://placehold.co/200x200'} ]
 
+  const onServicio = () => {
+    navigate('/servicios');
+  }
 
   return (
 
@@ -22,10 +31,10 @@ export const Cart = () => {
 
          <ul>
           {
-            (servicios)?
-              servicios.map(
+            (services)?
+              services.map(
                 servicio =>{
-                  return <li key={servicio.id} >
+                  return <li key={servicio._id} >
                     <Lista servicio={ servicio } showallicon={true}  />
                   </li>
                 }
@@ -36,6 +45,11 @@ export const Cart = () => {
         </ul>
 
 
+        <div className="container flexCenter mx-auto">
+          <Button className="" onClick={ onServicio } >
+            Agregar otro Servicio
+          </Button>
+        </div>
 
       </List>
 
