@@ -33,3 +33,101 @@ footer{
 .search .wrapper:first-child svg {
   fill: #FF770F !important;
 }
+
+
+
+
+
+
+/* Modal */
+.w-350{
+  width: 350px;
+}
+.ReactModalPortal > div{
+    opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transition: opacity .2s ease-in-out;
+    z-index: 999;
+}
+
+.modal-fondo {
+    background-color: rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+.modal {
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: inline;
+    max-height: 620px;
+    max-width: 500px;
+    outline: none;
+    padding: 10px;
+}
+
+
+
+
+
+Span.especial {
+   font-family: Arial, sans-serif;
+   font-size: 24px;
+   cursor: pointer;
+ }
+
+ .plus-minus-button {
+   position: relative;
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   border: 1px solid #ccc;
+   border-radius: 50%;
+   background-color: #FF770F ;
+   transition: all 0.2s ease-in-out;
+ }
+
+ .plus-minus-button::before {
+   content: '+';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 18px;
+   font-weight: bold;
+   color: #fff;
+ }
+ .plus-minus-button:hover{
+   background-color: #FF550f;
+ }
+ .plus-minus-button:hover::before {
+   color: #efefef;
+ }
+
+ .minus {
+   background-color: #FF770F ;
+ }
+
+ .minus::before {
+   content: '-';
+   font-size: 18px;
+   font-weight: bold;
+   color: #fff;
+ }

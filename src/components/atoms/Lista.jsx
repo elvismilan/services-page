@@ -1,71 +1,87 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { startAddService } from '../../store/servicios';
+import { setActiveModal, setActiveService } from '../../store/servicios';
+import { setActiveItem, updateItem } from '../../store';
 
-export const Lista = ({servicio,showallicon=false}) => {
-  const { id,imageURL,unitPrice,name,description } = servicio;
+export const Lista = ({servicio,showallicon=false,cant=0}) => {
+  const [cantidad, setCantidad] = useState(cant);
+  const { _id,imageURL,unitPrice,name,description } = servicio;
   const showicon = showallicon ?'':'hidden';
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onLogin = () => {
-    navigate('/login');
 
-  }
+
   const onAddCart = () => {
-    console.log('add Cart');
-    dispatch( startAddService(servicio) );
-
+    dispatch( setActiveService( { _id,imageURL,unitPrice,name,description } ) );
+    dispatch( setActiveModal() );
   }
+
+  const onIncremet = () => {
+    setCantidad(cantidad+1);
+    const serv = {
+      _id,
+      imageURL,
+      unitPrice,
+      name,
+      description,
+      cant: cantidad+1
+    };
+    dispatch( setActiveItem(serv) );
+    dispatch( updateItem(serv) );
+  }
+  const onDecrement = () =>{
+   setCantidad(cantidad-1);
+     const serv = {
+      _id,
+      imageURL,
+      unitPrice,
+      name,
+      description,
+      cant: cantidad-1
+    };
+    dispatch( setActiveItem(serv) );
+    dispatch( updateItem(serv) );
+  }
+
 
   return (
     <>
       <div className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent mb-5">
         <div className="w-2/3 bg-white flex flex-col space-y-2 p-3  inline-flex items-start space-x-2">
-          <div className="text-slate-500 "> <strong>{name}</strong> </div>
-          <div className="text-slate-500">
-            {description}
+          <div className="text-slate-500 ">
+            {" "}
+            <strong>{name}</strong>{" "}
           </div>
           <div className="text-slate-500">
-            <span>Desde</span> <strong>  Bs. {unitPrice}{" "}</strong>
+            {!!description ? description.substring(0, 85) : ""}
+          </div>
+          <div className="text-slate-500">
+            <span>Desde</span> <strong> Bs. {unitPrice} </strong>
           </div>
         </div>
         <div>
           <img
-            src={servicio.imageURL}
+            src={imageURL}
             alt=""
             width="70"
             height="70"
             className="flex-none rounded-md bg-slate-100"
           />
 
-          <div className="mt-2 float-end">
-            <button
-              type="button"
-              className= {`btn-icon ${showicon} `  }
-            >
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12" height="12" viewBox="0 0 24 24" border="0">
-            <path fillRule="evenodd" fill="#ffffff" d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"></path>
-          </svg>
-
-              <span className="sr-only">Icon description</span>
-
-            </button>
-             <span
-              className= {` mr-1.5 ${showicon} `  }
-             >2</span>
-            <button
-              type="button"
-              className="btn-icon"
-              onClick={onAddCart}
-            >
-
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12" height="12" viewBox="0 0 24 24" border="0">
-            <path fillRule="evenodd" fill="#ffffff" d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"></path>
-          </svg>
-
-              <span className="sr-only">Icon description</span>
-
-            </button>
+          <div className="mt-2 float-end align-center">
+            {showallicon ? (
+              <>
+                <span onClick={ onDecrement }  className="especial plus-minus-button minus"></span>
+                <span className=" mr-1.5 ">{ cantidad }</span>
+                <span onClick={ onIncremet }  className=" especial plus-minus-button plus "></span>
+              </>
+            ) : (
+              <span
+                onClick={onAddCart}
+                className={` especial plus-minus-button plus   `}
+              ></span>
+            )}
           </div>
         </div>
       </div>
