@@ -7,6 +7,7 @@ import { startListServicios } from "../store/servicios";
 export const useCheckAuthToken = () => {
 
   const { status } = useSelector( state => state.auth );
+  const { services } = useSelector( state => state.carrito );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,6 +35,11 @@ export const useCheckAuthToken = () => {
     dispatch(login(formData));
     dispatch( startListServicios() );
   }, []);
+
+  useEffect(() => {
+   localStorage.setItem('carrito',services);
+  }, [services])
+
 
   return {
     status

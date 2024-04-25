@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setActiveModal, setActiveService } from '../../store/servicios';
+import { setActiveItem, updateItem } from '../../store';
 
-export const Lista = ({servicio,showallicon=false}) => {
+export const Lista = ({servicio,showallicon=false,cant=0}) => {
+  const [cantidad, setCantidad] = useState(cant);
   const { _id,imageURL,unitPrice,name,description } = servicio;
   const showicon = showallicon ?'':'hidden';
   const dispatch = useDispatch();
@@ -15,10 +18,30 @@ export const Lista = ({servicio,showallicon=false}) => {
   }
 
   const onIncremet = () => {
-    console.log('incrementar');
+    setCantidad(cantidad+1);
+    const serv = {
+      _id,
+      imageURL,
+      unitPrice,
+      name,
+      description,
+      cant: cantidad+1
+    };
+    dispatch( setActiveItem(serv) );
+    dispatch( updateItem(serv) );
   }
   const onDecrement = () =>{
-    console.log('decrementar');
+   setCantidad(cantidad-1);
+     const serv = {
+      _id,
+      imageURL,
+      unitPrice,
+      name,
+      description,
+      cant: cantidad-1
+    };
+    dispatch( setActiveItem(serv) );
+    dispatch( updateItem(serv) );
   }
 
 
@@ -50,7 +73,7 @@ export const Lista = ({servicio,showallicon=false}) => {
             {showallicon ? (
               <>
                 <span onClick={ onDecrement }  className="especial plus-minus-button minus"></span>
-                <span className=" mr-1.5 ">{servicio.cant}</span>
+                <span className=" mr-1.5 ">{ cantidad }</span>
                 <span onClick={ onIncremet }  className=" especial plus-minus-button plus "></span>
               </>
             ) : (
