@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/pages/Login";
 import Registrarse from "./components/pages/Registrarse";
@@ -16,6 +19,14 @@ import { useCheckAuthToken } from "./hooks/useCheckAuthToken";
 function App() {
 
   const { status } = useCheckAuthToken();
+  const { services,isLoading} = useSelector( state => state.carrito );
+
+
+  useEffect(() => {
+   !isLoading
+   ?localStorage.setItem('carrito', JSON.stringify(services))
+   :console.log('esta cargando...');
+  }, [services])
 
 
   return (

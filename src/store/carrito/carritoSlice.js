@@ -3,15 +3,22 @@ import { createSlice } from '@reduxjs/toolkit';
 export const carritoSlice = createSlice({
   name: 'carrito',
   initialState: {
+    isLoading: true,
     isSaving: false,
     messageSaved: '',
     services:[],
     active: null,
   },
   reducers: {
+     setDesactiveLoading: (state,  action ) => {
+        state.isLoading = false;
+    },
     addNewItem: (state,  action ) => {
         state.services.push( action.payload );
         state.isSaving = false;
+    },
+    setItems: (state, action ) => {
+      state.services = action.payload ;
     },
     setActiveItem: (state, action) => {
       state.active = action.payload;
@@ -35,4 +42,4 @@ export const carritoSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { addNewItem,updateItem,setActiveItem } = carritoSlice.actions;
+export const { addNewItem,updateItem,setActiveItem,setItems,setDesactiveLoading } = carritoSlice.actions;

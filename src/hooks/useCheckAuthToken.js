@@ -2,13 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/auth";
 import { useEffect } from "react";
 import { startListServicios } from "../store/servicios";
+import { setDesactiveLoading, setItems } from "../store/carrito/carritoSlice";
 
 
 export const useCheckAuthToken = () => {
 
   const { status } = useSelector( state => state.auth );
-  const { services } = useSelector( state => state.carrito );
   const dispatch = useDispatch();
+
+  const initialCart = () => {
+    const localStorageCart = localStorage.getItem('carrito');
+    return localStorageCart ? JSON.parse(localStorageCart):[]
+  }
 
   useEffect(() => {
 
@@ -34,11 +39,9 @@ export const useCheckAuthToken = () => {
 
     dispatch(login(formData));
     dispatch( startListServicios() );
+    dispatch( setDesactiveLoading() );
+    dispatch( setItems(initialCart()) );
   }, []);
-
-  useEffect(() => {
-   localStorage.setItem('carrito',services);
-  }, [services])
 
 
   return {
