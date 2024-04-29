@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
 import TextArea from '../atoms/TextArea'
-
+import DatePicker from "react-datepicker";
 import { useNavigate } from 'react-router-dom';
+import "react-datepicker/dist/react-datepicker.css";
 
 export const Appointment = () => {
+
+  const [formValues, setFormValues] = useState({
+    name: 'frank Callapa',
+    telefono: '',
+    start: new Date(),
+  })
+
+  const onInputChanged = ({target}) => {
+    setFormValues({
+      ...formValues,
+      [target.name]: target.value
+    })
+  }
+
+  const onDateChange = (event) => {
+    setFormValues({
+      ...formValues,
+      ['start']: event
+    })
+
+  }
 
   const navigate = useNavigate();
   const onSubmit = ( event ) => {
@@ -31,6 +53,8 @@ export const Appointment = () => {
           name="name"
           type="text"
           label="Nombre y Apellido"
+          value={ formValues.name }
+          onChange={ onInputChanged }
         />
       </div>
     </div>
@@ -40,16 +64,27 @@ export const Appointment = () => {
           name="telefono"
           type="text"
           label="Telefono"
+          value={ formValues.telefono }
+          onChange={ onInputChanged }
         />
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Input
+        <div className=' flex justify-end flex-row-reverse sm:w-2/3 rounded-2xl border-solid border-2 border-primary mb-3 sm:mb-0 ' >
+        <DatePicker
+          selected={ formValues.start }
+          onChange={ (event) => onDateChange(event) }
+          dateFormat="Pp"
+          className=" rounded-2xl  border  w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary   "
+        />
+
+        </div>
+        {/* <Input
           name="fecha"
           type="text"
           label="Escoger Fecha"
-        />
+        /> */}
       </div>
     </div>
     <div className="col-span-full">
