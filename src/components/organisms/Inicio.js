@@ -1,12 +1,46 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../atoms/Button";
+import Swal from "sweetalert2";
 
 export const Service = () => {
 
   const {status} = useSelector( state => state.auth );
   const navigate = useNavigate();
+
+
+  const [userPos, setUserPos] = useState({lat: null, long: null})
+
+  var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+  };
+
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+    if (err.code == 1) {
+      Swal.fire('Acepte los permisos de ubicacion.',error,'error')
+    }
+  }
+
+  const getPosition = (data) => {
+    const newUserPos = {
+          lat: data.coords.latitude,
+          long: data.coords.longitude,
+    };
+    setUserPos(newUserPos)
+    console.log(newUserPos)
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(getPosition, error, options);
+  }, []);
+
+
+
 
 
   const onServicioDomicilio = (event) => {

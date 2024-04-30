@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -15,6 +15,7 @@ import { Empresa } from "./components/pages/Empresa";
 import { SucursalesPage } from "./components/pages/SucursalesPage";
 import { ConfirmacionPage } from "./components/pages/ConfirmacionPage";
 import { useCheckAuthToken } from "./hooks/useCheckAuthToken";
+
 
 function App() {
 
