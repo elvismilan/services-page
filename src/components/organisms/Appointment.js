@@ -6,6 +6,9 @@ import DatePicker from "react-datepicker";
 import { useNavigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 
+//import es from 'date-fns/locale/es';
+//registerLocale( 'es', es );
+
 export const Appointment = () => {
 
   const [formValues, setFormValues] = useState({
@@ -76,7 +79,8 @@ export const Appointment = () => {
           selected={ formValues.start }
           onChange={ (event) => onDateChange(event) }
           dateFormat="Pp"
-          className=" rounded-2xl  border  w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary   "
+          showTimeSelect
+          className=" rounded-2xl  border  w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary "
         />
 
         </div>
@@ -87,7 +91,7 @@ export const Appointment = () => {
         /> */}
       </div>
     </div>
-    <div className="col-span-full">
+    {/* <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
           name="horario"
@@ -95,7 +99,7 @@ export const Appointment = () => {
           label="Escoger horario"
         />
       </div>
-    </div>
+    </div> */}
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
