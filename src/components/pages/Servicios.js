@@ -5,18 +5,19 @@ import Footer from "../organisms/Footer";
 import List from "../molecules/List";
 import Item from "../atoms/Item";
 import { ServModal } from "../ServModal";
+import { useState } from "react";
 
 const Servicios = (props) => {
 
   const { services,isOpenModal,active } = useSelector( state => state.servicios );
-  const { _id,logoURL,name } = '63aca8f96eeafc6f83a943f9';
+	const { _id,logoURL,name } = useSelector((state) => state.proveedor.selected)
+
 
   return (
     <Main
       header={<Header />}
       footer={<Footer />}
     >
-
       <ServModal isOpen={ isOpenModal } {...active} />
       <List>
         {/* {defaultItems.map(item => */}

@@ -10,7 +10,7 @@ export const carritoSlice = createSlice({
     active: null,
   },
   reducers: {
-     setDesactiveLoading: (state,  action ) => {
+    setDesactiveLoading: (state,  action ) => {
         state.isLoading = false;
     },
     addNewItem: (state,  action ) => {

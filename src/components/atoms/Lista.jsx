@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setActiveModal, setActiveService } from '../../store/servicios';
 import { setActiveItem, updateItem } from '../../store';
+import useServiceCartRf from '../../hooks/useServiceCartRf';
 
-export const Lista = ({servicio,showallicon=false,cant=0}) => {
-  const [cantidad, setCantidad] = useState(cant);
+export const Lista = ({servicio,showallicon=false,cant=0,orden=''}) => {
+  // const [cantidad, setCantidad] = useState(cant);
+  const { changeQuantity } = useServiceCartRf();
   const { _id,imageURL,unitPrice,name,description } = servicio;
   const showicon = showallicon ?'':'hidden';
   const dispatch = useDispatch();
@@ -17,32 +19,32 @@ export const Lista = ({servicio,showallicon=false,cant=0}) => {
     dispatch( setActiveModal() );
   }
 
-  const onIncremet = () => {
-    setCantidad(cantidad+1);
-    const serv = {
-      _id,
-      imageURL,
-      unitPrice,
-      name,
-      description,
-      cant: cantidad+1
-    };
-    dispatch( setActiveItem(serv) );
-    dispatch( updateItem(serv) );
-  }
-  const onDecrement = () =>{
-   setCantidad(cantidad-1);
-     const serv = {
-      _id,
-      imageURL,
-      unitPrice,
-      name,
-      description,
-      cant: cantidad-1
-    };
-    dispatch( setActiveItem(serv) );
-    dispatch( updateItem(serv) );
-  }
+  // const onIncremet = () => {
+  //   setCantidad(cantidad+1);
+  //   const serv = {
+  //     _id,
+  //     imageURL,
+  //     unitPrice,
+  //     name,
+  //     description,
+  //     cant: cantidad+1
+  //   };
+  //   dispatch( setActiveItem(serv) );
+  //   dispatch( updateItem(serv) );
+  // }
+  // const onDecrement = () =>{
+  //  setCantidad(cantidad-1);
+  //    const serv = {
+  //     _id,
+  //     imageURL,
+  //     unitPrice,
+  //     name,
+  //     description,
+  //     cant: cantidad-1
+  //   };
+  //   dispatch( setActiveItem(serv) );
+  //   dispatch( updateItem(serv) );
+  // }
 
 
   return (
@@ -72,13 +74,26 @@ export const Lista = ({servicio,showallicon=false,cant=0}) => {
           <div className="mt-2 float-end align-center">
             {showallicon ? (
               <>
-                <span onClick={ onDecrement }  className="especial plus-minus-button minus"></span>
-                <span className=" mr-1.5 ">{ cantidad }</span>
-                <span onClick={ onIncremet }  className=" especial plus-minus-button plus "></span>
+                <span
+                  onClick={ () =>{
+                    changeQuantity(orden, Number(orden.cant) - 1)
+                  }
+                    //onDecrement
+                  }
+                  className="especial plus-minus-button minus"></span>
+                <span className=" mr-1.5 ">{ orden.cant }</span>
+                <span onClick={ () => {
+											changeQuantity(orden, Number(orden.cant) + 1)
+                  }
+                  //onIncremet
+                  }
+                  className=" especial plus-minus-button plus "></span>
               </>
             ) : (
               <span
-                onClick={onAddCart}
+                onClick={
+                  onAddCart
+                }
                 className={` especial plus-minus-button plus   `}
               ></span>
             )}
