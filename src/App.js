@@ -21,13 +21,12 @@ function App() {
 
   const { status } = useCheckAuthToken();
   const { services,isLoading} = useSelector( state => state.carrito );
+  const { selected } = useSelector( state => state.booking );
+  const serviceCart = selected.serviceCart
 
-
-  useEffect(() => {
-   !isLoading
-   ?localStorage.setItem('carrito', JSON.stringify(services))
-   :console.log('esta cargando...');
-  }, [services])
+  // useEffect(() => {
+  //   localStorage.setItem('carrito', JSON.stringify(selected.serviceCart)  );
+  // }, [selected])
 
 
   return (

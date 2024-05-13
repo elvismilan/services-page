@@ -4,7 +4,7 @@ import Button from './atoms/Button';
 import { useDispatch } from 'react-redux';
 import { setNotActiveModal } from '../store/servicios';
 import { useNavigate } from 'react-router-dom';
-import { addNewItem } from '../store';
+import { BOOKING_ADD_TO_CART, addNewItem } from '../store';
 
 const customStyles = {
   content: {
@@ -37,7 +37,20 @@ export const ServModal = ({_id, name,unitPrice,description,imageURL='',isOpen=fa
 
   const onCarrito = () => {
     console.log('agregar al carrito');
-    dispatch( addNewItem( { _id,name,unitPrice,description,imageURL,cant } ) );
+    //dispatch( addNewItem( { _id,name,unitPrice,description,imageURL,cant } ) );
+    //TODO; el servicio tiene un estimadoprecioxmin
+    const precio=cant*unitPrice;
+    const estimatedWorkMinutes=60;
+    const serv= { _id,name,unitPrice,description,imageURL};
+    dispatch( BOOKING_ADD_TO_CART(
+      {
+        cant,
+        service:serv,
+        precio,
+        estimatedWorkMinutes
+      }
+
+     ));
 
     dispatch(setNotActiveModal());
     navigate('/carrito');

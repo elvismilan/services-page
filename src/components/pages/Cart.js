@@ -11,9 +11,10 @@ export const Cart = () => {
 
   const navigate = useNavigate();
   const { services } = useSelector( state => state.carrito );
-
-  const servicios =[
-    { id: 1, titulo: 'Servicio 1', precio: '80', image: 'https://placehold.co/200x200'} ]
+  const { selected } = useSelector( state => state.booking );
+  const l_services = selected.serviceCart;
+  // const servicios =[
+  //   { id: 1, titulo: 'Servicio 1', precio: '80', image: 'https://placehold.co/200x200'} ]
 
   const onServicio = () => {
     navigate('/servicios');
@@ -29,7 +30,7 @@ export const Cart = () => {
     >
       <List >
 
-         <ul>
+         {/* <ul>
           {
             (services)?
               services.map(
@@ -42,7 +43,22 @@ export const Cart = () => {
               : ''
 
           }
+        </ul> */}
+        <hr></hr>
+         <ul>
+          {
+            (l_services)?
+              l_services.map(
+                servicio =>{
+                  return <li key={servicio.service._id} >
+                    <Lista orden={servicio} servicio={ servicio.service } showallicon={true} cant={ servicio.cant }  />
+                  </li>
+                }
+              )
+              : ''
+          }
         </ul>
+
 
 
         <div className="container flexCenter mx-auto">
