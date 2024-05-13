@@ -6,11 +6,45 @@ import DatePicker from "react-datepicker";
 import { useNavigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 
+import { useCreateBookingScreen } from "./../../hooks/useCreateBookingScreen";
+import { useDispatch, useSelector } from 'react-redux';
+
 //import es from 'date-fns/locale/es';
 //registerLocale( 'es', es );
 
 export const Appointment = () => {
 
+	const booking = useSelector((state) => state.booking.selected)
+	const bookingLoading = useSelector((state) => state.booking.loading)
+	const state = useSelector((state) => state)
+	const provider = useSelector((state) => state.proveedor.selected)
+	const dispatch = useDispatch()
+
+  const {
+		// showCalendarModal,
+		// closeModal,
+		// _hourPicker,
+		maxAvailableAfterHours,
+		availability,
+		// showCouponrModal,
+		// setShowCouponModal,
+		dialogVisible,
+		// onVerifyCoupon,
+		// setShowCalendarModal,
+		hour,
+		// _setHour,
+		hourPicker,
+		discount,
+		paymentMethods,
+		// selectedValue,
+		// onValueCh,
+		addresses,
+		setDialogVisible,
+		onSubmit,
+		valueFact,
+		setValueFact,
+		// handleValueFact,
+  } = useCreateBookingScreen();
   const [formValues, setFormValues] = useState({
     name: 'frank Callapa',
     telefono: '',
@@ -33,11 +67,11 @@ export const Appointment = () => {
   }
 
   const navigate = useNavigate();
-  const onSubmit = ( event ) => {
-    event.preventDefault();
-    console.log('Enviar formulario');
-    navigate('/gracias');
-  }
+  // const onSubmit = ( event ) => {
+  //   event.preventDefault();
+  //   console.log('Enviar formulario');
+  //   navigate('/gracias');
+  // }
 
   return (
     <>
@@ -125,6 +159,7 @@ export const Appointment = () => {
           type="text"
           label="Metodo de pago"
         />
+
       </div>
     </div>
     <div className="col-span-full">
