@@ -24,14 +24,14 @@ export const useCheckAuthToken = () => {
   const { selected } = useSelector( state => state.booking );
 
   useEffect(() => {
-    console.log('update cart ....');
-    console.log(selected.serviceCart);
+    // console.log('update cart ....');
+    // console.log(selected.serviceCart);
     localStorage.setItem('carrito', JSON.stringify(selected.serviceCart)  );
   }, [items,selected]);
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('carrito'));
-    console.log(items);
+    // console.log(items);
     if (items) {
     setItems(items);
     }
