@@ -1,5 +1,5 @@
 import _fetch from "../../wrappers/_fetch";
-import { BOOKING_CREATE_REQUEST } from "./bookingSlice";
+import { BOOKING_CLEAR, BOOKING_CREATE_REQUEST } from "./bookingSlice";
 
 function handleResponse(response) {
   return response.text().then((text) => {
@@ -24,12 +24,14 @@ function handleResponse(response) {
     );
   }
 
-export const startCreateBooking = (booking) => {
+export const startCreateBooking = (booking,onConfirmation) => {
   return async(dispatch) => {
     console.log(booking);
     dispatch(BOOKING_CREATE_REQUEST(booking));
     create(booking,'booking').then(()=>{
-      console.log('exito');
+      console.log('create booking successful');
+      dispatch( BOOKING_CLEAR() );
+      onConfirmation();
     });
 
     //TODO:slice

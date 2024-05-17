@@ -20,33 +20,6 @@ export const Lista = ({servicio,showallicon=false,quantity=0,orden=''}) => {
     dispatch( setActiveModal() );
   }
 
-  // const onIncremet = () => {
-  //   setCantidad(cantidad+1);
-  //   const serv = {
-  //     _id,
-  //     imageURL,
-  //     unitPrice,
-  //     name,
-  //     description,
-  //     cant: cantidad+1
-  //   };
-  //   dispatch( setActiveItem(serv) );
-  //   dispatch( updateItem(serv) );
-  // }
-  // const onDecrement = () =>{
-  //  setCantidad(cantidad-1);
-  //    const serv = {
-  //     _id,
-  //     imageURL,
-  //     unitPrice,
-  //     name,
-  //     description,
-  //     cant: cantidad-1
-  //   };
-  //   dispatch( setActiveItem(serv) );
-  //   dispatch( updateItem(serv) );
-  // }
-
 
   return (
     <>

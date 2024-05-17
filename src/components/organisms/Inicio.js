@@ -8,8 +8,8 @@ import Swal from "sweetalert2";
 export const Service = () => {
 
   const {status} = useSelector( state => state.auth );
+  const {selected} = useSelector( state => state.booking );
   const navigate = useNavigate();
-
 
   const [userPos, setUserPos] = useState({lat: null, long: null})
 
@@ -38,9 +38,6 @@ export const Service = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(getPosition, error, options);
   }, []);
-
-
-
 
 
   const onServicioDomicilio = (event) => {

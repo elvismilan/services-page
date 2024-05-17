@@ -2,6 +2,7 @@ import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 
 import { useNavigate } from 'react-router-dom';
+import Map from "../map/Map";
 
 export const RegistroUbicacion = () => {
 
@@ -11,7 +12,8 @@ export const RegistroUbicacion = () => {
     navigate('/servicios');
   }
   return (
-  <form className="text-center" method="POST" onSubmit={ onSubmit } >
+  <>
+    <form className="text-center" method="POST" onSubmit={ onSubmit } >
 
     <h3 className="mb-3 h3 text-left">Ingresa tu direccion</h3>
     <p className="mb-5 text-left text-gray-600" > loreDuis exercitation proident occaecat minim id magna tempor aliqua laborum veniam. </p>
@@ -31,7 +33,12 @@ export const RegistroUbicacion = () => {
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
 
-              <img src='https://placehold.co/600x200' alt="" width="600" height="150" className="flex-none rounded-md bg-slate-100" />
+        <p className="bg-info">London, United Kingdom</p>
+        <div className="map">
+          <Map />
+        </div>
+
+
       </div>
     </div>
 
@@ -44,6 +51,8 @@ export const RegistroUbicacion = () => {
       </div>
     </div>
   </form>
+
+  </>
 
   )
 

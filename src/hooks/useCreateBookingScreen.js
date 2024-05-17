@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigation } from 'react-router-dom'
+import { useNavigate, useNavigation } from 'react-router-dom'
 import _fetch from './../wrappers/_fetch'
 import { startCreateBooking } from '../store/booking/thunks'
 import Swal from "sweetalert2";
@@ -129,7 +129,7 @@ export const useCreateBookingScreen = () => {
 					},
 					notes: booking?.billingInfo?.notes || '',
 				},
-				//navigation
+				onConfirmation
 			)
 		)
 	}
@@ -208,6 +208,12 @@ export const useCreateBookingScreen = () => {
 
 		)
 	}
+
+  const navigate = useNavigate();
+	const onConfirmation = () => {
+    navigate('/gracias')
+  }
+
 
 	return {
 		// showCalendarModal,
