@@ -51,6 +51,10 @@ export const bookingSlice = createSlice({
     selected: EMPTY_BOOKING,
   },
   reducers: {
+		BOOKING_CREATE_REQUEST:(state ) => {
+			state.loading = true;
+			state.error = null;
+		},
     BOOKING_GET_BY_CUSTOMER_REQUEST: (state, {payload}) => {
         state.loading = true;
 				state.error = null;
@@ -61,8 +65,24 @@ export const bookingSlice = createSlice({
           serviceCart: []
       } ;
     },
+		BOOKING_SET_CUSTOMER:(state, {payload}) => {
+			state.selected.customer = payload.customer;
+		},
 		BOOKING_SET:(state, {payload}) => {
-			state.selected = payload
+			state.selected.bookingDate=payload.bookingDate
+			//state.selected = payload
+		},
+		BOOKING_PAGO:(state, {payload}) => {
+			state.selected.paymentInfo.paymentMethod=payload.paymentMethod
+			//state.selected = payload
+		},
+		BOOKING_CUSTOMER_FULLNAME:(state, {payload}) => {
+			state.selected.customer.fullName =payload.fullName
+			//state.selected = payload
+		},
+		BOOKING_CUSTOMER_PHONE:(state, {payload}) => {
+			state.selected.customer.phone =payload.phone
+			//state.selected = payload
 		},
 		BOOKING_SET_CART:(state, {payload}) => {
 			state.selected.serviceCart = payload
@@ -91,17 +111,13 @@ export const bookingSlice = createSlice({
 			}
 			//TODO: updateTotalEstimadoWorkMinutes and paymentInfo
 
-			// state.selected.serviceCart=mserviceCart;
-			// state.selected= {
-			// 		totalEstimatedWorkMinutes: serviceCart.reduce(
-			// 			(a, b) => a + b.estimatedWorkMinutes,
-			// 			0
-			// 		),
-			// 		paymentInfo: {
-			// 			totalPrice: serviceCart.reduce((a, b) => a + b.price, 0),
-			// 		},
-			// 		serviceCart,
-			// 	}
+			//state.selected.serviceCart=mserviceCart;
+			mserviceCart = state.selected.serviceCart;
+			state.selected.totalEstimatedWorkMinutes = mserviceCart.reduce(
+			 			(a, b) => a + b.estimatedWorkMinutes,
+			 			0
+			)
+			state.selected.paymentInfo.totalPrice = mserviceCart.reduce((a, b) => a + b.price, 0)
 
 		},
 		BOOKING_REMOVE_FROM_CART:(state, action) => {
@@ -125,4 +141,15 @@ export const bookingSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { BOOKING_GET_BY_CUSTOMER_REQUEST,BOOKING_CLEAR,BOOKING_SET,BOOKING_ADD_TO_CART,BOOKING_REMOVE_FROM_CART,BOOKING_SET_CART } = bookingSlice.actions;
+export const {
+	BOOKING_CREATE_REQUEST,
+	BOOKING_GET_BY_CUSTOMER_REQUEST,
+	BOOKING_CLEAR,
+	BOOKING_SET,
+	BOOKING_SET_CUSTOMER,
+	BOOKING_PAGO,
+	BOOKING_CUSTOMER_FULLNAME,
+	BOOKING_CUSTOMER_PHONE,
+	BOOKING_ADD_TO_CART,
+	BOOKING_REMOVE_FROM_CART,
+	BOOKING_SET_CART } = bookingSlice.actions;

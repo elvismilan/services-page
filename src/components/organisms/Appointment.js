@@ -8,6 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { useCreateBookingScreen } from "./../../hooks/useCreateBookingScreen";
 import { useDispatch, useSelector } from 'react-redux';
+import { addDays, format } from 'date-fns';
+import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET } from '../../store';
 
 //import es from 'date-fns/locale/es';
 //registerLocale( 'es', es );
@@ -37,7 +39,7 @@ export const Appointment = () => {
 		discount,
 		paymentMethods,
 		// selectedValue,
-		// onValueCh,
+	  onValueCh,
 		addresses,
 		setDialogVisible,
 		onSubmit,
@@ -45,17 +47,40 @@ export const Appointment = () => {
 		setValueFact,
 		// handleValueFact,
   } = useCreateBookingScreen();
+
   const [formValues, setFormValues] = useState({
     name: 'frank Callapa',
     telefono: '',
-    start: new Date(),
+    start: addDays(new Date(),1), //new Date(),
+    empleado: '',
+    descuento: '',
+    metodopago: ''
   })
-
   const onInputChanged = ({target}) => {
     setFormValues({
       ...formValues,
       [target.name]: target.value
     })
+    if(target.name === "metodopago"){
+      const paymentMethod= target.value;
+      dispatch( BOOKING_PAGO({paymentMethod}) );
+    }
+    if(target.name === "name"){
+      const fullName= target.value;
+      dispatch( BOOKING_CUSTOMER_FULLNAME({fullName}) );
+    }
+   if(target.name === "telefono"){
+      const phone= target.value;
+      dispatch( BOOKING_CUSTOMER_PHONE({phone}) );
+    }
+
+   if(target.name === "direccion"){
+
+    const a =!!target.value?JSON.parse(target.value):''
+    onValueCh(a);
+
+   }
+
   }
 
   const onDateChange = (event) => {
@@ -64,13 +89,23 @@ export const Appointment = () => {
       ['start']: event
     })
 
+    //TODO: guardar fecha
+     const result = format(event, "yyyy-MM-dd'T'HH:mm:ssxxx")
+     dispatch( BOOKING_SET({
+      bookingDate:result
+     }) )
+
   }
+
 
   const navigate = useNavigate();
   // const onSubmit = ( event ) => {
   //   event.preventDefault();
   //   console.log('Enviar formulario');
-  //   navigate('/gracias');
+
+  //   console.log(formValues);
+
+  //   //navigate('/gracias');
   // }
 
   return (
@@ -110,6 +145,7 @@ export const Appointment = () => {
       <div className="mb-3 sm:mb-6">
         <div className=' flex justify-end flex-row-reverse sm:w-2/3 rounded-2xl border-solid border-2 border-primary mb-3 sm:mb-0 ' >
         <DatePicker
+          minDate={ formValues.start }
           selected={ formValues.start }
           onChange={ (event) => onDateChange(event) }
           dateFormat="Pp"
@@ -140,6 +176,8 @@ export const Appointment = () => {
           name="empleado"
           type="text"
           label="Empleado (opcional)"
+          value={ formValues.empleado }
+          onChange={ onInputChanged }
         />
       </div>
     </div>
@@ -149,17 +187,32 @@ export const Appointment = () => {
           name="descuento"
           type="text"
           label="Codigo de descuento"
+          value={ formValues.descuento }
+          onChange={ onInputChanged }
         />
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Input
+        {/* <Input
           name="metodo"
           type="text"
           label="Metodo de pago"
-        />
-
+        /> */}
+        <select
+          name='metodopago'
+          className='rounded-2xl border-solid border border-primary w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary'
+          value={ formValues.metodopago }
+          onChange={ onInputChanged }
+        >
+          <option value=""> Seleccionar ... </option>
+          {
+            paymentMethods.map( metodo => {
+              return <option key={metodo.value} value={ metodo.value } > { metodo.label }  </option>
+            } )
+          }
+          <option></option>
+        </select>
       </div>
     </div>
     <div className="col-span-full">
@@ -167,6 +220,23 @@ export const Appointment = () => {
         <h2 className='text-primary font-[600] ' >
         Direccion (seleccionar direccion)
         </h2>
+
+      </div>
+      <div className="mb-3 sm:mb-6">
+        <select
+          name='direccion'
+          className='rounded-2xl border-solid border border-primary w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary'
+          value={ formValues.direccion }
+          onChange={ onInputChanged }
+        >
+          <option value=""> Seleccionar ... </option>
+          {
+            addresses.map( metodo => {
+              return <option key={metodo.key} value={ JSON.stringify(metodo) } > { metodo.direction }  </option>
+            } )
+          }
+        </select>
+
       </div>
     </div>
     <div className="col-span-full">
@@ -186,9 +256,6 @@ export const Appointment = () => {
         />
       </div>
     </div>
-
-
-
 
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">

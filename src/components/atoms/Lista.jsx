@@ -5,7 +5,7 @@ import { setActiveModal, setActiveService } from '../../store/servicios';
 import { setActiveItem, updateItem } from '../../store';
 import useServiceCartRf from '../../hooks/useServiceCartRf';
 
-export const Lista = ({servicio,showallicon=false,cant=0,orden=''}) => {
+export const Lista = ({servicio,showallicon=false,quantity=0,orden=''}) => {
   // const [cantidad, setCantidad] = useState(cant);
   const { changeQuantity } = useServiceCartRf();
   const { _id,imageURL,unitPrice,name,description } = servicio;
@@ -15,7 +15,8 @@ export const Lista = ({servicio,showallicon=false,cant=0,orden=''}) => {
 
 
   const onAddCart = () => {
-    dispatch( setActiveService( { _id,imageURL,unitPrice,name,description } ) );
+    //dispatch( setActiveService( { _id,imageURL,unitPrice,name,description } ) );
+    dispatch( setActiveService( servicio ) );
     dispatch( setActiveModal() );
   }
 
@@ -76,14 +77,14 @@ export const Lista = ({servicio,showallicon=false,cant=0,orden=''}) => {
               <>
                 <span
                   onClick={ () =>{
-                    changeQuantity(orden, Number(orden.cant) - 1)
+                    changeQuantity(orden, Number(orden.quantity) - 1)
                   }
                     //onDecrement
                   }
                   className="especial plus-minus-button minus"></span>
-                <span className=" mr-1.5 ">{ orden.cant }</span>
+                <span className=" mr-1.5 ">{ orden.quantity }</span>
                 <span onClick={ () => {
-											changeQuantity(orden, Number(orden.cant) + 1)
+											changeQuantity(orden, Number(orden.quantity) + 1)
                   }
                   //onIncremet
                   }
