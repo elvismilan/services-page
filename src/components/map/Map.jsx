@@ -33,7 +33,9 @@ const Maps = ({ address="santa cruz, Bolivia, Av. cumavi", lat="-17.7917873", ln
         onPlaceSelected={(place) => {
           console.log(place);
         }}
-      />; */}
+      />;
+      https://visgl.github.io/react-google-maps/examples/geometry
+      */}
 
       <div className="google-map">
       <Map center={location} zoom={14}>
