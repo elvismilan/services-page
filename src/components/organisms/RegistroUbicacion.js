@@ -3,22 +3,8 @@ import Input from "../atoms/Input";
 import Button from "../atoms/Button";
 
 import { useNavigate } from 'react-router-dom';
-import Map from "../map/Map";
+import Maps from "../map/Map";
 import AutoComplete from "../map/Buscardor";
-
-
-
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-    <GoogleMap
-        defaultZoom={13}
-        center={props.center}
-        defaultCenter={{ lat: -34.397, lng: 150.644 }}
-    >
-      {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
-    </GoogleMap>
-))
-
 
 
 export const RegistroUbicacion = () => {
@@ -55,10 +41,15 @@ export const RegistroUbicacion = () => {
 
         <p className="bg-info">London, United Kingdom</p>
         <div className="map">
-          <Map address={ubication.direction}
-              lat={ ubication.coordinates.latitude }
-              lng={ ubication.coordinates.longitude }
-          />
+          {
+            (!!ubication.coordinates)?
+            <Maps address={ubication.direction}
+                lat={ ubication.coordinates.latitude }
+                lng={ ubication.coordinates.longitude }
+            />
+            : ''
+
+          }
         </div>
 
 
@@ -69,14 +60,6 @@ export const RegistroUbicacion = () => {
       <button onClick={() => setPosition({lat: 30, lng: 10})}>,
         Click me
       </button>
-      <MyMapComponent
-          isMarkerShown
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `100%` }} />}
-          center={position}
-          mapElement={<div style={{ height: `1000px`}} />}
-      />
 
 
     <div className="col-span-full">
