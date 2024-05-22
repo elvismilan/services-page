@@ -85,7 +85,7 @@ export const Navbar = ({onClick}) => {
         href = "/logout"
         onClick = {onLogout}
         decoration={<BiUser size="2rem" className="text-primary" />}>
-        Cerrar Seccion
+        Cerrar Sesión
       </Button>
     </div>
   </nav>

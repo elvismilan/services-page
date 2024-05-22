@@ -30,10 +30,14 @@ export const ServModal = ({_id, name,unitPrice,description,imageURL='',unitEstim
     dispatch(setNotActiveModal());
   }
   const onIncrement = () => {
+    const newvalor = cant + 1;
+    if(newvalor < 1) return;
     setCant(cant+1)
   }
   const onDecrement = () => {
-    setCant( cant-1 )
+    const newvalor = cant - 1;
+    if(newvalor < 1) return;
+   setCant( cant-1 )
   }
 
   const onCarrito = () => {
@@ -95,42 +99,12 @@ export const ServModal = ({_id, name,unitPrice,description,imageURL='',unitEstim
 
               <div className="mt-2 float-end">
                 <button type="button" className={`btn-icon  `} onClick={ onDecrement } >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0px"
-                    y="0px"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    border="0"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      fill="#ffffff"
-                      d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
-                    ></path>
-                  </svg>
-
+<svg xmlns="http://www.w3.org/2000/svg" width="0.8em" height="0.8em" viewBox="0 0 24 24"><path fill="currentColor" d="M18 11H6a2 2 0 0 0 0 4h12a2 2 0 0 0 0-4"/></svg>
                   <span className="sr-only">Icon description</span>
                 </button>
                 <span className={` mr-1.5  `}> { cant } </span>
                 <button type="button" className="btn-icon" onClick={ onIncrement } >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0px"
-                    y="0px"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    border="0"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      fill="#ffffff"
-                      d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
-                    ></path>
-                  </svg>
-
+<svg xmlns="http://www.w3.org/2000/svg" width="0.8em" height="0.8em" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13h-8v8h-2v-8H3v-2h8V3h2v8h8z"/></svg>
                   <span className="sr-only">Icon description</span>
                 </button>
               </div>

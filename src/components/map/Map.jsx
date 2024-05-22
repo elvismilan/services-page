@@ -11,7 +11,7 @@ import { APIProvider,Map,AdvancedMarker,Pin,InfoWindow,Marker } from "@vis.gl/re
 
 //import Autocomplete from "react-google-autocomplete";
 
-const Maps = ({ address="santa cruz, Bolivia, Av. cumavi", lat="-17.7917873", lng="-63.1355414" }) => {
+const Maps = ({ address="santa cruz, Bolivia, Av. cumavi", lat="-17.7917873", lng="-63.1355414", drag=true }) => {
 
   const [location, setLocation] = useState({address,lat,lng})
 
@@ -34,7 +34,7 @@ const Maps = ({ address="santa cruz, Bolivia, Av. cumavi", lat="-17.7917873", ln
         <Marker
           position={location}
           title={'clickable google.maps.Marker'}
-          draggable={true}
+          draggable={drag}
           onDrag={e =>
              setLocation({address:"hello",lat: e.latLng?.lat() ?? 0, lng: e.latLng?.lng() ?? 0})
           }

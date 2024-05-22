@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
 import TextArea from '../atoms/TextArea'
@@ -10,9 +10,7 @@ import { useCreateBookingScreen } from "./../../hooks/useCreateBookingScreen";
 import { useDispatch, useSelector } from 'react-redux';
 import { addDays, format } from 'date-fns';
 import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET } from '../../store';
-
-//import es from 'date-fns/locale/es';
-//registerLocale( 'es', es );
+import Maps from '../map/Map';
 
 export const Appointment = () => {
 
@@ -56,6 +54,25 @@ export const Appointment = () => {
     descuento: '',
     metodopago: ''
   })
+
+  useEffect(() => {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const first_name = user.first_name;
+    const last_name = user.last_name;
+    const phone = user.phone;
+    setFormValues({
+      name:first_name+' '+last_name,
+      telefono:phone,
+      empleado: '',
+      descuento: '',
+      metodopago: '',
+      start: addDays(new Date(),1), //new Date(),
+    })
+
+  }, [])
+
+
   const onInputChanged = ({target}) => {
     setFormValues({
       ...formValues,
@@ -75,10 +92,10 @@ export const Appointment = () => {
     }
 
    if(target.name === "direccion"){
-
     const a =!!target.value?JSON.parse(target.value):''
     onValueCh(a);
 
+    console.log(a);
    }
 
   }
@@ -97,16 +114,7 @@ export const Appointment = () => {
 
   }
 
-
   const navigate = useNavigate();
-  // const onSubmit = ( event ) => {
-  //   event.preventDefault();
-  //   console.log('Enviar formulario');
-
-  //   console.log(formValues);
-
-  //   //navigate('/gracias');
-  // }
 
   return (
     <>
@@ -154,23 +162,9 @@ export const Appointment = () => {
         />
 
         </div>
-        {/* <Input
-          name="fecha"
-          type="text"
-          label="Escoger Fecha"
-        /> */}
-      </div>
+     </div>
     </div>
-    {/* <div className="col-span-full">
-      <div className="mb-3 sm:mb-6">
-        <Input
-          name="horario"
-          type="text"
-          label="Escoger horario"
-        />
-      </div>
-    </div> */}
-    <div className="col-span-full">
+   <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Input
           name="empleado"
@@ -205,21 +199,20 @@ export const Appointment = () => {
           value={ formValues.metodopago }
           onChange={ onInputChanged }
         >
-          <option value=""> Seleccionar ... </option>
+          <option value=""> Metodo de Pago ... </option>
           {
             paymentMethods.map( metodo => {
               return <option key={metodo.value} value={ metodo.value } > { metodo.label }  </option>
             } )
           }
-          <option></option>
         </select>
       </div>
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6 text-left">
-        <h2 className='text-primary font-[600] ' >
+        {/* <h2 className='text-primary font-[600] ' >
         Direccion (seleccionar direccion)
-        </h2>
+        </h2> */}
 
       </div>
       <div className="mb-3 sm:mb-6">
@@ -242,7 +235,27 @@ export const Appointment = () => {
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
 
-              <img src='https://placehold.co/600x150' alt="" width="600" height="150" className="flex-none rounded-md bg-slate-100" />
+        <div className="map">
+          {
+            (!!booking.customer.address._id)
+            ? <Maps
+                address={booking.customer.address.street}
+                lat={ booking.customer.address.coordinates.latitude }
+                lng={ booking.customer.address.coordinates.longitude }
+                drag={false}
+              />
+
+            : ''
+            // (!!ubication.coordinates)?
+            // <Maps address={ubication.direction}
+            //     lat={ ubication.coordinates.latitude }
+            //     lng={ ubication.coordinates.longitude }
+            // />
+            // : ''
+
+          }
+        </div>
+
       </div>
     </div>
 
