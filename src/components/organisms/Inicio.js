@@ -35,9 +35,9 @@ export const Service = () => {
     console.log(newUserPos)
   };
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(getPosition, error, options);
-  }, []);
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(getPosition, error, options);
+  // }, []);
 
 
   const onServicioDomicilio = (event) => {

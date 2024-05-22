@@ -30,20 +30,6 @@ export const Cart = () => {
     >
       <List >
 
-         {/* <ul>
-          {
-            (services)?
-              services.map(
-                servicio =>{
-                  return <li key={servicio._id} >
-                    <Lista servicio={ servicio } showallicon={true} cant={ servicio.cant }  />
-                  </li>
-                }
-              )
-              : ''
-
-          }
-        </ul> */}
         <hr></hr>
          <ul>
           {

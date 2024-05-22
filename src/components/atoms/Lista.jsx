@@ -48,28 +48,38 @@ export const Lista = ({servicio,showallicon=false,quantity=0,orden=''}) => {
           <div className="mt-2 float-end align-center">
             {showallicon ? (
               <>
-                <span
-                  onClick={ () =>{
+                <button type="button" className={`btn-icon  `}
+                onClick={ () =>{
                     changeQuantity(orden, Number(orden.quantity) - 1)
+                    }
                   }
-                    //onDecrement
-                  }
-                  className="especial plus-minus-button minus"></span>
+
+                >
+<svg xmlns="http://www.w3.org/2000/svg" width="0.8em" height="0.8em" viewBox="0 0 24 24"><path fill="currentColor" d="M18 11H6a2 2 0 0 0 0 4h12a2 2 0 0 0 0-4"/></svg>
+                  <span className="sr-only">Icon description</span>
+                </button>
                 <span className=" mr-1.5 ">{ orden.quantity }</span>
-                <span onClick={ () => {
+
+                <button type="button" className="btn-icon"
+                 onClick={ () => {
 											changeQuantity(orden, Number(orden.quantity) + 1)
                   }
-                  //onIncremet
-                  }
-                  className=" especial plus-minus-button plus "></span>
+                }
+                >
+<svg xmlns="http://www.w3.org/2000/svg" width="0.8em" height="0.8em" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13h-8v8h-2v-8H3v-2h8V3h2v8h8z"/></svg>
+                  <span className="sr-only">Icon description</span>
+                </button>
+
               </>
             ) : (
-              <span
-                onClick={
+                <button type="button" className="btn-icon"
+                 onClick={
                   onAddCart
                 }
-                className={` especial plus-minus-button plus   `}
-              ></span>
+                >
+<svg xmlns="http://www.w3.org/2000/svg" width="0.8em" height="0.8em" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13h-8v8h-2v-8H3v-2h8V3h2v8h8z"/></svg>
+                  <span className="sr-only">Icon description</span>
+                </button>
             )}
           </div>
         </div>
