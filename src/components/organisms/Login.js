@@ -9,6 +9,7 @@ import Button from "../atoms/Button";
 import Logo from "../atoms/Logo";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
+import { startListServicios } from "../../store";
 
 const formData = {
   email: '',
@@ -42,6 +43,7 @@ export const Login = () => {
     event.preventDefault();
     setFormSubmitedd(true);
 
+    dispatch( startListServicios() );
     dispatch(startLoginWithEmailPassword({email,password,role},onServicios));
 
   }

@@ -19,21 +19,21 @@ export const Service = () => {
       maximumAge: 0,
   };
 
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-    if (err.code == 1) {
-      Swal.fire('Acepte los permisos de ubicacion.',error,'error')
-    }
-  }
+  // function error(err) {
+  //   console.warn(`ERROR(${err.code}): ${err.message}`);
+  //   if (err.code == 1) {
+  //     Swal.fire('Acepte los permisos de ubicacion.',error,'error')
+  //   }
+  // }
 
-  const getPosition = (data) => {
-    const newUserPos = {
-          lat: data.coords.latitude,
-          long: data.coords.longitude,
-    };
-    setUserPos(newUserPos)
-    console.log(newUserPos)
-  };
+  // const getPosition = (data) => {
+  //   const newUserPos = {
+  //         lat: data.coords.latitude,
+  //         long: data.coords.longitude,
+  //   };
+  //   setUserPos(newUserPos)
+  //   console.log(newUserPos)
+  // };
 
   // useEffect(() => {
   //   navigator.geolocation.getCurrentPosition(getPosition, error, options);
@@ -43,6 +43,11 @@ export const Service = () => {
   const onServicioDomicilio = (event) => {
     event.preventDefault();
     status === 'authenticated' ? navigate('/servicios'):navigate('login')
+  }
+
+  const onServicioLocal = (event) => {
+    event.preventDefault();
+    status === 'authenticated' ? navigate('/sucursales'):navigate('login')
   }
 
   return (
@@ -66,7 +71,8 @@ export const Service = () => {
           <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
-            href = "/sucursales"
+            href = "/login"
+            onClick={ onServicioLocal }
             //onClick={() => gotToNewPage('L')}
             className="sm:h-[80px] lg-text-[26px] bordered">
             Servicio en el local
