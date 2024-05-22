@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/auth";
 import { useEffect, useState } from "react";
 import { startListServicios } from "../store/servicios";
-import { setDesactiveLoading, setItems } from "../store/carrito/carritoSlice";
 import { BOOKING_SET_CART } from "../store";
 
 
@@ -42,6 +41,8 @@ export const useCheckAuthToken = () => {
        return ;
      }
 
+     dispatch( startListServicios() );
+
      const user = JSON.parse(localStorage.getItem("user"));
      const email =user.email;
      const first_name = user.first_name;
@@ -54,8 +55,6 @@ export const useCheckAuthToken = () => {
       photoURL: "",
     };
     dispatch(login(formData));
-    dispatch( startListServicios() );
-    dispatch( setDesactiveLoading() );
   }, []);
 
 
