@@ -19,13 +19,14 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-export const ServModal = ({_id, name,unitPrice,description,imageURL='',isOpen=false }) => {
+export const ServModal = ({_id, name,unitPrice,description,imageURL='',unitEstimatedWorkMinutes,isOpen=false }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [cant, setCant] = useState(0);
+  const [cant, setCant] = useState(1);
   const onCloseModal = () => {
+    setCant(1);
     dispatch(setNotActiveModal());
   }
   const onIncrement = () => {
@@ -38,15 +39,19 @@ export const ServModal = ({_id, name,unitPrice,description,imageURL='',isOpen=fa
   const onCarrito = () => {
     console.log('agregar al carrito');
     //dispatch( addNewItem( { _id,name,unitPrice,description,imageURL,cant } ) );
-    //TODO; el servicio tiene un estimadoprecioxmin
-    const precio=cant*unitPrice;
-    const estimatedWorkMinutes=60;
-    const serv= { _id,name,unitPrice,description,imageURL};
+		if (cant < 1) {
+      return setCant(1) ;
+		}
+
+    const price=cant*unitPrice;
+    const quantity=cant;
+    const estimatedWorkMinutes=cant*unitEstimatedWorkMinutes;
+    const serv= { _id,name,unitPrice,description,imageURL,unitEstimatedWorkMinutes};
     dispatch( BOOKING_ADD_TO_CART(
       {
-        cant,
+        quantity,
         service:serv,
-        precio,
+        price,
         estimatedWorkMinutes
       }
 

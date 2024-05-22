@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigation } from 'react-router-dom'
+import { useNavigate, useNavigation } from 'react-router-dom'
 import _fetch from './../wrappers/_fetch'
 import { startCreateBooking } from '../store/booking/thunks'
+import Swal from "sweetalert2";
+import { BOOKING_SET_ADDRESS, BOOKING_SET_CUSTOMER } from '../store'
 
 export const useCreateBookingScreen = () => {
 
@@ -84,18 +86,23 @@ export const useCreateBookingScreen = () => {
 	}
 
 
-	const onSubmit = () => {
+	const onSubmit = (event) => {
+
+     event.preventDefault();
 		if (
 			!booking.bookingDate ||
-			!hour ||
 			!booking.paymentInfo.paymentMethod ||
-			(!booking.isInBranch && !booking.customer.address._id) ||
+			// (!booking.isInBranch && !booking.customer.address._id) ||
 			booking.serviceCart.length === 0
 		) {
-			setDialogVisible(true)
+			// setDialogVisible(true)
+      Swal.fire({
+				icon:"error",
+				title:"Error",
+				text:"Por favor rellena los espacios obligatorios"
+			})
 			return
 		}
-		setDialogVisible(false)
 		dispatch(
       startCreateBooking(
 				{
@@ -122,7 +129,7 @@ export const useCreateBookingScreen = () => {
 					},
 					notes: booking?.billingInfo?.notes || '',
 				},
-				//navigation
+				onConfirmation
 			)
 		)
 	}
@@ -182,6 +189,30 @@ export const useCreateBookingScreen = () => {
 		booking.customer.address._id,
 	])
 
+	useEffect(() => {
+		//getAvailability()
+		getAddresses()
+	}, [])
+
+	const onValueCh = (value) => {
+		if (!value) {
+			return {}
+		}
+		dispatch(
+			BOOKING_SET_CUSTOMER({
+				customer: {
+					...booking.customer,
+					address: value,
+				},
+			})
+
+		)
+	}
+
+  const navigate = useNavigate();
+	const onConfirmation = () => {
+    navigate('/gracias')
+  }
 
 
 	return {
@@ -201,7 +232,7 @@ export const useCreateBookingScreen = () => {
 		discount,
 		paymentMethods,
 		// selectedValue,
-		// onValueCh,
+		onValueCh,
 		addresses,
 		setDialogVisible,
 		onSubmit,

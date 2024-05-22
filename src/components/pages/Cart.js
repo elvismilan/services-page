@@ -51,7 +51,7 @@ export const Cart = () => {
               l_services.map(
                 servicio =>{
                   return <li key={servicio.service._id} >
-                    <Lista orden={servicio} servicio={ servicio.service } showallicon={true} cant={ servicio.cant }  />
+                    <Lista orden={servicio} servicio={ servicio.service } showallicon={true} quantity={ servicio.quantity }  />
                   </li>
                 }
               )

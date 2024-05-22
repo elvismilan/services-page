@@ -5,17 +5,16 @@ const useServiceCartRf = () => {
 	const dispatch = useDispatch()
 
 	const changeQuantity = (serviceOrder, qty) => {
+		console.log(serviceOrder);
 		const serviceO= {
 			...serviceOrder,
-			cant:qty
+			quantity:qty
 		}
-		// serviceO.cant = qty
 		if (qty < 1) {
       return dispatch(BOOKING_REMOVE_FROM_CART(serviceO.service._id));
 		}
-		serviceO.precio = qty * serviceO.service.unitPrice
-    //TODO: estimatesworkMinutes
-		serviceO.estimatedWorkMinutes = qty * 60
+		serviceO.price = qty * serviceO.service.unitPrice
+		serviceO.estimatedWorkMinutes = qty * serviceO.service.unitEstimatedWorkMinutes
 
     dispatch( BOOKING_ADD_TO_CART(serviceO) );
 	}
