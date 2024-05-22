@@ -210,9 +210,9 @@ export const Appointment = () => {
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6 text-left">
-        {/* <h2 className='text-primary font-[600] ' >
+        <h2 className='text-primary font-[600] ' >
         Direccion (seleccionar direccion)
-        </h2> */}
+        </h2>
 
       </div>
       <div className="mb-3 sm:mb-6">
