@@ -71,7 +71,8 @@ export const Service = () => {
           <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
-            href = "/sucursales"
+            href = "/login"
+            onClick={ onServicioLocal }
             //onClick={() => gotToNewPage('L')}
             className="sm:h-[80px] lg-text-[26px] bordered">
             Servicio en el local
