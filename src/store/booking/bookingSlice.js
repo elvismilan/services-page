@@ -51,7 +51,13 @@ export const bookingSlice = createSlice({
     selected: EMPTY_BOOKING,
   },
   reducers: {
-		BOOKING_CREATE_REQUEST:(state ) => {
+		BOOKING_ISINBRANCH:(state) => {
+			state.selected.isInBranch = true;
+		},
+		BOOKING_NOTISINBRANCH:(state) => {
+			state.selected.isInBranch = false;
+		},
+	BOOKING_CREATE_REQUEST:(state ) => {
 			state.loading = true;
 			state.error = null;
 		},
@@ -142,6 +148,8 @@ export const bookingSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+	BOOKING_ISINBRANCH,
+	BOOKING_NOTISINBRANCH,
 	BOOKING_CREATE_REQUEST,
 	BOOKING_GET_BY_CUSTOMER_REQUEST,
 	BOOKING_CLEAR,

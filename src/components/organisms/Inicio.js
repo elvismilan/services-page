@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../atoms/Button";
 import Swal from "sweetalert2";
+import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH } from "../../store";
 
 export const Service = () => {
 
   const {status} = useSelector( state => state.auth );
   const {selected} = useSelector( state => state.booking );
   const navigate = useNavigate();
+  const dispatch= useDispatch();
 
   const [userPos, setUserPos] = useState({lat: null, long: null})
 
@@ -42,11 +44,13 @@ export const Service = () => {
 
   const onServicioDomicilio = (event) => {
     event.preventDefault();
+    dispatch( BOOKING_NOTISINBRANCH() );
     status === 'authenticated' ? navigate('/servicios'):navigate('login')
   }
 
   const onServicioLocal = (event) => {
     event.preventDefault();
+    dispatch( BOOKING_ISINBRANCH() );
     status === 'authenticated' ? navigate('/sucursales'):navigate('login')
   }
 

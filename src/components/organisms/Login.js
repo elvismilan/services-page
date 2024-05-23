@@ -21,6 +21,7 @@ export const Login = () => {
 
   const [formSubmitedd, setFormSubmitedd] = useState(false)
   const { error } = useSelector( state => state.auth );
+  const {selected} = useSelector( state => state.booking );
 
   useEffect(() => {
     if( error !== null && formSubmitedd ){
@@ -36,7 +37,13 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const onServicios = () => {
+    if(selected.isInBranch){
+
+    navigate('/sucursales')
+    }else{
+
     navigate('/servicios')
+    }
   }
 
   const onSubmit = (event) => {
@@ -45,7 +52,6 @@ export const Login = () => {
 
     dispatch( startListServicios() );
     dispatch(startLoginWithEmailPassword({email,password,role},onServicios));
-
   }
 
 
