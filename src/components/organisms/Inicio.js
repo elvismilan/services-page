@@ -51,7 +51,7 @@ export const Service = () => {
   const onServicioLocal = (event) => {
     event.preventDefault();
     dispatch( BOOKING_ISINBRANCH() );
-    status === 'authenticated' ? navigate('/sucursales'):navigate('login')
+    status === 'authenticated' ? navigate('/proveedores'):navigate('login')
   }
 
   return (

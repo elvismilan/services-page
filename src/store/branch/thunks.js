@@ -7,7 +7,6 @@ export const startListSucursales = (filter = {}) => {
     const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
     if (!idProveedor) throw new Error("El ID del proveedor no existe");
     const {data} = await branchApi(filter);
-
 		let error = data.error;
 
     if( error  ) {

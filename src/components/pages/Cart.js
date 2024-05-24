@@ -12,12 +12,18 @@ export const Cart = () => {
   const navigate = useNavigate();
   const { services } = useSelector( state => state.carrito );
   const { selected } = useSelector( state => state.booking );
+  const isInBranch = useSelector( state => state.booking.selected.isInBranch );
   const l_services = selected.serviceCart;
   // const servicios =[
   //   { id: 1, titulo: 'Servicio 1', precio: '80', image: 'https://placehold.co/200x200'} ]
 
   const onServicio = () => {
-    navigate('/servicios');
+    if(!!isInBranch){
+navigate('/empresa')
+    }
+    else{
+navigate('/servicios')
+    }
   }
 
   return (

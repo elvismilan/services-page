@@ -15,7 +15,7 @@ import { Empresa } from "./components/pages/Empresa";
 import { SucursalesPage } from "./components/pages/SucursalesPage";
 import { ConfirmacionPage } from "./components/pages/ConfirmacionPage";
 import { useCheckAuthToken } from "./hooks/useCheckAuthToken";
-
+import { ProveedoresPage } from "./components/pages/ProveedoresPage";
 
 function App() {
 
@@ -23,11 +23,6 @@ function App() {
   const { services,isLoading} = useSelector( state => state.carrito );
   const { selected } = useSelector( state => state.booking );
   const serviceCart = selected.serviceCart
-
-  // useEffect(() => {
-  //   localStorage.setItem('carrito', JSON.stringify(selected.serviceCart)  );
-  // }, [selected])
-
 
   return (
     <BrowserRouter>
@@ -42,6 +37,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/carrito" element={<Cart />} />
         <Route path="/empresa" element={<Empresa />} />
+        <Route path="/proveedores" element={<ProveedoresPage />} />
         <Route path="/sucursales" element={<SucursalesPage />} />
         <Route path="/confirmacion" element={<ConfirmacionPage />} />
       </Routes>

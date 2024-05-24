@@ -56,10 +56,7 @@ export const proveedorSlice = createSlice({
       }
     },
     provider_set:(state,{payload}) => {
-      state.selected= {
-        ...state.selected,
-        ...payload.object
-      }
+      state.selected = payload
     }
 
   }

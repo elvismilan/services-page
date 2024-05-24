@@ -140,6 +140,9 @@ export const bookingSlice = createSlice({
 
 			//TODO: updateTotalEstimadoWorkMinutes and paymentInfo
 
+		},
+		BOOKING_SET_BRANCH:(state,{payload}) => {
+			state.selected.branch=payload
 		}
 
   }
@@ -160,4 +163,5 @@ export const {
 	BOOKING_CUSTOMER_PHONE,
 	BOOKING_ADD_TO_CART,
 	BOOKING_REMOVE_FROM_CART,
-	BOOKING_SET_CART } = bookingSlice.actions;
+	BOOKING_SET_CART,
+	BOOKING_SET_BRANCH } = bookingSlice.actions;
