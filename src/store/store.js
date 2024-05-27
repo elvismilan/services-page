@@ -4,6 +4,8 @@ import { serviciosSlice } from './servicios';
 import { carritoSlice } from './carrito';
 import { proveedorSlice } from './proveedor';
 import { bookingSlice } from './booking';
+import { branchSlice } from './branch/branchSlice';
+import { categorySlice } from './category';
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +14,7 @@ export const store = configureStore({
     carrito: carritoSlice.reducer ,
     proveedor: proveedorSlice.reducer,
     booking: bookingSlice.reducer,
+    branch : branchSlice.reducer,
+    category: categorySlice.reducer,
   },
 })

@@ -51,7 +51,13 @@ export const bookingSlice = createSlice({
     selected: EMPTY_BOOKING,
   },
   reducers: {
-		BOOKING_CREATE_REQUEST:(state ) => {
+		BOOKING_ISINBRANCH:(state) => {
+			state.selected.isInBranch = true;
+		},
+		BOOKING_NOTISINBRANCH:(state) => {
+			state.selected.isInBranch = false;
+		},
+	BOOKING_CREATE_REQUEST:(state ) => {
 			state.loading = true;
 			state.error = null;
 		},
@@ -134,6 +140,9 @@ export const bookingSlice = createSlice({
 
 			//TODO: updateTotalEstimadoWorkMinutes and paymentInfo
 
+		},
+		BOOKING_SET_BRANCH:(state,{payload}) => {
+			state.selected.branch=payload
 		}
 
   }
@@ -142,6 +151,8 @@ export const bookingSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+	BOOKING_ISINBRANCH,
+	BOOKING_NOTISINBRANCH,
 	BOOKING_CREATE_REQUEST,
 	BOOKING_GET_BY_CUSTOMER_REQUEST,
 	BOOKING_CLEAR,
@@ -152,4 +163,5 @@ export const {
 	BOOKING_CUSTOMER_PHONE,
 	BOOKING_ADD_TO_CART,
 	BOOKING_REMOVE_FROM_CART,
-	BOOKING_SET_CART } = bookingSlice.actions;
+	BOOKING_SET_CART,
+	BOOKING_SET_BRANCH } = bookingSlice.actions;

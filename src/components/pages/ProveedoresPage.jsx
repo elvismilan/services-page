@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { startListSucursales } from '../../store/branch';
 import { useEffect, useState } from 'react';
 import { startListProveedores } from '../../store';
+import { ProveedoresItem } from '../atoms/ProveedoresItem';
 
-export const SucursalesPage = () => {
+export const ProveedoresPage = () => {
 
   const {selected} = useSelector( state => state.booking );
   const branches = useSelector( state => state.branch.item );
@@ -22,19 +23,26 @@ export const SucursalesPage = () => {
 
   const dispatch = useDispatch();
 
-  const defaultItems = [
-      { id: 1,  empresa: 'Negocio 1', puntaje: '4.5', latitud: '100', longitud: '200' , logo: 'https://placehold.co/600x600', tipo: 'D',
-        categoria: ['uñas'],
-      },
-      { id: 2,  empresa: 'Negocio 2', puntaje: '4.5', latitud: '100', longitud: '200' , logo: 'https://placehold.co/600x600', tipo: 'D',
-        categoria: ['uñas'],
-      },
-      { id: 3,  empresa: 'Negocio 3', puntaje: '4.5', latitud: '100', longitud: '200' , logo: 'https://placehold.co/600x600', tipo: 'D',
-        categoria: ['uñas'],
-      }
-  ];
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch( startListSucursales() );
+    dispatch( startListProveedores() );
+		setFiltered(providers)
+  }, [])
+
+  useEffect(() => {
+    let filtered = filteredByBranchAvailability(providers);
+		setFiltered(filtered)
+  }, [providers])
+
+
+  const filteredByBranchAvailability = (providers) =>selected.isInBranch?
+    providers.filter((provider) => {
+      return branches.filter(branch => branch.providerId === provider._id).length > 0
+    })
+    : providers
+
 
   const onLogin = (  ) => {
     navigate('/login');
@@ -46,8 +54,8 @@ export const SucursalesPage = () => {
         <List>
           <Button  className="btn-auto font-normal mb-5" disabled={true} > Sucursales </Button>
           <ul>
-            { branches.map((item) => (
-              <SucursalesItem key={item.id} {...item}  />
+            { filtered.map((item) => (
+              <ProveedoresItem key={item.id} {...item}  />
            ))}
           </ul>
         </List>

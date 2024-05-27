@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/auth";
 import { useEffect, useState } from "react";
 import { startListServicios } from "../store/servicios";
-import { BOOKING_SET_CART } from "../store";
+import { BOOKING_SET_CART, startListCategoria } from "../store";
 
 
 export const useCheckAuthToken = () => {
@@ -29,6 +29,7 @@ export const useCheckAuthToken = () => {
   }, [items,selected]);
 
   useEffect(() => {
+    dispatch( startListCategoria() )
     const items = JSON.parse(localStorage.getItem('carrito'));
     // console.log(items);
     if (items) {
