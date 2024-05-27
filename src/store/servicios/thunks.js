@@ -12,6 +12,15 @@ export const startListServicios = () => {
     dispatch(setServices(services.data));
   };
 };
+export const startListServiciosbyProvider = (idProveedor) => {
+  return async (dispatch) => {
+    if (!idProveedor) throw new Error("El ID del proveedor no existe");
+
+    const services = await servicesApi(idProveedor);
+    dispatch(setServices(services.data));
+  };
+};
+
 
 export const startAddService = ({ _id,imageURL,unitPrice,name,description }) => {
 
