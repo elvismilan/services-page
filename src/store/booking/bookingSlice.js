@@ -51,6 +51,9 @@ export const bookingSlice = createSlice({
     selected: EMPTY_BOOKING,
   },
   reducers: {
+		BOOKING_SET_PROVIDER:(state,{payload}) => {
+			state.selected.provider=payload;
+		},
 		BOOKING_ISINBRANCH:(state) => {
 			state.selected.isInBranch = true;
 		},
@@ -151,6 +154,7 @@ export const bookingSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+	BOOKING_SET_PROVIDER,
 	BOOKING_ISINBRANCH,
 	BOOKING_NOTISINBRANCH,
 	BOOKING_CREATE_REQUEST,

@@ -1,12 +1,28 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BOOKING_SET_BRANCH } from "../../store";
 import { useNavigate } from "react-router-dom";
+import { DistanceDisplay } from "../../api/DistanceDisplay";
+import { useEffect, useState } from "react";
 
 export const SucursalesItem = (item) => {
 
+  const booking = useSelector((state) => state.booking.selected);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [ubicacion, setUbicacion] = useState({});
+
+  useEffect(() => {
+
+     const position = {
+      'latitude': JSON.parse(localStorage.getItem('latitude')),
+      'longitude': JSON.parse(localStorage.getItem('longitude'))
+     }
+     setUbicacion(position)
+  }, [])
+
+
 
   const { id,addressInfo,name } = item;
 
@@ -33,7 +49,12 @@ export const SucursalesItem = (item) => {
           </article>
           <div className="flex flex-col justify-end align-end ">
             <div className="text-right">  </div>
-            <div className="text-primary text-right"> Direccion 2 km </div>
+            <div className="text-primary text-right">
+               <DistanceDisplay
+                   origin={ubicacion}
+                   destination={addressInfo.coordinates}
+               />
+            </div>
           </div>
         </div>
       </li>

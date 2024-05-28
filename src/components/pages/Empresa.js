@@ -8,42 +8,64 @@ import { useDispatch, useSelector } from "react-redux";
 import Maps from "../map/Map";
 import { ServModal } from "../ServModal";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { startListServiciosbyProvider } from "../../store";
+import { DistanceDisplay } from "../../api/DistanceDisplay";
 
-export const Empresa = () => {
+export const Empresa = (props) => {
 
   const { isOpenModal,active } = useSelector( state => state.servicios );
-//  const servicios = [
-//    {
-//      id: 1,
-//      titulo: "Servicio 1",
-//      precio: "80",
-//      image: "https://placehold.co/200x200",
-//    },
-//    {
-//      id: 2,
-//      empresa: "Servicio 2",
-//      precio: "145",
-//      image: "https://placehold.co/200x200",
-//   },
-//     {
-//      id: 2,
-//      empresa: "Servicio 2",
-//      precio: "145",
-//      image: "https://placehold.co/200x200",
-//    },
-//  ];
 
   const services = useSelector((state) => state.servicios.services);
   const state = useSelector((state) => state);
   const booking = useSelector((state) => state.booking.selected);
   const provider = useSelector((state) => state.proveedor.selected);
   //const service = useSelector((state) => state.servicios.selected);
+  const [groupedServices, setGroupedServices] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [ubicacion, setUbicacion] = useState({});
+
+  useEffect(() => {
+
+    dispatch(startListServiciosbyProvider(booking.provider._id));
+
+    const position = {
+      'latitude': JSON.parse(localStorage.getItem('latitude')),
+      'longitude': JSON.parse(localStorage.getItem('longitude'))
+     }
+     setUbicacion(position)
+
+  }, []);
+
+  // useEffect(() => {
+
+  //   setGroupedServices(groupServicesBySubCategory());
+  // }, [services])
+
 
   const servicesAvailableByBranch = (services) => {
     return services.filter((service) =>
       booking.isInBranch ? booking.branch.services.includes(service._id) : true
+    );
+  };
+
+  const groupServicesBySubCategory = () => {
+    return servicesAvailableByBranch(services).reduce(
+      (result, currentValue) => {
+        if (
+          Object.keys(result).length === 0 &&
+          props.route.params.subcategory &&
+          props.route.params.subcategory !== "Todos"
+        ) {
+          result[props.route.params.subcategory] = [];
+        }
+        (result[currentValue.subCategory.name] =
+          result[currentValue.subCategory.name] || []).push(currentValue);
+        return result;
+      },
+      {}
     );
   };
 
@@ -130,7 +152,11 @@ export const Empresa = () => {
                 <div className="text-right text-primary">
               {booking.customer.address.coordinates && (
                 <>
-                Distancia
+               <DistanceDisplay
+                   origin={ubicacion}
+                   destination={ booking.branch.addressInfo.coordinates}
+               />
+
                 </>
                 // <DistanceDisplay
                 //   origin={booking.customer.address.coordinates}

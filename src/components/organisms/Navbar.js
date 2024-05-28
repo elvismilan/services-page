@@ -48,6 +48,7 @@ export const Navbar = ({onClick}) => {
   const onLogout = ( event ) => {
     event.preventDefault();
     dispatch( startLogout());
+    navigate('/');
   }
 
 

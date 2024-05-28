@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { provider_set, startListSucursales } from "../../store";
+import { BOOKING_SET_PROVIDER, provider_set, startListSucursales } from "../../store";
 import { branch_getall_request } from "../../store/branch/branchSlice";
 
 export const ProveedoresItem = (item) => {
@@ -14,6 +14,7 @@ export const ProveedoresItem = (item) => {
 
   const onSelect = (item) => {
     dispatch( provider_set(item) );
+    dispatch( BOOKING_SET_PROVIDER(item) );
     if(selected?.isInBranch){
       dispatch( startListSucursales( {providerId:item._id} ) );
 
