@@ -10,6 +10,7 @@ import { ServModal } from "../ServModal";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { startListServiciosbyProvider } from "../../store";
+import { DistanceDisplay } from "../../api/DistanceDisplay";
 
 export const Empresa = (props) => {
 
@@ -23,9 +24,18 @@ export const Empresa = (props) => {
   const [groupedServices, setGroupedServices] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [ubicacion, setUbicacion] = useState({});
+
   useEffect(() => {
 
     dispatch(startListServiciosbyProvider(booking.provider._id));
+
+    const position = {
+      'latitude': JSON.parse(localStorage.getItem('latitude')),
+      'longitude': JSON.parse(localStorage.getItem('longitude'))
+     }
+     setUbicacion(position)
 
   }, []);
 
@@ -142,7 +152,11 @@ export const Empresa = (props) => {
                 <div className="text-right text-primary">
               {booking.customer.address.coordinates && (
                 <>
-                Distancia
+               <DistanceDisplay
+                   origin={ubicacion}
+                   destination={ booking.branch.addressInfo.coordinates}
+               />
+
                 </>
                 // <DistanceDisplay
                 //   origin={booking.customer.address.coordinates}
