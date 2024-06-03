@@ -83,7 +83,7 @@ export const ServModal = ({_id, name,unitPrice,description,imageURL='',unitEstim
                 {" "}
                 <strong>{name}</strong>{" "}
               </div>
-              <div className="text-slate-500">{ !!description?description.substring(0,50):''}</div>
+              <div className="text-slate-500">{ !!description?description.substring(0,50)+'...':''}</div>
               <div className="text-slate-500">
                 <span>Desde</span> <strong> Bs. {unitPrice} </strong>
               </div>
