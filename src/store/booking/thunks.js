@@ -40,3 +40,17 @@ export const startCreateBooking = (booking,onConfirmation) => {
     return true;
   }
 }
+
+export const startVerifyCoupon = (booking) => {
+  const{code,services} = booking
+  console.log(booking);
+  return async(dispatch) => {
+
+    dispatch(BOOKING_CREATE_REQUEST(booking));
+    // create(booking,'coupon/verify').then((response)=>{
+    //   console.log('verificar coupon');
+    //   console.log(response);
+    // });
+
+  }
+}

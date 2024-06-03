@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+
+import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET, BOOKING_SET_COUPON } from '../../store';
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
 import TextArea from '../atoms/TextArea'
 import DatePicker from "react-datepicker";
-import { useNavigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 
-import { useCreateBookingScreen } from "./../../hooks/useCreateBookingScreen";
-import { useDispatch, useSelector } from 'react-redux';
+import { useCreateBookingScreen } from "./../../hooks";
 import { addDays, format } from 'date-fns';
-import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET } from '../../store';
 import Maps from '../map/Map';
 
 export const Appointment = () => {
@@ -78,6 +79,10 @@ export const Appointment = () => {
       ...formValues,
       [target.name]: target.value
     })
+     if(target.name === "descuento"){
+      const descuento= target.value;
+      dispatch( BOOKING_SET_COUPON(descuento) );
+    }
     if(target.name === "metodopago"){
       const paymentMethod= target.value;
       dispatch( BOOKING_PAGO({paymentMethod}) );
@@ -92,10 +97,8 @@ export const Appointment = () => {
     }
 
    if(target.name === "direccion"){
-    const a =!!target.value?JSON.parse(target.value):''
+    const a =!!target.value?JSON.parse(target.value):'';
     onValueCh(a);
-
-    console.log(a);
    }
 
   }

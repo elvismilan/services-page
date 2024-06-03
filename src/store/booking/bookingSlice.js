@@ -51,6 +51,9 @@ export const bookingSlice = createSlice({
     selected: EMPTY_BOOKING,
   },
   reducers: {
+		BOOKING_SET_COUPON:(state,{payload}) => {
+			state.selected.coupon=payload
+		},
 		BOOKING_SET_PROVIDER:(state,{payload}) => {
 			state.selected.provider=payload;
 		},
@@ -154,6 +157,7 @@ export const bookingSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+	BOOKING_SET_COUPON,
 	BOOKING_SET_PROVIDER,
 	BOOKING_ISINBRANCH,
 	BOOKING_NOTISINBRANCH,

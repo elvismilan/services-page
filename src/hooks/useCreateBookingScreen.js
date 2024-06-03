@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useNavigation } from 'react-router-dom'
 import _fetch from './../wrappers/_fetch'
-import { startCreateBooking } from '../store/booking/thunks'
+import { startCreateBooking, startVerifyCoupon } from '../store/booking/thunks'
 import Swal from "sweetalert2";
 import { BOOKING_SET_ADDRESS, BOOKING_SET_CUSTOMER } from '../store'
 
@@ -85,10 +85,24 @@ export const useCreateBookingScreen = () => {
 		setAddresses(addressesPicker)
 	}
 
+	const onVerifyCoupon = () => {
+		const servicesIds = booking.serviceCart?.map((e) => e.service?._id)
+		console.log(servicesIds);
+		 dispatch(
+			startVerifyCoupon({
+				code: booking.coupon,
+				services: servicesIds,
+			})
+		 )
+		//getDiscount(booking?.couponData.coupon)
+	}
 
 	const onSubmit = (event) => {
 
      event.preventDefault();
+
+		onVerifyCoupon();
+		return ;
 		if (
 			!booking.bookingDate ||
 			!booking.paymentInfo.paymentMethod ||
