@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +21,8 @@ export const Appointment = () => {
 	const provider = useSelector((state) => state.proveedor.selected)
 	const dispatch = useDispatch()
 
+
+  const isCheckingCouponBtn =  useMemo( () => !!booking.coupon ,[booking.coupon] );
   const {
 		// showCalendarModal,
 		// closeModal,
@@ -45,6 +47,7 @@ export const Appointment = () => {
 		valueFact,
 		setValueFact,
 		// handleValueFact,
+    onVerifyCoupon
   } = useCreateBookingScreen();
 
   const [formValues, setFormValues] = useState({
@@ -179,15 +182,30 @@ export const Appointment = () => {
       </div>
     </div>
     <div className="col-span-full">
+
       <div className="mb-3 sm:mb-6">
-        <Input
-          name="descuento"
-          type="text"
-          label="Codigo de descuento"
-          value={ formValues.descuento }
-          onChange={ onInputChanged }
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+                <Input
+                  name="descuento"
+                  type="text"
+                  label="Codigo de descuento"
+                  value={ formValues.descuento }
+                  onChange={ onInputChanged }
+                />
+          </div>
+          <div>
+                <Button
+                  disabled={ !isCheckingCouponBtn }
+                  onClick={ onVerifyCoupon }
+                  className="sm:h-[48px] !text-[14px]">
+                  Aplicar Cupon
+                </Button>
+
+          </div>
+        </div>
       </div>
+
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">

@@ -151,3 +151,9 @@ Span.especial {
    font-weight: bold;
    color: #fff;
  }
+
+
+
+ :disabled{
+  opacity:0.5
+ }

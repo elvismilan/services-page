@@ -9,38 +9,8 @@ import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH } from "../../store";
 export const Service = () => {
 
   const {status} = useSelector( state => state.auth );
-  const {selected} = useSelector( state => state.booking );
   const navigate = useNavigate();
   const dispatch= useDispatch();
-
-  const [userPos, setUserPos] = useState({lat: null, long: null})
-
-  var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-  };
-
-  // function error(err) {
-  //   console.warn(`ERROR(${err.code}): ${err.message}`);
-  //   if (err.code == 1) {
-  //     Swal.fire('Acepte los permisos de ubicacion.',error,'error')
-  //   }
-  // }
-
-  // const getPosition = (data) => {
-  //   const newUserPos = {
-  //         lat: data.coords.latitude,
-  //         long: data.coords.longitude,
-  //   };
-  //   setUserPos(newUserPos)
-  //   console.log(newUserPos)
-  // };
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(getPosition, error, options);
-  // }, []);
-
 
   const onServicioDomicilio = (event) => {
     event.preventDefault();
@@ -51,7 +21,7 @@ export const Service = () => {
   const onServicioLocal = (event) => {
     event.preventDefault();
     dispatch( BOOKING_ISINBRANCH() );
-    status === 'authenticated' ? navigate('/proveedores'):navigate('login')
+    status === 'authenticated' ? navigate('/sucursales'):navigate('login')
   }
 
   return (

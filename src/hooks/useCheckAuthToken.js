@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/auth";
 import { useEffect, useState } from "react";
 import { startListServicios } from "../store/servicios";
-import { BOOKING_SET_CART, startListCategoria } from "../store";
+import { BOOKING_SET_CART, provider_set, startListCategoria, startListProveedores } from "../store";
 
 
 
@@ -51,6 +51,9 @@ export const useCheckAuthToken = () => {
 
 
   const { status } = useSelector( state => state.auth );
+	const providerList = useSelector((state) => state.proveedor.item)
+	const providerSelect = useSelector((state) => state.proveedor.selected)
+
   const dispatch = useDispatch();
 
   // const initialCart = () => {
@@ -85,8 +88,7 @@ export const useCheckAuthToken = () => {
        return ;
      }
 
-     dispatch( startListServicios() );
-
+    dispatch( startListProveedores() );
      const user = JSON.parse(localStorage.getItem("user"));
      const email =user.email;
      const first_name = user.first_name;
@@ -100,6 +102,25 @@ export const useCheckAuthToken = () => {
     };
     dispatch(login(formData));
   }, []);
+
+  useEffect(() => {
+    console.log('provider loading...');
+  /* loading proveedores y servicios */
+
+      const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
+
+      const myProvider=providerList.filter((e) => e._id === idProveedor)[0]
+
+      dispatch( provider_set(myProvider));
+
+      dispatch( startListServicios(providerSelect) );
+
+
+
+  /* fin loading proveedores y servicios*/
+
+
+  }, [providerList])
 
 
   return {

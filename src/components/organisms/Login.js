@@ -39,7 +39,7 @@ export const Login = () => {
   const onServicios = () => {
     if(selected.isInBranch){
 
-    navigate('/proveedores')
+    navigate('/sucursales')
     }else{
 
     navigate('/servicios')

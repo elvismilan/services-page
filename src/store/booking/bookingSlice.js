@@ -51,6 +51,17 @@ export const bookingSlice = createSlice({
     selected: EMPTY_BOOKING,
   },
   reducers: {
+		BOOKING_COUPON_SUCCESS:(state,{payload}) => {
+				state.selected.coupon=payload;
+				state.selected.couponData=payload;
+				state.loading= false;
+				state.error= null;
+		},
+		BOOKING_COUPON_FAILURE:(state,{payload}) => {
+			state.loading=false;
+			state.error=payload;
+
+		},
 		BOOKING_SET_COUPON:(state,{payload}) => {
 			state.selected.coupon=payload
 		},
@@ -63,7 +74,7 @@ export const bookingSlice = createSlice({
 		BOOKING_NOTISINBRANCH:(state) => {
 			state.selected.isInBranch = false;
 		},
-	BOOKING_CREATE_REQUEST:(state ) => {
+		BOOKING_CREATE_REQUEST:(state ) => {
 			state.loading = true;
 			state.error = null;
 		},
@@ -157,6 +168,8 @@ export const bookingSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+	BOOKING_COUPON_SUCCESS,
+	BOOKING_COUPON_FAILURE,
 	BOOKING_SET_COUPON,
 	BOOKING_SET_PROVIDER,
 	BOOKING_ISINBRANCH,

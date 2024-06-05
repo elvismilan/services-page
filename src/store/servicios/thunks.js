@@ -2,14 +2,17 @@ import { useState } from "react";
 import { servicesApi } from "./helpers"
 import { setServices } from "./serviciosSlice";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
-export const startListServicios = () => {
+export const startListServicios = (idProveedor=null) => {
   return async (dispatch) => {
-    const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
-    if (!idProveedor) throw new Error("El ID del proveedor no existe");
 
-    const services = await servicesApi(idProveedor);
-    dispatch(setServices(services.data));
+    if (!!idProveedor){
+      const {_id}=idProveedor;
+      const services = await servicesApi(_id);
+      dispatch(setServices(services.data));
+    }
+
   };
 };
 export const startListServiciosbyProvider = (idProveedor) => {

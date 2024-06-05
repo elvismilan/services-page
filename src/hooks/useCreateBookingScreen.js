@@ -31,7 +31,6 @@ export const useCreateBookingScreen = () => {
 		{ label: 'Efectivo', value: 'Efectivo' },
 	])
 	const [hour, setHour] = useState(null)
-
 	const [maxAvailableAfterHours, setMaxAvailableAfterHours] = useState(24)
 
   const getAvailability = async () => {
@@ -85,7 +84,8 @@ export const useCreateBookingScreen = () => {
 		setAddresses(addressesPicker)
 	}
 
-	const onVerifyCoupon = () => {
+	const onVerifyCoupon = (event) => {
+		event.preventDefault();
 		const servicesIds = booking.serviceCart?.map((e) => e.service?._id)
 		console.log(servicesIds);
 		 dispatch(
@@ -94,15 +94,40 @@ export const useCreateBookingScreen = () => {
 				services: servicesIds,
 			})
 		 )
-		//getDiscount(booking?.couponData.coupon)
+		getDiscount(booking?.couponData.coupon)
 	}
+
+	const getDiscount = (coupon) => {
+		if (!coupon) {
+			return 0
+		}
+
+		let discount = 0
+
+		booking?.serviceCart?.forEach((service) => {
+			if (coupon?.validServices?.includes(service.service._id)) {
+				if (coupon.discountType === 'Porcentaje') {
+					discount += (coupon.discount / 100) * service.price
+					setDiscount(discount)
+				} else if (coupon.discountType === 'Monto') {
+					let discountAux = 0
+					discountAux += coupon.discount
+					setDiscount(discountAux)
+				}
+			}
+		})
+
+		return discount
+	}
+
+	useEffect(() => {
+		getDiscount(booking?.couponData?.coupon)
+	}, [booking.couponData])
 
 	const onSubmit = (event) => {
 
-     event.preventDefault();
+		event.preventDefault();
 
-		onVerifyCoupon();
-		return ;
 		if (
 			!booking.bookingDate ||
 			!booking.paymentInfo.paymentMethod ||
@@ -253,6 +278,7 @@ export const useCreateBookingScreen = () => {
 		valueFact,
 		setValueFact,
 		// handleValueFact,
+		onVerifyCoupon
 	}
 
 
