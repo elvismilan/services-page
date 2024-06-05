@@ -10,6 +10,7 @@ import Logo from "../atoms/Logo";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
 import { startListServicios } from "../../store";
+import { GoogleLogin } from '@react-oauth/google';
 
 const formData = {
   email: '',
@@ -56,7 +57,7 @@ export const Login = () => {
 
 
   return (
-
+<>
    <form className="text-center" method="POST" onSubmit={ onSubmit } >
     <Logo className="h-8 sm:h-14 mb-6 sm:mb-14 " />
     <div className="col-span-full">
@@ -119,6 +120,16 @@ export const Login = () => {
     </div>
   </form>
 
+<GoogleLogin
+  onSuccess={credentialResponse => {
+    console.log(credentialResponse);
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/>;
+
+</>
   )
 }
 

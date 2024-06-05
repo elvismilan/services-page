@@ -7,14 +7,17 @@ import { store } from './store';
 import './index.css';
 import App from './App';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
 //import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  <GoogleOAuthProvider clientId="837792396616-ppn9il5rmt7tj0sm8iaag41cl469ai0a.apps.googleusercontent.com">
     <Provider store={ store } >
       <App />
     </Provider>
+  </GoogleOAuthProvider>;
   </React.StrictMode>
 );
 
