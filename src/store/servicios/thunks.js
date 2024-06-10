@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { servicesApi } from "./helpers"
 import { setServices } from "./serviciosSlice";
 import Swal from "sweetalert2";
-import { useSelector } from "react-redux";
 
 export const startListServicios = (idProveedor=null) => {
   return async (dispatch) => {
@@ -27,10 +25,6 @@ export const startListServiciosbyProvider = (idProveedor) => {
 
 export const startAddService = ({ _id,imageURL,unitPrice,name,description }) => {
 
-//  const [count, setCount] = useState(0);
-    const onAdd = () => {
-      console.log('add');
-    }
 return async(dispatch) =>{
 
     console.log( { _id,imageURL,unitPrice,name,description } );

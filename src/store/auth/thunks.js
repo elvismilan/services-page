@@ -1,12 +1,12 @@
 import { checkingCredentials, clearErrorMessage, confirmation, login, logout } from "./";
 import { registerApi } from "./helpers/registerApi";
 import { loginApi } from "./helpers/loginApi";
+import { loginGoogleapi } from "./helpers/loginGoogleapi";
 
 
 export const checkingAuthentication = (email,password) => {
   return async(dispatch)=>{
    dispatch(checkingCredentials());
-
   }
 }
 
@@ -29,6 +29,60 @@ export const startCreatingUserWithEmailPassword = ({ first_name,last_name,email,
     onConfirmation();
  }
 
+}
+
+export const startLoginGoogle = (user,navigation) => {
+  return async(dispatch) => {
+    console.log(user);
+    const {data} = await loginGoogleapi(user);
+    console.log(data);
+		let responseJSON = data;
+		let error = data?.error;
+
+    if( error ) {
+      dispatch( logout( data ) );
+      setTimeout(() => {
+        dispatch( clearErrorMessage() );
+      },10);
+      return;
+    }
+    if (responseJSON?.error) {
+      console.log('error responsejson');
+      responseJSON = {
+        user: {
+          role: false,
+        },
+      }
+    }
+
+    if( !error && responseJSON?.token  ){
+      console.log('error errror');
+        const data ={
+          uid:user.id,
+          email:user.email,
+          displayName:user.name,
+          photoURL:user.picture
+        }
+     		await localStorage.setItem(
+				 	'authToken',
+		 		 	'Bearer ' + responseJSON?.token
+		 		)
+		 		await localStorage.setItem('user', JSON.stringify( data ) )
+        dispatch(login(data));
+
+       navigation();
+      } else if (!error) {
+				await localStorage.removeItem('authToken')
+				return setTimeout(
+					function () {
+						//Alert.alert('Debes ingresar con una cuenta de cliente.')
+            dispatch( clearErrorMessage() );
+					}.bind(this),
+					150
+				)
+			}
+
+  }
 }
 
 export const startLoginWithEmailPassword = ({email, password,role},onServicios) => {
