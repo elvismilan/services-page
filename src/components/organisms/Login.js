@@ -161,9 +161,13 @@ export const Login = () => {
     <div className="text-center" >
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Button onClick={() => login()}>
-          Sign in with Google 🚀{' '}
-        </Button>;
+        <Button onClick={() => login()}
+          bg="btn-transparent w-[250px] sm:w-[270px] mx-auto"
+          tc="text-secondary hover:text-white "
+          className="sm:h-[48px] !text-[14px] bordered mt-0 pt-0"
+          >
+         Iniciar Sesion con Google
+        </Button>
       </div>
     </div>
 
