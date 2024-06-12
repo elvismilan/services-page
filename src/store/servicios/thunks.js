@@ -1,15 +1,16 @@
-import { useState } from "react";
 import { servicesApi } from "./helpers"
 import { setServices } from "./serviciosSlice";
 import Swal from "sweetalert2";
 
-export const startListServicios = () => {
+export const startListServicios = (idProveedor=null) => {
   return async (dispatch) => {
-    const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
-    if (!idProveedor) throw new Error("El ID del proveedor no existe");
 
-    const services = await servicesApi(idProveedor);
-    dispatch(setServices(services.data));
+    if (!!idProveedor){
+      const {_id}=idProveedor;
+      const services = await servicesApi(_id);
+      dispatch(setServices(services.data));
+    }
+
   };
 };
 export const startListServiciosbyProvider = (idProveedor) => {
@@ -24,10 +25,6 @@ export const startListServiciosbyProvider = (idProveedor) => {
 
 export const startAddService = ({ _id,imageURL,unitPrice,name,description }) => {
 
-//  const [count, setCount] = useState(0);
-    const onAdd = () => {
-      console.log('add');
-    }
 return async(dispatch) =>{
 
     console.log( { _id,imageURL,unitPrice,name,description } );

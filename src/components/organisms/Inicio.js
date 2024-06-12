@@ -8,38 +8,62 @@ import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH } from "../../store";
 
 export const Service = () => {
 
+  const [actDomicilio, setActDomicilio] = useState(true)
+  const [actLocal, setActLocal] = useState(true)
+
   const {status} = useSelector( state => state.auth );
-  const {selected} = useSelector( state => state.booking );
+  const servicesList = useSelector((state) => state.servicios.services)
   const navigate = useNavigate();
   const dispatch= useDispatch();
 
-  const [userPos, setUserPos] = useState({lat: null, long: null})
+  useEffect(() => {
+       const contAmbos = servicesList.reduce( (acount,item)=>{
+        if(item.method === "Ambos"){ acount.ambos++ ;}
+        if(item.method === "En sucursal"){acount.local++ ;}
+        if(item.method === "A domicilio"){ acount.domicilio++ ; }
 
-  var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-  };
+          return acount;
+       }, {ambos:0,local:0,domicilio:0})
 
-  // function error(err) {
-  //   console.warn(`ERROR(${err.code}): ${err.message}`);
-  //   if (err.code == 1) {
-  //     Swal.fire('Acepte los permisos de ubicacion.',error,'error')
-  //   }
-  // }
+  console.log(contAmbos);
+       if(contAmbos.ambos>0 || contAmbos.local>0 ){
+          setActLocal(true)
+       }else{
 
-  // const getPosition = (data) => {
-  //   const newUserPos = {
-  //         lat: data.coords.latitude,
-  //         long: data.coords.longitude,
-  //   };
-  //   setUserPos(newUserPos)
-  //   console.log(newUserPos)
-  // };
+          setActLocal(false)
+       }
+       if(contAmbos.ambos>0 || contAmbos.domicilio>0 ){
+          setActDomicilio(true)
+       }else{
 
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(getPosition, error, options);
-  // }, []);
+          setActDomicilio(false)
+       }
+
+  }, [])
+  useEffect(() => {
+       const contAmbos = servicesList.reduce( (acount,item)=>{
+        if(item.method === "Ambos"){ acount.ambos++ ;}
+        if(item.method === "En sucursal"){acount.local++ ;}
+        if(item.method === "A domicilio"){ acount.domicilio++ ; }
+
+          return acount;
+       }, {ambos:0,local:0,domicilio:0})
+
+  console.log(contAmbos);
+       if(contAmbos.ambos>0 || contAmbos.local>0 ){
+          setActLocal(true)
+       }else{
+
+          setActLocal(false)
+       }
+       if(contAmbos.ambos>0 || contAmbos.domicilio>0 ){
+          setActDomicilio(true)
+       }else{
+
+          setActDomicilio(false)
+       }
+
+  }, [ servicesList ])
 
 
   const onServicioDomicilio = (event) => {
@@ -60,6 +84,7 @@ export const Service = () => {
 
       <div className="col-span-full">
         <div className="mb-3 sm:mb-12">
+          { actDomicilio?(
           <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
@@ -68,19 +93,44 @@ export const Service = () => {
             className="sm:h-[80px] lg-text-[26px] sm bordered">
             Servicio a domicilio
           </Button>
+
+          ):(
+          <Button
+            disabled={ true }
+            bg="btn-transparent"
+            tc="text-secondary hover:text-white"
+            className="sm:h-[80px] lg-text-[26px] sm bordered">
+            Servicio a domicilio
+          </Button>
+
+          )
+          }
         </div>
       </div>
       <div className="col-span-full">
         <div className="mb-3 sm:mb-6">
+          {
+          actLocal?(
           <Button
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
             href = "/login"
             onClick={ onServicioLocal }
-            //onClick={() => gotToNewPage('L')}
             className="sm:h-[80px] lg-text-[26px] bordered">
             Servicio en el local
           </Button>
+
+          ):(
+          <Button
+            disabled={ true }
+            bg="btn-transparent"
+            tc="text-secondary hover:text-white"
+            className="sm:h-[80px] lg-text-[26px] bordered">
+            Servicio en el local
+          </Button>
+
+          )
+          }
         </div>
       </div>
     </div>

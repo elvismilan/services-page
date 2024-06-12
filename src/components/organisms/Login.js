@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { startLoginWithEmailPassword } from "../../store/auth";
+import { startLoginGoogle, startLoginWithEmailPassword } from "../../store/auth";
 
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
@@ -10,6 +10,10 @@ import Logo from "../atoms/Logo";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
 import { startListServicios } from "../../store";
+import { useGoogleLogin  } from '@react-oauth/google';
+import axios from "axios";
+import { jwtDecode } from 'jwt-decode'
+import { loginGoogleapi } from "../../store/auth/helpers/loginGoogleapi";
 
 const formData = {
   email: '',
@@ -23,6 +27,16 @@ export const Login = () => {
   const { error } = useSelector( state => state.auth );
   const {selected} = useSelector( state => state.booking );
 
+  const [ userg, setUserg ] = useState([]);
+
+  useEffect(() => {
+    if (userg) {
+        fetchUserInfo(userg.access_token);
+    }
+
+  }, [userg])
+
+
   useEffect(() => {
     if( error !== null && formSubmitedd ){
       Swal.fire('Error en la authentificacion',error,'error')
@@ -30,21 +44,46 @@ export const Login = () => {
 
   }, [error])
 
-
   const { email, password,role, onInputChange, formState } = useForm( formData ) ;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const fetchUserInfo = async (token) => {
+    const response = await fetch(
+      "https://www.googleapis.com/oauth2/v2/userinfo",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const user = await response.json();
+    dispatch(startLoginGoogle(user,onInicio))
+    return user;
+  };
+
+
+  const onInicio = () => {
+    navigate('/')
+  }
   const onServicios = () => {
     if(selected.isInBranch){
 
-    navigate('/proveedores')
+    navigate('/sucursales')
     }else{
 
     navigate('/servicios')
     }
   }
+
+
+  const login = useGoogleLogin({
+    onSuccess: tokenResponse =>  setUserg(tokenResponse),
+  });
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -55,8 +94,9 @@ export const Login = () => {
   }
 
 
-  return (
 
+  return (
+<>
    <form className="text-center" method="POST" onSubmit={ onSubmit } >
     <Logo className="h-8 sm:h-14 mb-6 sm:mb-14 " />
     <div className="col-span-full">
@@ -118,7 +158,20 @@ export const Login = () => {
       </div>
     </div>
   </form>
+    <div className="text-center" >
+    <div className="col-span-full">
+      <div className="mb-3 sm:mb-6">
+        <Button onClick={() => login()}>
+          Sign in with Google 🚀{' '}
+        </Button>;
+      </div>
+    </div>
 
+    </div>
+
+
+
+</>
   )
 }
 

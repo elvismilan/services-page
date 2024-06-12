@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+
+import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET, BOOKING_SET_COUPON } from '../../store';
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
 import TextArea from '../atoms/TextArea'
 import DatePicker from "react-datepicker";
-import { useNavigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 
-import { useCreateBookingScreen } from "./../../hooks/useCreateBookingScreen";
-import { useDispatch, useSelector } from 'react-redux';
+import { useCreateBookingScreen } from "./../../hooks";
 import { addDays, format } from 'date-fns';
-import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET } from '../../store';
 import Maps from '../map/Map';
 
 export const Appointment = () => {
@@ -20,6 +21,8 @@ export const Appointment = () => {
 	const provider = useSelector((state) => state.proveedor.selected)
 	const dispatch = useDispatch()
 
+
+  const isCheckingCouponBtn =  useMemo( () => !!booking.coupon ,[booking.coupon] );
   const {
 		// showCalendarModal,
 		// closeModal,
@@ -44,6 +47,7 @@ export const Appointment = () => {
 		valueFact,
 		setValueFact,
 		// handleValueFact,
+    onVerifyCoupon
   } = useCreateBookingScreen();
 
   const [formValues, setFormValues] = useState({
@@ -78,6 +82,10 @@ export const Appointment = () => {
       ...formValues,
       [target.name]: target.value
     })
+     if(target.name === "descuento"){
+      const descuento= target.value;
+      dispatch( BOOKING_SET_COUPON(descuento) );
+    }
     if(target.name === "metodopago"){
       const paymentMethod= target.value;
       dispatch( BOOKING_PAGO({paymentMethod}) );
@@ -92,10 +100,8 @@ export const Appointment = () => {
     }
 
    if(target.name === "direccion"){
-    const a =!!target.value?JSON.parse(target.value):''
+    const a =!!target.value?JSON.parse(target.value):'';
     onValueCh(a);
-
-    console.log(a);
    }
 
   }
@@ -176,15 +182,30 @@ export const Appointment = () => {
       </div>
     </div>
     <div className="col-span-full">
+
       <div className="mb-3 sm:mb-6">
-        <Input
-          name="descuento"
-          type="text"
-          label="Codigo de descuento"
-          value={ formValues.descuento }
-          onChange={ onInputChanged }
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+                <Input
+                  name="descuento"
+                  type="text"
+                  label="Codigo de descuento"
+                  value={ formValues.descuento }
+                  onChange={ onInputChanged }
+                />
+          </div>
+          <div>
+                <Button
+                  disabled={ !isCheckingCouponBtn }
+                  onClick={ onVerifyCoupon }
+                  className="sm:h-[48px] !text-[14px]">
+                  Aplicar Cupon
+                </Button>
+
+          </div>
+        </div>
       </div>
+
     </div>
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">

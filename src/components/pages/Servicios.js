@@ -5,12 +5,11 @@ import Footer from "../organisms/Footer";
 import List from "../molecules/List";
 import Item from "../atoms/Item";
 import { ServModal } from "../ServModal";
-import { useState } from "react";
 
 const Servicios = (props) => {
 
   const { services,isOpenModal,active } = useSelector( state => state.servicios );
-	const { _id,logoURL,name } = useSelector((state) => state.proveedor.selected)
+	const { _id,picture,first_name } = useSelector((state) => state.proveedor.selected)
 
 
   return (
@@ -24,9 +23,9 @@ const Servicios = (props) => {
           <Item
             key= {_id}
             id= {_id}
-            empresa= {name}
+            empresa= {first_name}
             puntaje= {'3.5'}
-            image= {logoURL}
+            image= {picture}
             categoria = {null}
             servicios= {services}
           />

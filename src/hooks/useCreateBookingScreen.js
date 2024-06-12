@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useNavigation } from 'react-router-dom'
 import _fetch from './../wrappers/_fetch'
-import { startCreateBooking } from '../store/booking/thunks'
+import { startCreateBooking, startVerifyCoupon } from '../store/booking/thunks'
 import Swal from "sweetalert2";
 import { BOOKING_SET_ADDRESS, BOOKING_SET_CUSTOMER } from '../store'
 
@@ -31,7 +31,6 @@ export const useCreateBookingScreen = () => {
 		{ label: 'Efectivo', value: 'Efectivo' },
 	])
 	const [hour, setHour] = useState(null)
-
 	const [maxAvailableAfterHours, setMaxAvailableAfterHours] = useState(24)
 
   const getAvailability = async () => {
@@ -85,10 +84,50 @@ export const useCreateBookingScreen = () => {
 		setAddresses(addressesPicker)
 	}
 
+	const onVerifyCoupon = (event) => {
+		event.preventDefault();
+		const servicesIds = booking.serviceCart?.map((e) => e.service?._id)
+		console.log(servicesIds);
+		 dispatch(
+			startVerifyCoupon({
+				code: booking.coupon,
+				services: servicesIds,
+			})
+		 )
+		getDiscount(booking?.couponData.coupon)
+	}
+
+	const getDiscount = (coupon) => {
+		if (!coupon) {
+			return 0
+		}
+
+		let discount = 0
+
+		booking?.serviceCart?.forEach((service) => {
+			if (coupon?.validServices?.includes(service.service._id)) {
+				if (coupon.discountType === 'Porcentaje') {
+					discount += (coupon.discount / 100) * service.price
+					setDiscount(discount)
+				} else if (coupon.discountType === 'Monto') {
+					let discountAux = 0
+					discountAux += coupon.discount
+					setDiscount(discountAux)
+				}
+			}
+		})
+
+		return discount
+	}
+
+	useEffect(() => {
+		getDiscount(booking?.couponData?.coupon)
+	}, [booking.couponData])
 
 	const onSubmit = (event) => {
 
-     event.preventDefault();
+		event.preventDefault();
+
 		if (
 			!booking.bookingDate ||
 			!booking.paymentInfo.paymentMethod ||
@@ -239,6 +278,7 @@ export const useCreateBookingScreen = () => {
 		valueFact,
 		setValueFact,
 		// handleValueFact,
+		onVerifyCoupon
 	}
 
 
