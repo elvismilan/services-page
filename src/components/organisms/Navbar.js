@@ -7,6 +7,7 @@ import Button from "../atoms/Button";
 import { startLogout } from "../../store";
 import { startListServicios } from "../../store/servicios";
 import {  useNavigate } from "react-router-dom";
+import { googleLogout } from '@react-oauth/google';
 
   const items = [
     {
@@ -48,6 +49,7 @@ export const Navbar = ({onClick}) => {
   const onLogout = ( event ) => {
     event.preventDefault();
     dispatch( startLogout());
+    googleLogout();
     navigate('/');
   }
 

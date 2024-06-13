@@ -25,7 +25,6 @@ export const Service = () => {
           return acount;
        }, {ambos:0,local:0,domicilio:0})
 
-  console.log(contAmbos);
        if(contAmbos.ambos>0 || contAmbos.local>0 ){
           setActLocal(true)
        }else{
@@ -49,7 +48,6 @@ export const Service = () => {
           return acount;
        }, {ambos:0,local:0,domicilio:0})
 
-  console.log(contAmbos);
        if(contAmbos.ambos>0 || contAmbos.local>0 ){
           setActLocal(true)
        }else{
@@ -65,22 +63,20 @@ export const Service = () => {
 
   }, [ servicesList ])
 
-
   const onServicioDomicilio = (event) => {
     event.preventDefault();
     dispatch( BOOKING_NOTISINBRANCH() );
     status === 'authenticated' ? navigate('/servicios'):navigate('login')
   }
 
-  const onServicioLocal = (event) => {
-    event.preventDefault();
+  const onServicioLocal = (event) => {    event.preventDefault();
     dispatch( BOOKING_ISINBRANCH() );
-    status === 'authenticated' ? navigate('/proveedores'):navigate('login')
+    status === 'authenticated' ? navigate('/sucursales'):navigate('login')
   }
 
   return (
     <div className="text-center" >
-      <h3 className="h3 text-primary">Quieres tu servicio <br />en el local o a dimicilio?</h3>
+      <h3 className="h3 text-primary">Quieres tu servicio <br />en el local o a domicilio?</h3>
 
       <div className="col-span-full">
         <div className="mb-3 sm:mb-12">

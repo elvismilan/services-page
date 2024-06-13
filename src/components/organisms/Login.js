@@ -12,8 +12,6 @@ import Swal from "sweetalert2";
 import { startListServicios } from "../../store";
 import { useGoogleLogin  } from '@react-oauth/google';
 import axios from "axios";
-import { jwtDecode } from 'jwt-decode'
-import { loginGoogleapi } from "../../store/auth/helpers/loginGoogleapi";
 
 const formData = {
   email: '',
@@ -30,8 +28,19 @@ export const Login = () => {
   const [ userg, setUserg ] = useState([]);
 
   useEffect(() => {
+
     if (userg) {
-        fetchUserInfo(userg.access_token);
+    
+    axios.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${userg.access_token}`, {
+      headers: {
+          Authorization: `Bearer ${userg.access_token}`,
+          Accept: 'application/json'
+      }
+  })
+  .then((res) => {
+    dispatch(startLoginGoogle(res.data,onInicio))
+  })
+  .catch((err) => console.log(err));
     }
 
   }, [userg])
@@ -49,42 +58,22 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const fetchUserInfo = async (token) => {
-    const response = await fetch(
-      "https://www.googleapis.com/oauth2/v2/userinfo",
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const user = await response.json();
-    dispatch(startLoginGoogle(user,onInicio))
-    return user;
-  };
-
 
   const onInicio = () => {
     navigate('/')
   }
   const onServicios = () => {
     if(selected.isInBranch){
-
-    navigate('/sucursales')
+      navigate('/sucursales')
     }else{
-
-    navigate('/servicios')
+      navigate('/servicios')
     }
   }
 
-
   const login = useGoogleLogin({
-    onSuccess: tokenResponse =>  setUserg(tokenResponse),
+    onSuccess: (codeResponse) => setUserg(codeResponse),
+    onError: (error) => console.log('Login Failed:', error)
   });
-
   const onSubmit = (event) => {
     event.preventDefault();
     setFormSubmitedd(true);
@@ -92,8 +81,6 @@ export const Login = () => {
     dispatch( startListServicios() );
     dispatch(startLoginWithEmailPassword({email,password,role},onServicios));
   }
-
-
 
   return (
 <>
@@ -161,7 +148,7 @@ export const Login = () => {
     <div className="text-center" >
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Button onClick={() => login()}
+        <Button onClick={ ()=> login()}
           bg="btn-transparent w-[250px] sm:w-[270px] mx-auto"
           tc="text-secondary hover:text-white "
           className="sm:h-[48px] !text-[14px] bordered mt-0 pt-0"
