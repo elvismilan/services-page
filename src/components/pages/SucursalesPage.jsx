@@ -22,20 +22,14 @@ export const SucursalesPage = () => {
 
   const dispatch = useDispatch();
 
-  const defaultItems = [
-      { id: 1,  empresa: 'Negocio 1', puntaje: '4.5', latitud: '100', longitud: '200' , logo: 'https://placehold.co/600x600', tipo: 'D',
-        categoria: ['uñas'],
-      },
-      { id: 2,  empresa: 'Negocio 2', puntaje: '4.5', latitud: '100', longitud: '200' , logo: 'https://placehold.co/600x600', tipo: 'D',
-        categoria: ['uñas'],
-      },
-      { id: 3,  empresa: 'Negocio 3', puntaje: '4.5', latitud: '100', longitud: '200' , logo: 'https://placehold.co/600x600', tipo: 'D',
-        categoria: ['uñas'],
-      }
-  ];
-
   const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch( startListSucursales() );
+    dispatch( startListProveedores() );
+  }, [])
+
+  
   const onLogin = (  ) => {
     navigate('/login');
   }

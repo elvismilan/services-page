@@ -15,9 +15,10 @@ export const startListServicios = (idProveedor=null) => {
 };
 export const startListServiciosbyProvider = (idProveedor) => {
   return async (dispatch) => {
-    if (!idProveedor) throw new Error("El ID del proveedor no existe");
 
-    const services = await servicesApi(idProveedor);
+    const idProveedora = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
+    //if (!idProveedor) throw new Error("El ID del proveedor no existe");
+    const services = await servicesApi(idProveedora);
     dispatch(setServices(services.data));
   };
 };

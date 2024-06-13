@@ -34,6 +34,7 @@ export const startCreatingUserWithEmailPassword = ({ first_name,last_name,email,
 export const startLoginGoogle = (user,navigation) => {
   return async(dispatch) => {
     console.log(user);
+    console.log('**************************');
     const {data} = await loginGoogleapi(user);
     console.log(data);
 		let responseJSON = data;
@@ -55,7 +56,7 @@ export const startLoginGoogle = (user,navigation) => {
       }
     }
 
-    if( !error && responseJSON?.token  ){
+    if( responseJSON?.token  ){
       console.log('error errror');
         const data ={
           uid:user.id,
@@ -89,7 +90,8 @@ export const startLoginWithEmailPassword = ({email, password,role},onServicios) 
   return async(dispatch) => {
     dispatch( checkingCredentials() );
     const { data } = await loginApi({email, password, role});
-
+    console.log('======================================');
+    console.log(data);
 		let responseJSON = data;
 		let error = data.error;
 

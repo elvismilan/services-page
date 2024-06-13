@@ -31,7 +31,6 @@ export const useCheckAuthToken = () => {
       navigator.permissions
         .query({ name: "geolocation" })
         .then(function (result) {
-          console.log(result);
           if (result.state === "granted") {
             //If granted then you can directly call your function here
             navigator.geolocation.getCurrentPosition(success, errors, options);
@@ -55,14 +54,6 @@ export const useCheckAuthToken = () => {
 	const providerSelect = useSelector((state) => state.proveedor.selected)
 
   const dispatch = useDispatch();
-
-  // const initialCart = () => {
-  //   console.log('loadin ....');
-  //   console.log(  JSON.parse( localStorage.getItem('carrito') ) );
-  //   return JSON.parse( localStorage.getItem('carrito') );
-  //   const localStorageCart = localStorage.getItem('carrito');
-  //   return localStorageCart ? JSON.parse(localStorageCart):[]
-  // }
 
   const [items, setItems] = useState([]);
 
