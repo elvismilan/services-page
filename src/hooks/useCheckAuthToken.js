@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/auth";
 import { useEffect, useState } from "react";
 import { startListServicios } from "../store/servicios";
-import { BOOKING_SET_CART, provider_set, startListCategoria, startListProveedores } from "../store";
+import { provider_set, startListCategoria, startListProveedores } from "../store";
 
 
 
@@ -67,6 +67,7 @@ export const useCheckAuthToken = () => {
 
   useEffect(() => {
     dispatch( startListCategoria() )
+    dispatch( startListProveedores() );
     const items = JSON.parse(localStorage.getItem('carrito'));
     // console.log(items);
     if (items) {
@@ -95,7 +96,6 @@ export const useCheckAuthToken = () => {
   }, []);
 
   useEffect(() => {
-    console.log('provider loading...');
   /* loading proveedores y servicios */
 
       const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;

@@ -1,11 +1,10 @@
-import _fetch from "../../../wrappers/_fetch";
-
 export const providerApi = async(filter = {}) => {
 
   const urlApi = process.env.REACT_APP_API_URL;
   const urlPath = `${urlApi}/provider`;
 
   try {
+    //console.log(urlPath);
     const resp = await fetch( urlPath , {
       method: 'GET'
     }).then( handleResponse );

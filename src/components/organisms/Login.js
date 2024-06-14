@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { startListServicios } from "../../store";
 import { useGoogleLogin  } from '@react-oauth/google';
 import axios from "axios";
+import SVGComponent from "../atoms/Gmail";
 
 const formData = {
   email: '',
@@ -30,7 +31,7 @@ export const Login = () => {
   useEffect(() => {
 
     if (userg) {
-    
+
     axios.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${userg.access_token}`, {
       headers: {
           Authorization: `Bearer ${userg.access_token}`,
@@ -151,9 +152,15 @@ export const Login = () => {
         <Button onClick={ ()=> login()}
           bg="btn-transparent w-[250px] sm:w-[270px] mx-auto"
           tc="text-secondary hover:text-white "
-          className="sm:h-[48px] !text-[14px] bordered mt-0 pt-0"
+          className="sm:h-[48px] !text-[12px] bordered mt-0 p-0 "
           >
-         Iniciar Sesion con Google
+            <div className="grid grid-cols-3 gap-4  w-full text-center justify-center" >
+              <span className="flex  text-right items-center justify-end " >
+                <SVGComponent width={'25px'} heigh={'25px'} fill={'#9c9a9a'}   />
+              </span>
+              <span className="col-span-2 text-left items-center pt-1" > Iniciar sesión con Google</span>
+            </div>
+
         </Button>
       </div>
     </div>
