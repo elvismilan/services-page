@@ -20,8 +20,6 @@ export const Appointment = () => {
 	const state = useSelector((state) => state)
 	const provider = useSelector((state) => state.proveedor.selected)
 	const dispatch = useDispatch()
-
-
   const isCheckingCouponBtn =  useMemo( () => !!booking.coupon ,[booking.coupon] );
   const {
 		// showCalendarModal,
@@ -62,11 +60,17 @@ export const Appointment = () => {
   useEffect(() => {
 
     const user = JSON.parse(localStorage.getItem("user"));
-    const first_name = user.first_name;
-    const last_name = user.last_name;
+    let first_name = '';
+    if(user.first_name){
+      first_name=user.first_name+' '+user.last_name;
+    }else{
+      if(user.displayName){
+        first_name=user.displayName;
+      }
+    }
     const phone = user.phone;
     setFormValues({
-      name:first_name+' '+last_name,
+      name:first_name,
       telefono:phone,
       empleado: '',
       descuento: '',
@@ -229,6 +233,9 @@ export const Appointment = () => {
         </select>
       </div>
     </div>
+
+{
+  !booking.isInBranch && (
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6 text-left">
         <h2 className='text-primary font-[600] ' >
@@ -237,22 +244,38 @@ export const Appointment = () => {
 
       </div>
       <div className="mb-3 sm:mb-6">
-        <select
-          name='direccion'
-          className='rounded-2xl border-solid border border-primary w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary'
-          value={ formValues.direccion }
-          onChange={ onInputChanged }
-        >
-          <option value=""> Seleccionar ... </option>
-          {
-            addresses.map( metodo => {
-              return <option key={metodo.key} value={ JSON.stringify(metodo) } > { metodo.direction }  </option>
-            } )
-          }
-        </select>
+        {
+          Object.keys(addresses).length === 0?(
+            "No tienes direccion"
+          ): (
+          <select
+            name='direccion'
+            className='rounded-2xl border-solid border border-primary w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary'
+            value={ formValues.direccion }
+            onChange={ onInputChanged }
+          >
+            <option value=""> Seleccionar ... </option>
+            {
+              addresses.map( metodo => {
+                return <option key={metodo.key} value={ JSON.stringify(metodo) } > { metodo.direction }  </option>
+              } )
+            }
+          </select>
 
+          )
+
+        }
       </div>
     </div>
+
+
+  )
+}
+
+
+
+
+
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
 

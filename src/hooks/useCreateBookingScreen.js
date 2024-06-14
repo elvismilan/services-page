@@ -67,21 +67,25 @@ export const useCreateBookingScreen = () => {
   const getAddresses = async () => {
 		let user = JSON.parse(await localStorage.getItem('user'))
 		setUser(user)
-		const rawAddresses = user.directions.filter((e) => e.state)
-		const addressesPicker = rawAddresses.reduce(
-			(array, element) => [
-				...array,
-				{
-					...element,
-					label: element.direction,
-					// value: JSON.stringify(element),
-					value: element,
-					key: element._id,
-				},
-			],
-			[]
-		)
-		setAddresses(addressesPicker)
+		if(user.directions){
+			const rawAddresses = user.directions.filter((e) => e.state)
+			const addressesPicker = rawAddresses.reduce(
+				(array, element) => [
+					...array,
+					{
+						...element,
+						label: element.direction,
+						// value: JSON.stringify(element),
+						value: element,
+						key: element._id,
+					},
+				],
+				[]
+			)
+			setAddresses(addressesPicker)
+		}
+
+
 	}
 
 	const onVerifyCoupon = (event) => {

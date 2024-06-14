@@ -13,12 +13,13 @@ const Servicios = (props) => {
 
 
   const dispatch = useDispatch();
-  const { services,isOpenModal,active } = useSelector( state => state.servicios );
-	const { _id,picture,first_name } = useSelector((state) => state.proveedor.selected)
+
   useEffect(() => {
     dispatch( startListProveedores() );
   }, [])
 
+  const { services,isOpenModal,active } = useSelector( state => state.servicios );
+	const proveedor = useSelector((state) => state.proveedor.selected)
 
   return (
     <Main
@@ -27,17 +28,20 @@ const Servicios = (props) => {
     >
       <ServModal isOpen={ isOpenModal } {...active} />
       <List>
-        {/* {defaultItems.map(item => */}
+        {
+        proveedor && (
           <Item
-            key= {_id}
-            id= {_id}
-            empresa= {first_name}
+            key= {proveedor._id}
+            id= {proveedor._id}
+            empresa= {proveedor.first_name}
             puntaje= {'3.5'}
-            image= {picture}
+            image= {proveedor.picture}
             categoria = {null}
-            servicios= {services}
+            servicios= {proveedor.services}
           />
-        {/* )} */}
+
+        )
+        }
       </List>
 
     </Main>
