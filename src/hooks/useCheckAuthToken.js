@@ -55,24 +55,17 @@ export const useCheckAuthToken = () => {
 
   const dispatch = useDispatch();
 
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
 
   const { selected } = useSelector( state => state.booking );
 
-  useEffect(() => {
-    // console.log('update cart ....');
-    // console.log(selected.serviceCart);
-    localStorage.setItem('carrito', JSON.stringify(selected.serviceCart)  );
-  }, [items,selected]);
+  // useEffect(() => {
+  //   // console.log('update cart ....');
+  //   // console.log(selected.serviceCart);
+  //   localStorage.setItem('carrito', JSON.stringify(selected.serviceCart)  );
+  // }, [items,selected]);
 
   useEffect(() => {
-    dispatch( startListCategoria() )
-    dispatch( startListProveedores() );
-    const items = JSON.parse(localStorage.getItem('carrito'));
-    // console.log(items);
-    if (items) {
-    setItems(items);
-    }
 
      const token = localStorage.getItem("authToken");
      if (!token) {
@@ -80,7 +73,13 @@ export const useCheckAuthToken = () => {
        return ;
      }
 
+    dispatch( startListCategoria() );
     dispatch( startListProveedores() );
+    // const items = JSON.parse(localStorage.getItem('carrito'));
+    // if (items) {
+    // setItems(items);
+    // }
+
      const user = JSON.parse(localStorage.getItem("user"));
      const email =user.email;
      const first_name = user.first_name;
@@ -99,11 +98,8 @@ export const useCheckAuthToken = () => {
   /* loading proveedores y servicios */
 
       const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
-
       const myProvider=providerList.filter((e) => e._id === idProveedor)[0]
-
       dispatch( provider_set(myProvider));
-
       dispatch( startListServicios(providerSelect) );
 
   /* fin loading proveedores y servicios*/
