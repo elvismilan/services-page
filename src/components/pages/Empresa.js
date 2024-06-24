@@ -181,7 +181,7 @@ export const Empresa = (props) => {
                           <h2 className='text-primary font-[600] mb-5 ' >
                           Recomendado
                           </h2>
-                        <div className="flex justify-center items-start " >
+                        <div className="flex  items-start " >
                           {servicesAvailableByBranch(provider.recommendedServices)[0] && (
                             <>
                     <div className="grid grid-flow-row-dense grid-cols-3">
