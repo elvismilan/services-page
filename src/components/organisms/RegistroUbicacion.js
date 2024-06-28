@@ -5,6 +5,7 @@ import Button from "../atoms/Button";
 import { useNavigate } from 'react-router-dom';
 import Maps from "../map/Map";
 import AutoComplete from "../map/Buscardor";
+import { NewMap } from "../map/NewMap";
 
 
 export const RegistroUbicacion = () => {
@@ -20,19 +21,27 @@ export const RegistroUbicacion = () => {
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
     console.log(`More or less ${crd.accuracy} meters.`);
+
+    const cordenada={
+      'latitude':crd.latitude,
+      'longitude':crd.longitude
+    }
+
+      setUbication({
+       'coordinates':cordenada
+      });
+
   }
 
   function errors(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
 
-  const [position, setPosition] = useState({ lat: -34.397, lng: 150.644 });
-  const [ubication, setUbication] = useState({})
+  const [ubication, setUbication] = useState({'coordinates':{'latitude':-17.8648362,'longitude':-63.1583475}})
   useEffect(() => {
-
+    // getUserLocation();
     console.log(ubication);
-
-  }, [ubication])
+  }, [])
 
   const getUserLocation = (event) => {
     event.preventDefault();
@@ -61,7 +70,8 @@ export const RegistroUbicacion = () => {
   const navigate = useNavigate();
   const onSubmit = ( event ) => {
     event.preventDefault();
-    navigate('/servicios');
+    console.log(ubication);
+    //navigate('/servicios');
   }
 
   return (
@@ -73,7 +83,7 @@ export const RegistroUbicacion = () => {
 
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <AutoComplete setUbication={setUbication} />
+        {/* <AutoComplete setUbication={setUbication} /> */}
       </div>
     </div>
 
@@ -85,19 +95,22 @@ export const RegistroUbicacion = () => {
 
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-
+        {
+          <NewMap />
+        }
         {/* <p className="bg-info">London, United Kingdom</p> */}
-        <div className="map">
+        {/* <div className="map">
           {
             (!!ubication.coordinates)?
             <Maps address={ubication.direction}
                 lat={ ubication.coordinates.latitude }
                 lng={ ubication.coordinates.longitude }
+                altura={true}
             />
             : ''
 
           }
-        </div>
+        </div> */}
 
 
       </div>
