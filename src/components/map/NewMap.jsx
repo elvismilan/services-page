@@ -5,7 +5,8 @@ import {
   MarkerF,
   StandaloneSearchBox,
   StreetViewService,
-  GoogleMap
+  GoogleMap,
+  AdvancedMarker
 } from "@react-google-maps/api";
 
 const loaderId = "ownersTownGoogleMapApiId";
@@ -20,7 +21,7 @@ const config = {
 };
 
 
-export const NewMap = ( { searchEnabled }) => {
+export const NewMap = ( { searchEnabled, onCenter }) => {
     const { isLoaded, loadError } = useLoadScript(config);
   const Loading = <div>Loader</div>;
   // const center = { lat: 12.972442, lng: 77.580643 };
@@ -75,7 +76,36 @@ export const NewMap = ( { searchEnabled }) => {
     [onDragEnd]
   );
 
+  const onCentrar = () =>{
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          console.log('centar', latitude,longitude);
+        },
+        (error) => {
+          console.error('Error getting user location:', error);
+        }
+      );
+    }
+    else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }
+
+
+
     const renderMap = (
+<>
+
+    <h3 className="font-normal hover:font-bold  text-primary mb-5">
+      <button onClick={ onCentrar }>
+        Usar mi ubicacion actuala
+      </button>
+    </h3>
+
+
+
     <GoogleMap
       id="searchbox-example"
       mapContainerStyle={{
@@ -119,6 +149,9 @@ export const NewMap = ( { searchEnabled }) => {
          onDragEnd={onDragEnd}
          onLoad={onMarkerLoad}
       />
+
+    {/* <AdvancedMarker position={location} /> */}
+
      {/*  <Marker
         position={location}
         draggable
@@ -127,6 +160,7 @@ export const NewMap = ( { searchEnabled }) => {
       />  */}
     </GoogleMap>
 
+</>
    );
    if (loadError) {
      return <div>Map cannot be loaded right now, sorry.</div>;
