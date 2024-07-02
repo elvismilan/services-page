@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Maps from "../map/Map";
 import AutoComplete from "../map/Buscardor";
 import { NewMap } from "../map/NewMap";
+import { MapComponent } from "../map/MapComponent";
 
 
 export const RegistroUbicacion = () => {
@@ -87,16 +88,20 @@ export const RegistroUbicacion = () => {
       </div>
     </div>
 
-    <h3 className="font-normal hover:font-bold  text-primary mb-5">
+    {/* <h3 className="font-normal hover:font-bold  text-primary mb-5">
       <button onClick={ getUserLocation }>
         Usar mi ubicacion actual
       </button>
     </h3>
-
+ */}
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         {
-          <NewMap />
+          <>
+          <MapComponent />
+
+          {/* <NewMap /> */}
+          </>
         }
         {/* <p className="bg-info">London, United Kingdom</p> */}
         {/* <div className="map">
