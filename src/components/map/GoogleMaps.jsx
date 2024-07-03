@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createCustomEqual } from "fast-equals";
+import Input from "../atoms/Input";
+
 
 const DEFAULT_CENTER ={ lat:-17.7917873, lng:-63.1355414 };
 const DEFAULT_ZOOM = 15;
@@ -34,7 +36,31 @@ export const GoogleMaps = ({locations,className}) => {
       }}
     >
       <br />
-      <label htmlFor="lat">Latitude</label>
+      {/* <label htmlFor="lat">Nombrar Ubicacion</label> */}
+      {/* <input
+        type="number"
+        id="lat"
+        name="lat"
+        value={center.lat}
+        onChange={(event) =>
+          setCenter({ ...center, lat: Number(event.target.value) })
+        }
+      /> */}
+      <div className="mb-1" >
+        <Input
+          type="text"
+          label="Alias de la Ubicacion"
+          name="first_name"
+          // value={ first_name }
+          // onChange={ onInputChange }
+          // error={ !!first_nameValid && formSubmitedd }
+          // helperText={ first_nameValid }
+        />
+
+      </div>
+
+      <br />
+      {/* <label htmlFor="lat">Latitude</label>
       <input
         type="number"
         id="lat"
@@ -44,8 +70,8 @@ export const GoogleMaps = ({locations,className}) => {
           setCenter({ ...center, lat: Number(event.target.value) })
         }
       />
-      <br />
-      <label htmlFor="lng">Longitude</label>
+      <br /> */}
+      {/* <label htmlFor="lng">Longitude</label>
       <input
         type="number"
         id="lng"
@@ -54,12 +80,16 @@ export const GoogleMaps = ({locations,className}) => {
         onChange={(event) =>
           setCenter({ ...center, lng: Number(event.target.value) })
         }
-      />
-      <h3>{clicks.length === 0 ? "Click on map to add markers" : "Clicks"}</h3>
-      {clicks.map((latLng, i) => (
+      /> */}
+      <h3>{ (clicks.length === 0 && Object.entries(current).length === 0) ? "Click en usar ubicacion actual o en el mapa " : ""}</h3>
+      {/* {clicks.map((latLng, i) => (
         <pre key={i}>{JSON.stringify(latLng.toJSON(), null, 2)}</pre>
-      ))}
-      <button onClick={() => setClicks([])}>Clear</button>
+      ))} */}
+      <div className="flex items-center justify-center" >
+        <button
+          className="btn-base text-[12px] sm:text-[15px] lg:text-[20px] bg-primary text-white"
+          onClick={() => setClicks([])}>Guardar Ubicación</button>
+      </div>
     </div>
   );
 
@@ -77,9 +107,8 @@ export const GoogleMaps = ({locations,className}) => {
             'lng':longitude
           }
             setCurrent(latlng);
-           console.log(latlng);
-           setCenter(latlng);
-          setClicks([])
+            setClicks([])
+            setCenter({ ...center, lat: Number(latitude) , lng: Number(longitude) })
 
         },
         // if there was an error getting the users location
@@ -182,14 +211,6 @@ const Map = ({
   );
 };
 
-const addSingleMarkers = ({locations,map}) =>
-  locations.map(
-    position =>
-      new window.google.maps.Marker({
-        position,
-        map,
-      }),
-  );
 
 const Marker = (options) => {
   const [marker, setMarker] = useState();
@@ -228,7 +249,6 @@ const deepCompareEqualsForMaps = createCustomEqual(
     }
 
     // TODO extend to other types
-
     // use fast-equals for other objects
     return deepEqual(a, b);
   }

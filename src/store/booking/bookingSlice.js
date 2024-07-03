@@ -48,6 +48,7 @@ export const bookingSlice = createSlice({
     loading: false,
     error: null,
     items: [],
+    isOpenModalAddress:false,
     selected: EMPTY_BOOKING,
   },
   reducers: {
@@ -160,7 +161,13 @@ export const bookingSlice = createSlice({
 		},
 		BOOKING_SET_BRANCH:(state,{payload}) => {
 			state.selected.branch=payload
-		}
+		},
+    setActiveModalAddress:(state) => {
+      state.isOpenModalAddress = true;
+    },
+    setNotActiveModalAddress:(state) => {
+      state.isOpenModalAddress = false;
+    }
 
   }
 });
@@ -185,4 +192,7 @@ export const {
 	BOOKING_ADD_TO_CART,
 	BOOKING_REMOVE_FROM_CART,
 	BOOKING_SET_CART,
-	BOOKING_SET_BRANCH } = bookingSlice.actions;
+	BOOKING_SET_BRANCH,
+	setActiveModalAddress,
+	setNotActiveModalAddress
+} = bookingSlice.actions;
