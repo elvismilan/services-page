@@ -2,7 +2,7 @@ import { GoogleMaps } from "./GoogleMaps"
 import { Mapv2 } from "./Mapv2"
 
 export const LOCATIONS =
-  { lat:-17.7917873, lng:-63.1355414 }
+  { lat:-17.78629, lng:-63.18117 }
 ;
 
 export const MapComponent = () => {

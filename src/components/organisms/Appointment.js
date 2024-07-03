@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 
-import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET, BOOKING_SET_COUPON } from '../../store';
+import { BOOKING_CUSTOMER_FULLNAME, BOOKING_CUSTOMER_PHONE, BOOKING_PAGO, BOOKING_SET, BOOKING_SET_COUPON, setActiveModalAddress } from '../../store';
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
 import TextArea from '../atoms/TextArea'
@@ -127,7 +127,8 @@ export const Appointment = () => {
   const navigate = useNavigate();
   const onAddress = () => {
     console.log('guardar direccion');
-    navigate('/ubicacion');
+    dispatch( setActiveModalAddress() );
+    // navigate('/ubicacion');
   }
   return (
     <>
