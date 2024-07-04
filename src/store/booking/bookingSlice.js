@@ -47,11 +47,18 @@ export const bookingSlice = createSlice({
   initialState: {
     loading: false,
     error: null,
+		success:null,
     items: [],
     isOpenModalAddress:false,
     selected: EMPTY_BOOKING,
   },
   reducers: {
+		BOOKING_SET_ERROR:(state,{payload}) => {
+			state.error=payload;
+		},
+		BOOKING_SET_SUCESS:(state,{payload}) => {
+			state.success=payload;
+		},
 		BOOKING_COUPON_SUCCESS:(state,{payload}) => {
 				state.selected.coupon=payload;
 				state.selected.couponData=payload;
@@ -175,6 +182,8 @@ export const bookingSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+	BOOKING_SET_ERROR,
+	BOOKING_SET_SUCESS,
 	BOOKING_COUPON_SUCCESS,
 	BOOKING_COUPON_FAILURE,
 	BOOKING_SET_COUPON,
