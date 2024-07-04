@@ -1,17 +1,48 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createCustomEqual } from "fast-equals";
 import Input from "../atoms/Input";
+import { useForm } from "../../hooks/useForm";
+import { Alert, AlertS } from "../atoms/Alert";
+import { useDispatch, useSelector } from "react-redux";
+import { startCreateAddress } from "../../store";
 
 
 const DEFAULT_CENTER ={ lat:-17.7917873, lng:-63.1355414 };
 const DEFAULT_ZOOM = 15;
 
+const formData = {
+  nombre: ''
+}
+
+const formValidations = {
+  nombre: [ (value) => value.length >= 4, 'El nombre debe tener mas de 4 letras.' ],
+}
+
 export const GoogleMaps = ({locations,className}) => {
   const ref = useRef(null);
+
+  const dispatch = useDispatch();
 
   const [center, setCenter] = useState(locations);
   const [clicks, setClicks] = useState([]);
   const [current, setCurrent] = useState({});
+  const [formSubmitedd, setFormSubmitedd] = useState(false);
+
+  const [showhelper, setShowhelper] = useState(false);
+
+  const {success,error} = useSelector( state => state.booking );
+
+  const { formState,nombre,onInputChange,isFormValid,nombreValid } = useForm(formData,formValidations);
+
+  useEffect(() => {
+
+    if(clicks.length === 0 && Object.entries(current).length === 0 ){
+     setShowhelper(true);
+    }else{
+      setShowhelper(false);
+    }
+
+  }, [clicks,current])
 
 
   const onClick = (e) => {
@@ -19,6 +50,28 @@ export const GoogleMaps = ({locations,className}) => {
     setClicks([e.latLng]);
     setCurrent({});
   };
+
+  const onSubmit = (event) => {
+    setFormSubmitedd(true);
+    if(clicks.length === 0 && Object.entries(current).length === 0 ){
+      return ;
+    }
+    if( !isFormValid ) return ;
+    let coor;
+    if(clicks.length === 0 ){
+      coor=current;
+    }else{
+      clicks.map((latLng,i)=>{
+        console.log(latLng.toJSON());
+        coor=latLng.toJSON();
+      })
+    }
+
+    dispatch(startCreateAddress(nombre,coor));
+
+
+
+  }
 
   const onIdle = (m) => {
     console.log("onIdle");
@@ -35,60 +88,42 @@ export const GoogleMaps = ({locations,className}) => {
         overflow: "auto"
       }}
     >
-      <br />
-      {/* <label htmlFor="lat">Nombrar Ubicacion</label> */}
-      {/* <input
-        type="number"
-        id="lat"
-        name="lat"
-        value={center.lat}
-        onChange={(event) =>
-          setCenter({ ...center, lat: Number(event.target.value) })
-        }
-      /> */}
+
+      {/* <h3>{ (clicks.length === 0 && Object.entries(current).length === 0) ? "Click en usar ubicacion actual o en el mapa " : ""}</h3> */}
+
+      <span className= {`text-red-700 ${ showhelper ? "" : "hidden"  } `} > { "Click en usar ubicacion actual o en el mapa " } </span>
+
       <div className="mb-1" >
         <Input
           type="text"
           label="Alias de la Ubicacion"
-          name="first_name"
-          // value={ first_name }
-          // onChange={ onInputChange }
-          // error={ !!first_nameValid && formSubmitedd }
-          // helperText={ first_nameValid }
+          name="nombre"
+          value={ nombre }
+          onChange={ onInputChange }
+          error={ !!nombreValid && formSubmitedd}
+          helperText={ nombreValid }
         />
 
       </div>
 
-      <br />
-      {/* <label htmlFor="lat">Latitude</label>
-      <input
-        type="number"
-        id="lat"
-        name="lat"
-        value={center.lat}
-        onChange={(event) =>
-          setCenter({ ...center, lat: Number(event.target.value) })
-        }
-      />
-      <br /> */}
-      {/* <label htmlFor="lng">Longitude</label>
-      <input
-        type="number"
-        id="lng"
-        name="lng"
-        value={center.lng}
-        onChange={(event) =>
-          setCenter({ ...center, lng: Number(event.target.value) })
-        }
-      /> */}
-      <h3>{ (clicks.length === 0 && Object.entries(current).length === 0) ? "Click en usar ubicacion actual o en el mapa " : ""}</h3>
       {/* {clicks.map((latLng, i) => (
         <pre key={i}>{JSON.stringify(latLng.toJSON(), null, 2)}</pre>
       ))} */}
+    <div className={`col-span-full ${!!error?'':'hidden'} `}  >
+      { <Alert mensaje={ error} /> }
+    </div>
+    <div className={`col-span-full ${!!success?'':'hidden'} `}  >
+      { <AlertS mensaje={ success} /> }
+    </div>
+
+    {/* <div className={`col-span-full ${!!error?'':'hidden'} `}  >
+      <Alert mensaje={error} />
+    </div> */}
+
       <div className="flex items-center justify-center" >
         <button
           className="btn-base text-[12px] sm:text-[15px] lg:text-[20px] bg-primary text-white"
-          onClick={() => setClicks([])}>Guardar Ubicación</button>
+          onClick={() => onSubmit()}>Guardar Ubicación</button>
       </div>
     </div>
   );

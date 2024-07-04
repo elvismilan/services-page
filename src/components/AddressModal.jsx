@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import { useDispatch } from 'react-redux';
-import { setNotActiveModalAddress } from '../store';
+import { BOOKING_SET_ERROR, setNotActiveModalAddress } from '../store';
 import { MapComponent } from './map/MapComponent';
 
 const customStyles = {
@@ -21,6 +21,8 @@ export const AddressModal = ({ isOpen=true  }) => {
 
   const onCloseModal = () => {
     dispatch(setNotActiveModalAddress());
+    dispatch( BOOKING_SET_ERROR(null) );
+    dispatch( BOOKING_SET_ERROR(null) );
   }
 
   return (
