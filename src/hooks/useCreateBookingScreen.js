@@ -240,7 +240,6 @@ export const useCreateBookingScreen = () => {
 	useEffect(() => {
 		//getAvailability()
 		getAddresses();
-		console.log('update address');
 	}, [success])
 
 	const onValueCh = (value) => {
