@@ -42,7 +42,7 @@ function App() {
         <Route path="/confirmacion" element={<ConfirmacionPage />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App;
