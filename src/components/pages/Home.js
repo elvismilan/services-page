@@ -8,7 +8,6 @@ import Service from '../organisms/Inicio';
 const Home = () => {
 
   const {isShowing, toggle} = useModal();
-
   return (
     <Main
       header={<Header/>}
