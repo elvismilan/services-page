@@ -64,11 +64,12 @@ export const Login = () => {
     navigate('/')
   }
   const onServicios = () => {
-    if(selected.isInBranch){
-      navigate('/sucursales')
-    }else{
-      navigate('/servicios')
-    }
+    navigate('/')
+    // if(selected.isInBranch){
+    //   navigate('/sucursales')
+    // }else{
+    //   navigate('/servicios')
+    // }
   }
 
   const login = useGoogleLogin({
