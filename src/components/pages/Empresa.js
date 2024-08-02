@@ -224,6 +224,12 @@ export const Empresa = (props) => {
                       </div>
             </>
           )}
+      <div className="container" >
+      <Button className="" disabled  >
+        Servicios
+      </Button>
+      </div>
+
 
           <div className="col-span-full">
             <div className="mb-3 sm:mb-6">

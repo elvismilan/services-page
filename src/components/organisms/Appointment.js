@@ -166,6 +166,18 @@ export const Appointment = () => {
         </div>
         <div className="col-span-full">
           <div className="mb-3 sm:mb-6">
+            <Input
+              name="empleado"
+              type="text"
+              label="Empleado (opcional)"
+              value={formValues.empleado}
+              onChange={onInputChanged}
+            />
+          </div>
+        </div>
+
+        <div className="col-span-full">
+          <div className="mb-3 sm:mb-6">
             <div className=" flex justify-end flex-row-reverse sm:w-2/3 rounded-2xl border-solid border-2 border-primary mb-3 sm:mb-0 ">
               <DatePicker
                 minDate={formValues.start}
@@ -179,18 +191,7 @@ export const Appointment = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-full">
-          <div className="mb-3 sm:mb-6">
-            <Input
-              name="empleado"
-              type="text"
-              label="Empleado (opcional)"
-              value={formValues.empleado}
-              onChange={onInputChanged}
-            />
-          </div>
-        </div>
-        <div className="col-span-full">
+       <div className="col-span-full">
           <div className="mb-3 sm:mb-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
