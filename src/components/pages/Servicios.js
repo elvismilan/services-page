@@ -8,6 +8,7 @@ import { ServModal } from "../ServModal";
 
 import { startListProveedores } from '../../store';
 import { useEffect } from "react";
+import Button from "../atoms/Button";
 
 const Servicios = (props) => {
 
@@ -27,6 +28,13 @@ const Servicios = (props) => {
       footer={<Footer />}
     >
       <ServModal isOpen={ isOpenModal } {...active} />
+
+      <div className="container m-5" >
+      <Button className="" disabled  >
+        Servicios
+      </Button>
+      </div>
+
       <List>
         {
         proveedor && (
