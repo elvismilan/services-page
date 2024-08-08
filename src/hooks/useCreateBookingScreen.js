@@ -5,6 +5,7 @@ import _fetch from './../wrappers/_fetch'
 import { startCreateBooking, startVerifyCoupon } from '../store/booking/thunks'
 import Swal from "sweetalert2";
 import { BOOKING_SET_ADDRESS, BOOKING_SET_CUSTOMER } from '../store'
+import { employeeApi } from '../store/booking/helpers/employeeApi'
 
 export const useCreateBookingScreen = () => {
 
@@ -31,6 +32,7 @@ export const useCreateBookingScreen = () => {
 	const [paymentMethods, setPaymentMethods] = useState([
 		{ label: 'Efectivo', value: 'Efectivo' },
 	])
+	const [employee, setEmployee] = useState([])
 	const [hour, setHour] = useState(null)
 	const [maxAvailableAfterHours, setMaxAvailableAfterHours] = useState(24)
 
@@ -85,7 +87,25 @@ export const useCreateBookingScreen = () => {
 			)
 			setAddresses(addressesPicker)
 		}
+	}
 
+	const getListEmployee = async () => {
+		const metodo = booking.isInBranch?'En sucursal':'A domicilio'
+		const employee = booking.serviceCart?.map(function(element){
+   	return element.service._id;
+		})
+		const result = (await employeeApi(metodo, employee))
+
+
+		 const employeefilter = result?.data.map(function(element){
+  	 	return {
+				'_id':element.id,
+				'fullName':element.first_name+' '+element.last_name,
+				'photoURL':element.picture,
+				'CI':element.CI_NIT,
+			};
+		 })
+		 setEmployee(employeefilter);
 
 	}
 
@@ -236,6 +256,7 @@ export const useCreateBookingScreen = () => {
 	useEffect(() => {
 		//getAvailability()
 		getAddresses()
+		getListEmployee()
 	}, [])
 	useEffect(() => {
 		//getAvailability()
@@ -282,6 +303,7 @@ export const useCreateBookingScreen = () => {
 		// selectedValue,
 		onValueCh,
 		addresses,
+		employee,
 		setDialogVisible,
 		onSubmit,
 		valueFact,
