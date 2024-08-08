@@ -8,6 +8,7 @@ import {
   BOOKING_PAGO,
   BOOKING_SET,
   BOOKING_SET_COUPON,
+  BOOKING_SET_EMPLOYEE,
   setActiveModalAddress,
 } from "../../store";
 import Input from "../atoms/Input";
@@ -46,6 +47,7 @@ export const Appointment = () => {
     // selectedValue,
     onValueCh,
     addresses,
+    employee,
     setDialogVisible,
     onSubmit,
     valueFact,
@@ -104,6 +106,11 @@ export const Appointment = () => {
     if (target.name === "telefono") {
       const phone = target.value;
       dispatch(BOOKING_CUSTOMER_PHONE({ phone }));
+    }
+
+    if (target.name === "empleado") {
+      const a = !!target.value ? JSON.parse(target.value) : "{}";
+      dispatch(BOOKING_SET_EMPLOYEE( a ));
     }
 
     if (target.name === "direccion") {
@@ -166,13 +173,29 @@ export const Appointment = () => {
         </div>
         <div className="col-span-full">
           <div className="mb-3 sm:mb-6">
-            <Input
+            {/* <Input
               name="empleado"
               type="text"
               label="Empleado (opcional)"
               value={formValues.empleado}
               onChange={onInputChanged}
-            />
+            /> */}
+            <select
+              name="empleado"
+              className="rounded-2xl border-solid border border-primary w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary"
+              value={formValues.direccion}
+              onChange={onInputChanged}
+            >
+              <option value=""> Empleado (Opcional) ... </option>
+              {employee.map((metodo) => {
+                return (
+                  <option key={metodo._id} value={JSON.stringify(metodo)}>
+                    {" "}
+                    {metodo.fullName}{" "}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </div>
 
@@ -191,7 +214,7 @@ export const Appointment = () => {
             </div>
           </div>
         </div>
-       <div className="col-span-full">
+        <div className="col-span-full">
           <div className="mb-3 sm:mb-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -276,14 +299,13 @@ export const Appointment = () => {
                   )}
                 </div>
                 <div>
-                <Button
-                  href='#'
-                  onClick={onAddress}
-                  className="sm:h-[48px] !text-[14px]"
-                >
+                  <Button
+                    href="#"
+                    onClick={onAddress}
+                    className="sm:h-[48px] !text-[14px]"
+                  >
                     Añadir nueva dirección
-                </Button>
-
+                  </Button>
                 </div>
               </div>
             </div>
