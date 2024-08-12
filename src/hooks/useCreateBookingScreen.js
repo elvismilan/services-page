@@ -112,7 +112,6 @@ export const useCreateBookingScreen = () => {
 	const onVerifyCoupon = (event) => {
 		event.preventDefault();
 		const servicesIds = booking.serviceCart?.map((e) => e.service?._id)
-		console.log(servicesIds);
 		 dispatch(
 			startVerifyCoupon({
 				code: booking.coupon,
@@ -254,12 +253,12 @@ export const useCreateBookingScreen = () => {
 	])
 
 	useEffect(() => {
-		//getAvailability()
+		getAvailability()
 		getAddresses()
 		getListEmployee()
 	}, [])
 	useEffect(() => {
-		//getAvailability()
+		getAvailability()
 		getAddresses();
 	}, [success])
 
