@@ -39,6 +39,8 @@ export const Empresa = (props) => {
      }
      setUbicacion(position)
 
+
+
   }, []);
 
   const servicesAvailableByBranch = (services) => {
@@ -75,6 +77,11 @@ export const Empresa = (props) => {
     //const finalUrl = Platform.OS === "ios" ? url : urlAndroid;
     //Linking.openURL(finalUrl);
   };
+
+
+
+
+
 
   return (
     <Main header={<Header />}
@@ -161,10 +168,6 @@ export const Empresa = (props) => {
                 />
 
                   </>
-                  // <DistanceDisplay
-                  //   origin={booking.customer.address.coordinates}
-                  //   destination={booking.branch.addressInfo.coordinates}
-                  // />
                 )}
                     {/* Distancia 2 KM */}
                   </div>
@@ -249,8 +252,10 @@ export const Empresa = (props) => {
             )
             :
             (
+
+
                 services
-                  && services.map((servicio) => {
+                  && servicesAvailableByBranch(services).map((servicio) => {
                       return (
                         <li key={servicio.id}>
                           <Lista servicio={servicio} />

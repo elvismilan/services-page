@@ -103,6 +103,7 @@ export const useCreateBookingScreen = () => {
 				'fullName':element.first_name+' '+element.last_name,
 				'photoURL':element.picture,
 				'CI':element.CI_NIT,
+				'branch':element.branch?._id??0,
 			};
 		 })
 		 setEmployee(employeefilter);
@@ -112,7 +113,6 @@ export const useCreateBookingScreen = () => {
 	const onVerifyCoupon = (event) => {
 		event.preventDefault();
 		const servicesIds = booking.serviceCart?.map((e) => e.service?._id)
-		console.log(servicesIds);
 		 dispatch(
 			startVerifyCoupon({
 				code: booking.coupon,
@@ -254,12 +254,12 @@ export const useCreateBookingScreen = () => {
 	])
 
 	useEffect(() => {
-		//getAvailability()
+		getAvailability()
 		getAddresses()
 		getListEmployee()
 	}, [])
 	useEffect(() => {
-		//getAvailability()
+		getAvailability()
 		getAddresses();
 	}, [success])
 
