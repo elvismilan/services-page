@@ -57,6 +57,12 @@ export const Appointment = () => {
     onVerifyCoupon,
   } = useCreateBookingScreen();
 
+  const employeeAvailableByBranch = (employees) => {
+    return employees.filter((employee) =>
+      (booking.isInBranch && booking.branch._id === employee.branch) ? employee : false
+    );
+  };
+
   const [formValues, setFormValues] = useState({
     name: "frank Callapa",
     telefono: "",
@@ -189,7 +195,7 @@ export const Appointment = () => {
               onChange={onInputChanged}
             >
               <option value=""> Empleado (Opcional) ... </option>
-              {employee.map((metodo) => {
+              { employeeAvailableByBranch(employee).map((metodo) => {
                 return (
                   <option key={metodo._id} value={JSON.stringify(metodo)}>
                     {" "}

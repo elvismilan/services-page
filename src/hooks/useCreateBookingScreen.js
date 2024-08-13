@@ -103,6 +103,7 @@ export const useCreateBookingScreen = () => {
 				'fullName':element.first_name+' '+element.last_name,
 				'photoURL':element.picture,
 				'CI':element.CI_NIT,
+				'branch':element.branch?._id??0,
 			};
 		 })
 		 setEmployee(employeefilter);
