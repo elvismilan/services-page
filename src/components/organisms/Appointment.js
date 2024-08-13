@@ -195,14 +195,27 @@ export const Appointment = () => {
               onChange={onInputChanged}
             >
               <option value=""> Empleado (Opcional) ... </option>
-              { employeeAvailableByBranch(employee).map((metodo) => {
+              { 
+                booking.isInBranch?(
+                employeeAvailableByBranch(employee).map((metodo) => {
                 return (
                   <option key={metodo._id} value={JSON.stringify(metodo)}>
                     {" "}
                     {metodo.fullName}{" "}
                   </option>
                 );
-              })}
+                })
+                ):(
+                employee.map((metodo) => {
+                return (
+                  <option key={metodo._id} value={JSON.stringify(metodo)}>
+                    {" "}
+                    {metodo.fullName}{" "}
+                  </option>
+                );
+                })
+                )
+            }
             </select>
           </div>
         </div>
