@@ -227,7 +227,7 @@ export const Empresa = (props) => {
                       </div>
             </>
           )}
-      <div className="container" >
+      <div className="" >
       <Button className="" disabled  >
         Servicios
       </Button>

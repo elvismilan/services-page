@@ -29,12 +29,6 @@ const Servicios = (props) => {
     >
       <ServModal isOpen={ isOpenModal } {...active} />
 
-      <div className="container m-5" >
-      <Button className="" disabled  >
-        Servicios
-      </Button>
-      </div>
-
       <List>
         {
         proveedor && (
