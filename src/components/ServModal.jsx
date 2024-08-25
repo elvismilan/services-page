@@ -82,7 +82,7 @@ export const ServModal = ({_id, name,unitPrice,description='',imageURL='',unitEs
                 {" "}
                 <strong>{name}</strong>{" "}
               </div>
-              <div className="text-slate-500 text-wrap break-all">{  (description.length>90)? (description.substring(0, 90)+'...') : ( description ) }</div>
+              <div className="text-slate-500 text-wrap break-all">{ ( description ) }</div>
               <div className="text-slate-500">
                 <span>Desde</span> <strong> Bs. {unitPrice} </strong>
               </div>
