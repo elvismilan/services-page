@@ -348,12 +348,7 @@ export const Appointment = () => {
                 ) : (
                   ""
                 )
-                // (!!ubication.coordinates)?
-                // <Maps address={ubication.direction}
-                //     lat={ ubication.coordinates.latitude }
-                //     lng={ ubication.coordinates.longitude }
-                // />
-                // : ''
+
               }
             </div>
           </div>

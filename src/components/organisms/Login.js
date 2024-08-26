@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { startLoginGoogle, startLoginWithEmailPassword } from "../../store/auth";
 
@@ -21,6 +21,7 @@ const formData = {
 }
 
 export const Login = () => {
+  const {providerid} = useParams();
 
   const [formSubmitedd, setFormSubmitedd] = useState(false)
   const { error } = useSelector( state => state.auth );
@@ -61,10 +62,10 @@ export const Login = () => {
 
 
   const onInicio = () => {
-    navigate('/')
+    navigate(`/${providerid}/`)
   }
   const onServicios = () => {
-    navigate('/')
+    navigate(`/${providerid}/`)
     // if(selected.isInBranch){
     //   navigate('/sucursales')
     // }else{
@@ -83,6 +84,8 @@ export const Login = () => {
     dispatch( startListServicios() );
     dispatch(startLoginWithEmailPassword({email,password,role},onServicios));
   }
+
+  const isProviedor=!!providerid;
 
   return (
 <>
@@ -107,7 +110,6 @@ export const Login = () => {
           name= "password"
           value={password}
           onChange={ onInputChange }
-
         />
       </div>
     </div>
@@ -127,6 +129,7 @@ export const Login = () => {
       <div className="mb-3 sm:mb-6">
         <Button
           //href={"/empresa"}
+          disabled={ !isProviedor }
           type="submit"
           bg="bg-primary w-[250px] sm:w-[270px] mx-auto hover:bg-white "
           tc="text-white hover:text-secondary"
@@ -138,7 +141,7 @@ export const Login = () => {
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
         <Button
-          href={"/registrarse"}
+          href={`/${providerid}/registrarse`}
           bg="btn-transparent w-[250px] sm:w-[270px] mx-auto"
           tc="text-secondary hover:text-white "
           className="sm:h-[48px] !text-[14px] bordered">
@@ -150,7 +153,9 @@ export const Login = () => {
     <div className="text-center" >
     <div className="col-span-full">
       <div className="mb-3 sm:mb-6">
-        <Button onClick={ ()=> login()}
+        <Button 
+          disabled={ !isProviedor }
+          onClick={ ()=> login()}
           bg="btn-transparent w-[250px] sm:w-[270px] mx-auto"
           tc="text-secondary hover:text-white "
           className="sm:h-[48px] !text-[12px] bordered mt-0 p-0 "

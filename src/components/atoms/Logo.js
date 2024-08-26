@@ -1,13 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 
 const Logo = ({className}) => {
-
+  const {providerid} = useParams();
   const navigate = useNavigate();
 
   const onClick = () => {
-    console.log('cabecera');
-    navigate('/');
+
+    navigate(`/${providerid}/`);
 
   }
 
