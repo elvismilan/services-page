@@ -95,7 +95,7 @@ export const useCreateBookingScreen = () => {
 		const employee = booking.serviceCart?.map(function(element){
    	return element.service._id;
 		})
-		const result = (await employeeApi(metodo, employee))
+		const result = (await employeeApi(metodo, employee,provider._id))
 
 
 		 const employeefilter = result?.data.map(function(element){

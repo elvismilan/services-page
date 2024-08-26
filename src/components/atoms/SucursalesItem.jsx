@@ -27,7 +27,6 @@ export const SucursalesItem = (item) => {
   const { id,addressInfo,name } = item;
 
   const onSelect = (item) => {
-    console.log(item);
     dispatch( BOOKING_SET_BRANCH(item) );
     navigate(`/${providerid}/empresa`);
   }

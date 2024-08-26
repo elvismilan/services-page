@@ -20,7 +20,7 @@ export const SucursalesPage = () => {
 
   useEffect(() => {
     dispatch( startListSucursales() );
-    dispatch( startListProveedores() );
+    // dispatch( startListProveedores() );
   }, [])
 
 

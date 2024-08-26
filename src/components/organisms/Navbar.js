@@ -70,7 +70,7 @@ export const Navbar = ({onClick}) => {
           <div>
           <Button
             className = {`font-bold px-0 sm:pr-0 ${ isCheckingAuthentication?"hidden":"" } `}
-            href = {`/${providerid}/login`}
+            href = {`/${providerid}/`}
             onClick = {onClick}
             decoration={<BiUser size="2rem" className="text-primary" />}>
             Iniciar Sesión

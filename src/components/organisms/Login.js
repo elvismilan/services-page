@@ -26,7 +26,8 @@ export const Login = () => {
   const [formSubmitedd, setFormSubmitedd] = useState(false)
   const { error } = useSelector( state => state.auth );
   const {selected} = useSelector( state => state.booking );
-
+  const myprov = useSelector( state => state.proveedor.selected );
+  
   const [ userg, setUserg ] = useState([]);
 
   useEffect(() => {
@@ -60,17 +61,11 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const onInicio = () => {
     navigate(`/${providerid}/`)
   }
   const onServicios = () => {
     navigate(`/${providerid}/`)
-    // if(selected.isInBranch){
-    //   navigate('/sucursales')
-    // }else{
-    //   navigate('/servicios')
-    // }
   }
 
   const login = useGoogleLogin({
@@ -89,6 +84,10 @@ export const Login = () => {
 
   return (
 <>
+  {
+    myprov===undefined?('Error en el proveedor'):(
+      <div>
+
    <form className="text-center" method="POST" onSubmit={ onSubmit } >
     <Logo className="h-8 sm:h-14 mb-6 sm:mb-14 " />
     <div className="col-span-full">
@@ -172,6 +171,10 @@ export const Login = () => {
     </div>
 
     </div>
+    
+      </div>
+    )
+  }
 
 
 

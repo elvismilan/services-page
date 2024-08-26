@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Button from "../atoms/Button";
 import Swal from "sweetalert2";
-import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH } from "../../store";
+import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH, startListServicios } from "../../store";
 
 export const Service = () => {
   const {providerid} = useParams();
@@ -12,12 +12,16 @@ export const Service = () => {
   const [actLocal, setActLocal] = useState(true)
 
   const {status} = useSelector( state => state.auth );
+  const provideSelect = useSelector((state) => state.proveedor.selected)
   const servicesList = useSelector((state) => state.servicios.services)
   const navigate = useNavigate();
   const dispatch= useDispatch();
 
   useEffect(() => {
-       const contAmbos = servicesList.reduce( (acount,item)=>{
+
+      dispatch(startListServicios(provideSelect))
+
+      const contAmbos = servicesList.reduce( (acount,item)=>{
         if(item.method === "Ambos"){ acount.ambos++ ;}
         if(item.method === "En sucursal"){acount.local++ ;}
         if(item.method === "A domicilio"){ acount.domicilio++ ; }
