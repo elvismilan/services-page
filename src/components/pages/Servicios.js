@@ -26,7 +26,7 @@ const Servicios = (props) => {
             key= {proveedor._id}
             id= {proveedor._id}
             empresa= {proveedor.first_name}
-            puntaje= {'3.5'}
+            puntaje= {proveedor.avgRating}
             image= {proveedor.picture}
             categoria = {null}
             servicios= {proveedor.services}
