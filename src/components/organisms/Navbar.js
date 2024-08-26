@@ -6,7 +6,7 @@ import {BiUser} from "react-icons/bi"
 import Button from "../atoms/Button";
 import { startLogout } from "../../store";
 import { startListServicios } from "../../store/servicios";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { googleLogout } from '@react-oauth/google';
 import Input from "../atoms/Input";
 
@@ -19,6 +19,7 @@ import { setEmptySearch, updateListService } from "../../store/servicios/servici
 
 
 export const Navbar = ({onClick}) => {
+  const {providerid} = useParams();
   const { status } = useSelector( state => state.auth );
   const { services } = useSelector( state => state.servicios );
 
@@ -34,30 +35,18 @@ export const Navbar = ({onClick}) => {
       }
    }, [formState])
 
-
   //const
   const navigate = useNavigate();
 
   const isCheckingAuthentication =  useMemo( () => status === 'authenticated',[status] );
 
-  // const items = dispatch(startListServicios());
-  // console.log(items);
-
   const onLogout = ( event ) => {
     event.preventDefault();
     dispatch( startLogout());
     googleLogout();
-    navigate('/');
+    navigate(`/${providerid}/`);
   }
-
-
-
-  const handleOnSelect = (item) => {
-    //console.log(item);
-    // navigate('/carrito');
-  };
-
-
+  const isProviedor=!!providerid;
   return (
   <nav className="flex justify-center sm:justify-between flex-col sm:flex-row w-full pt-6">
 
@@ -73,32 +62,31 @@ export const Navbar = ({onClick}) => {
             // error={ !!first_nameValid && formSubmitedd }
             // helperText={ first_nameValid }
           />
-
-          {/* <ReactSearchAutocomplete
-            placeholder="Buscar Servicio"
-            items={services}
-             onSelect={handleOnSelect}
-            styling={{ zIndex: 4 }} // To display it on top of the search box below
-            autoFocus
-            className="w-full rounded-2xl text-secondary search"
-          /> */}
         </div>
 
     <div className="text-center sm:text-right md:text-right">
-      <Button
-        className = {`font-bold px-0 sm:pr-0 ${ isCheckingAuthentication?"hidden":"" } `}
-        href = "/login"
-        onClick = {onClick}
-        decoration={<BiUser size="2rem" className="text-primary" />}>
-        Iniciar Sesión
-      </Button>
-      <Button
-        className = {`font-bold px-0 sm:pr-0 ${ !isCheckingAuthentication?"hidden":"" } `}
-        href = "/logout"
-        onClick = {onLogout}
-        decoration={<BiUser size="2rem" className="text-primary" />}>
-        Cerrar Sesión
-      </Button>
+      {
+        isProviedor?(
+          <div>
+          <Button
+            className = {`font-bold px-0 sm:pr-0 ${ isCheckingAuthentication?"hidden":"" } `}
+            href = {`/${providerid}/`}
+            onClick = {onClick}
+            decoration={<BiUser size="2rem" className="text-primary" />}>
+            Iniciar Sesión
+          </Button>
+          <Button
+            className = {`font-bold px-0 sm:pr-0 ${ !isCheckingAuthentication?"hidden":"" } `}
+            href = {`/${providerid}/logout`}
+            onClick = {onLogout}
+            decoration={<BiUser size="2rem" className="text-primary" />}>
+            Cerrar Sesión
+          </Button>
+          </div>
+        ):''
+
+      }
+
     </div>
   </nav>
   )

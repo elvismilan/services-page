@@ -74,7 +74,7 @@ export const useCheckAuthToken = () => {
      }
 
     dispatch( startListCategoria() );
-    dispatch( startListProveedores() );
+    //dispatch( startListProveedores() );
     // const items = JSON.parse(localStorage.getItem('carrito'));
     // if (items) {
     // setItems(items);
@@ -93,20 +93,6 @@ export const useCheckAuthToken = () => {
     };
     dispatch(login(formData));
   }, []);
-
-  useEffect(() => {
-  /* loading proveedores y servicios */
-
-      const idProveedor = process.env.REACT_APP_ID_PROVIDER_EXAMPLE;
-      const myProvider=providerList.filter((e) => e._id === idProveedor)[0]
-      dispatch( provider_set(myProvider));
-      dispatch( startListServicios(providerSelect) );
-
-  /* fin loading proveedores y servicios*/
-
-
-  }, [providerList])
-
 
   return {
     status

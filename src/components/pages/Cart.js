@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { Lista } from "../atoms/Lista"
 import List from "../molecules/List"
@@ -8,7 +8,7 @@ import Main from "../templates/Main"
 import Button from "../atoms/Button"
 
 export const Cart = () => {
-
+  const {providerid} = useParams();
   const navigate = useNavigate();
   const { services } = useSelector( state => state.carrito );
   const { selected } = useSelector( state => state.booking );
@@ -19,10 +19,10 @@ export const Cart = () => {
 
   const onServicio = () => {
     if(!!isInBranch){
-navigate('/empresa')
+navigate(`/${providerid}/empresa`)
     }
     else{
-navigate('/servicios')
+navigate(`/${providerid}/servicios`)
     }
   }
 

@@ -1,5 +1,5 @@
 import Button from "../atoms/Button"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 import logoapple from '../../assets/apple-play.png';
@@ -8,6 +8,9 @@ import handok from '../../assets/frame_ok.svg';
 
 export const Thanks = () => {
 
+  const {providerid} = useParams();
+  console.log(providerid);
+  
 
   const navigate = useNavigate();
   const onInicio = () => {

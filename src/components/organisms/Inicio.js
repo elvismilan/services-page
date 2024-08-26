@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Button from "../atoms/Button";
 import Swal from "sweetalert2";
-import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH } from "../../store";
+import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH, startListServicios } from "../../store";
 
 export const Service = () => {
-
+  const {providerid} = useParams();
   const [actDomicilio, setActDomicilio] = useState(true)
   const [actLocal, setActLocal] = useState(true)
 
   const {status} = useSelector( state => state.auth );
+  const provideSelect = useSelector((state) => state.proveedor.selected)
   const servicesList = useSelector((state) => state.servicios.services)
   const navigate = useNavigate();
   const dispatch= useDispatch();
 
   useEffect(() => {
-       const contAmbos = servicesList.reduce( (acount,item)=>{
+
+      dispatch(startListServicios(provideSelect))
+
+      const contAmbos = servicesList.reduce( (acount,item)=>{
         if(item.method === "Ambos"){ acount.ambos++ ;}
         if(item.method === "En sucursal"){acount.local++ ;}
         if(item.method === "A domicilio"){ acount.domicilio++ ; }
@@ -66,14 +70,14 @@ export const Service = () => {
   const onServicioDomicilio = (event) => {
     event.preventDefault();
     dispatch( BOOKING_NOTISINBRANCH() );
-    status === 'authenticated' ? navigate('/servicios'):navigate('login')
+    status === 'authenticated' ? navigate(`/${providerid}/servicios`):navigate(`/${providerid}/login`)
   }
 
   const onServicioLocal = (event) => {    event.preventDefault();
     dispatch( BOOKING_ISINBRANCH() );
-    status === 'authenticated' ? navigate('/sucursales'):navigate('login')
+    status === 'authenticated' ? navigate(`/${providerid}/sucursales`):navigate(`/${providerid}/login`)
   }
-
+  const isProviedor=!!providerid;
   return (
     <div className="text-center" >
       <h3 className="h3 text-primary">Quieres tu servicio <br />en el local o a domicilio?</h3>
@@ -82,6 +86,7 @@ export const Service = () => {
         <div className="mb-3 sm:mb-12">
           { actDomicilio?(
           <Button
+            disabled={!isProviedor}
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
             href = "/login"
@@ -108,6 +113,7 @@ export const Service = () => {
           {
           actLocal?(
           <Button
+            disabled={!isProviedor}
             bg="btn-transparent"
             tc="text-secondary hover:text-white"
             href = "/login"
