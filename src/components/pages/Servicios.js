@@ -30,6 +30,7 @@ const Servicios = (props) => {
             image= {proveedor.picture}
             categoria = {null}
             servicios= {proveedor.services}
+            recomendado={proveedor.recommendedServices}
           />
 
         )
