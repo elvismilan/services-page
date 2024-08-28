@@ -17,7 +17,6 @@ import { setEmptySearch, updateListService } from "../../store/servicios/servici
     search_head: '',
   }
 
-
 export const Navbar = ({onClick}) => {
   const {providerid} = useParams();
   const { status } = useSelector( state => state.auth );
