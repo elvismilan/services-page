@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Button from "../atoms/Button";
-import Swal from "sweetalert2";
+
 import { BOOKING_ISINBRANCH, BOOKING_NOTISINBRANCH, startListServicios } from "../../store";
 
 export const Service = () => {
   const {providerid} = useParams();
   const [actDomicilio, setActDomicilio] = useState(true)
   const [actLocal, setActLocal] = useState(true)
+
 
   const {status} = useSelector( state => state.auth );
   const provideSelect = useSelector((state) => state.proveedor.selected)
@@ -41,7 +42,7 @@ export const Service = () => {
 
           setActDomicilio(false)
        }
-
+       
   }, [])
   useEffect(() => {
        const contAmbos = servicesList.reduce( (acount,item)=>{
@@ -77,6 +78,7 @@ export const Service = () => {
     dispatch( BOOKING_ISINBRANCH() );
     status === 'authenticated' ? navigate(`/${providerid}/sucursales`):navigate(`/${providerid}/login`)
   }
+
   const isProviedor=!!providerid;
   return (
     <div className="text-center" >

@@ -9,7 +9,6 @@ import Maps from "../map/Map";
 import { ServModal } from "../ServModal";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { startListProveedores, startListServiciosbyProvider } from "../../store";
 import { DistanceDisplay } from "../../api/DistanceDisplay";
 
 export const Empresa = (props) => {
@@ -74,14 +73,7 @@ export const Empresa = (props) => {
     const newWindow = window.open(urlAndroid, '_blank', 'noopener,noreferrer')
     if (newWindow) newWindow.opener = null
 
-    //const finalUrl = Platform.OS === "ios" ? url : urlAndroid;
-    //Linking.openURL(finalUrl);
   };
-
-
-
-
-
 
   return (
     <Main header={<Header />}
@@ -243,7 +235,6 @@ export const Empresa = (props) => {
         Servicios
       </Button>
       </div>
-
 
           <div className="col-span-full">
             <div className="mb-3 sm:mb-6">

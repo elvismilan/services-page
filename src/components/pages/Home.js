@@ -21,8 +21,6 @@ const Home = () => {
 
   useEffect(() => {
      dispatch( startListProveedores(providerid) )
-
-   
   }, [])
 
   return (

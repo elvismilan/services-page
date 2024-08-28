@@ -181,17 +181,10 @@ export const Appointment = () => {
         </div>
         <div className="col-span-full">
           <div className="mb-3 sm:mb-6">
-            {/* <Input
-              name="empleado"
-              type="text"
-              label="Empleado (opcional)"
-              value={formValues.empleado}
-              onChange={onInputChanged}
-            /> */}
             <select
               name="empleado"
               className="rounded-2xl border-solid border border-primary w-full px-4 sm:px-6 py-2 sm:py-3 text-secondary"
-              value={formValues.direccion}
+              value={formValues.empleado}
               onChange={onInputChanged}
             >
               <option value=""> Empleado (Opcional) ... </option>
